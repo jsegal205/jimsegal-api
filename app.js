@@ -8,13 +8,18 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:8000",
-  "http://api.jimsegal.com",
   "https://jimsegal.com",
   "https://www.jimsegal.com"
 ];
 app.use(
   cors({
     origin: (origin, callback) => {
+      // allow requests with no origin,
+      // ie going directly to api.jimsegal.com or using curl
+      if (!origin) {
+        return callback(null, true);
+      }
+
       if (!allowedOrigins.includes(origin)) {
         return callback(
           new Error(
