@@ -8,6 +8,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:8000",
+  "http://api.jimsegal.com",
   "https://jimsegal.com",
   "https://www.jimsegal.com"
 ];
