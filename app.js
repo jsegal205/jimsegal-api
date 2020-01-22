@@ -19,5 +19,5 @@ app.get("/games", async (req, res) => {
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log(`JimSegalAPI listening on port ${port}!`);
 });
