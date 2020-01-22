@@ -1,8 +1,31 @@
 const express = require("express");
+const cors = require("cors");
+
 const Games = require("./games");
 
 const port = process.env.PORT || 8001;
 const app = express();
+
+const allowedOrigins = [
+  "http://localhost:8000",
+  "https://jimsegal.com",
+  "https://www.jimsegal.com"
+];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!allowedOrigins.includes(origin)) {
+        return callback(
+          new Error(
+            "The CORS policy for this site does not allow access from the specified Origin."
+          ),
+          false
+        );
+      }
+      return callback(null, true);
+    }
+  })
+);
 
 app.get("/", (req, res) => {
   res.send(JSON.stringify({ Jim: "Segal" }));
