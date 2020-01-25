@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 
 const Games = require("./games");
+const Travel = require("./travel");
 
 const port = process.env.PORT || 8001;
 const app = express();
@@ -43,6 +44,12 @@ app.get("/games", async (req, res) => {
   const games = await Games.getAll();
 
   res.send(games);
+});
+
+app.get("/travel", async (req, res) => {
+  const travel = await Travel.getAll();
+
+  res.send(travel);
 });
 
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
