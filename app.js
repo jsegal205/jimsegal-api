@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const sslRedirect = require("./modules/ssl-redirect");
 
 const Games = require("./games");
 const Travel = require("./travel");
@@ -12,7 +13,7 @@ const allowedOrigins = [
   "https://jimsegal.com",
   "https://www.jimsegal.com"
 ];
-app.use(
+app.use([
   cors({
     origin: (origin, callback) => {
       // allow requests with no origin,
@@ -31,8 +32,9 @@ app.use(
       }
       return callback(null, true);
     }
-  })
-);
+  }),
+  sslRedirect()
+]);
 
 app.get("/", (req, res) => {
   res.send(JSON.stringify({ Jim: "Segal" }));
