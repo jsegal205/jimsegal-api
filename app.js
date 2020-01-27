@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const sslRedirect = require("./modules/ssl-redirect");
 
-const Games = require("./games");
-const Travel = require("./travel");
+const Games = require("./controllers/games");
+const Travel = require("./controllers/travel");
 
 const port = process.env.PORT || 8001;
 const app = express();
