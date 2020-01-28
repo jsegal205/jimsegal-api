@@ -54,6 +54,12 @@ app.get("/travel", async (req, res) => {
   res.send(travel);
 });
 
+app.get("/travel/frequented", async (req, res) => {
+  const travel = await Travel.frequented();
+
+  res.send(travel);
+});
+
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
 app.listen(port, () => {

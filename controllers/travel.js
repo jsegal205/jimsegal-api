@@ -21,6 +21,38 @@ const getAll = async () => {
   }
 };
 
+const frequented = async () => {
+  const destinations = await getAll();
+
+  return destinations
+    .filter(d => d.visits.length > 1)
+    .sort((curr, next) => {
+      if (
+        curr.visits.length < next.visits.length ||
+        (curr.visits.length == next.visits.length && curr.city > next.city)
+      ) {
+        return 1;
+      }
+      if (
+        curr.visits.length > next.visits.length ||
+        (curr.visits.length == next.visits.length && curr.city < next.city)
+      ) {
+        return -1;
+      }
+
+      return 0;
+    })
+    .map(dest => {
+      return {
+        city: dest.city,
+        state: dest.state,
+        country: dest.country,
+        visitCount: dest.visits.length
+      };
+    });
+};
+
 module.exports = {
-  getAll
+  getAll,
+  frequented
 };
