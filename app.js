@@ -37,7 +37,7 @@ app.use([
 ]);
 
 app.get("/", (req, res) => {
-  res.send(JSON.stringify({ Jim: "Segal" }));
+  res.sendFile(__dirname + "/docs/index.html");
 });
 
 app.get("/favicon.ico", (req, res) => res.status(204).send(""));

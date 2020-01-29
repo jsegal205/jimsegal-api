@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      *:focus {
+        color: #39c39c;
+        outline-color: #c500ff;
+      }
+
+      body {
+        background: #efefef;
+        color: #444444;
+        font-family: Consolas, monaco, monospace;
+        margin: 0;
+        padding: 20px;
+      }
+
+      a {
+        color: #444444;
+      }
+
+      a:hover {
+        color: #39c39c;
+      }
+
+      .endpoints {
+        margin-left: 2em;
+      }
+      .abstract {
+        margin: 2em 1em;
+      }
+      blockquote {
+        border: 5px solid #444444;
+        margin: 2em 1em;
+        padding: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Api.JimSegal.com</h1>
+    <h2>Available Endpoints</h2>
+    <div class="endpoints">
+      <h3><a class="endpoint" href="/games">/games</a></h3>
+      <div class="abstract">
+        A list of the tabletop games (board games and card games) I own.
+      </div>
+      <h4>Returns</h4>
+      <blockquote>
+        [<br />
+        &nbsp;&nbsp;{<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"title": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"link": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"image": {String}<br />
+        &nbsp;&nbsp;},<br />
+        &nbsp;&nbsp;...<br />
+        ]
+      </blockquote>
+      <h3><a class="endpoint" href="/travel">/travel</a></h3>
+      <div class="abstract">
+        A list of all the places I have traveled to since 2008.
+      </div>
+      <h4>Returns</h4>
+      <blockquote>
+        [<br />
+        &nbsp;&nbsp;{ <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"city": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"state": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"country": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"lat": {Float},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"lng": {Float},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"visits": [<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;]<br />
+        &nbsp;&nbsp;},<br />
+        &nbsp;&nbsp;...<br />
+        ]
+      </blockquote>
+      <h3>
+        <a class="endpoint" href="/travel/frequented">/travel/frequented</a>
+      </h3>
+      <div class="abstract">
+        A list of the places I have travelled to more than once.
+      </div>
+      <h4>Returns</h4>
+      <blockquote>
+        [<br />
+        &nbsp;&nbsp;{ <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"city": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"state": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"country": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"visitCount": {Integer}<br />
+        &nbsp;&nbsp;},<br />
+        &nbsp;&nbsp;...<br />
+        ]
+      </blockquote>
+      <h3>
+        <a class="endpoint" href="/travel/furthest">/travel/furthest</a>
+      </h3>
+      <div class="abstract">
+        The furthest place from Home (Chicago, IL, USA) I have travelled to.
+      </div>
+      <h4>Returns</h4>
+      <blockquote>
+        {<br />
+        &nbsp;&nbsp;"city": {String},<br />
+        &nbsp;&nbsp;"state": {String},<br />
+        &nbsp;&nbsp;"country": {String},<br />
+        &nbsp;&nbsp;"lat": {Float},<br />
+        &nbsp;&nbsp;"lng": {Float},<br />
+        &nbsp;&nbsp;"visits": [<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;{String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;...<br />
+        &nbsp;&nbsp;],<br />
+        &nbsp;&nbsp;"distance": {Float}<br />
+        }
+      </blockquote>
+    </div>
+    <script type="text/javascript">
+      function updateNames() {
+        const endpoints = document.getElementsByClassName("endpoint");
+        Array.from(endpoints).map(e => {
+          const endpointRoute = e.innerText;
+          e.innerHTML = `${location.origin}${endpointRoute}`;
+        });
+      }
+
+      updateNames();
+    </script>
+  </body>
+</html>
