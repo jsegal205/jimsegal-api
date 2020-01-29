@@ -34,13 +34,20 @@
         margin: 2em 1em;
         padding: 2em;
       }
+      .httpverb {
+        color: #5555ff;
+        margin-right: 1em;
+      }
     </style>
   </head>
   <body>
     <h1>Api.JimSegal.com</h1>
     <h2>Available Endpoints</h2>
     <div class="endpoints">
-      <h3><a class="endpoint" href="/games">/games</a></h3>
+      <h3>
+        <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/games">/games</a>
+      </h3>
       <div class="abstract">
         A list of the tabletop games (board games and card games) I own.
       </div>
@@ -55,7 +62,10 @@
         &nbsp;&nbsp;...<br />
         ]
       </blockquote>
-      <h3><a class="endpoint" href="/travel">/travel</a></h3>
+      <h3>
+        <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/travel">/travel</a>
+      </h3>
       <div class="abstract">
         A list of all the places I have traveled to since 2008.
       </div>
@@ -77,6 +87,7 @@
         ]
       </blockquote>
       <h3>
+        <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/travel/frequented">/travel/frequented</a>
       </h3>
       <div class="abstract">
@@ -95,6 +106,7 @@
         ]
       </blockquote>
       <h3>
+        <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/travel/furthest">/travel/furthest</a>
       </h3>
       <div class="abstract">
