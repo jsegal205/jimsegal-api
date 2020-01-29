@@ -60,6 +60,12 @@ app.get("/travel/frequented", async (req, res) => {
   res.send(travel);
 });
 
+app.get("/travel/furthest", async (req, res) => {
+  const travel = await Travel.furthest();
+
+  res.send(travel);
+});
+
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
 app.listen(port, () => {

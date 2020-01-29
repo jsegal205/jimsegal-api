@@ -52,7 +52,42 @@ const frequented = async () => {
     });
 };
 
+const furthest = async () => {
+  const destinations = await getAll();
+
+  // algorithm taken from https://stackoverflow.com/a/27943/282110
+  const deg2rad = deg => deg * (Math.PI / 180);
+
+  const getDistance = ({ lat, lng }) => {
+    const chicago = {
+      lat: 41.878114,
+      lng: -87.629798
+    };
+
+    const dLat = deg2rad(lat - chicago.lat);
+    const dLon = deg2rad(lng - chicago.lng);
+    const hav =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(chicago.lat)) *
+        Math.cos(deg2rad(lat)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const angleRadians = 2 * Math.atan2(Math.sqrt(hav), Math.sqrt(1 - hav));
+    return 3961 * angleRadians; // 3961 is the radius of the earth in miles
+  };
+
+  return destinations
+    .map(dest => {
+      return {
+        ...dest,
+        distance: getDistance(dest)
+      };
+    })
+    .reduce((curr, next) => (curr.distance > next.distance ? curr : next));
+};
+
 module.exports = {
   getAll,
-  frequented
+  frequented,
+  furthest
 };
