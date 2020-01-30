@@ -5,6 +5,11 @@ const sslRedirect = require("./modules/ssl-redirect");
 const Games = require("./controllers/games");
 const Travel = require("./controllers/travel");
 
+const Sentry = require("@sentry/node");
+Sentry.init({
+  dsn: "https://3725a1a037c348d59e960d3bcaa493d3@sentry.io/2104007"
+});
+
 const port = process.env.PORT || 8001;
 const app = express();
 
