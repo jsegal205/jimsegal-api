@@ -38,6 +38,17 @@
         color: #5555ff;
         margin-right: 1em;
       }
+      .inputparams {
+        list-style-type: none;
+      }
+      .inputparams .param {
+        font-style: italic;
+        margin-right: 1em;
+      }
+      .inputparams .param::after {
+        padding-left: 1em;
+        content: "→";
+      }
     </style>
   </head>
   <body>
@@ -51,6 +62,35 @@
       <div class="abstract">
         A list of the tabletop games (board games and card games) I own.
       </div>
+      <h4>Returns</h4>
+      <blockquote>
+        [<br />
+        &nbsp;&nbsp;{<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"title": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"link": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"image": {String}<br />
+        &nbsp;&nbsp;},<br />
+        &nbsp;&nbsp;...<br />
+        ]
+      </blockquote>
+      <h3>
+        <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/isAnchorageColderThan/41.8369/-87.6847"
+          >/isAnchorageColderThan/:lat/:long</a
+        >
+      </h3>
+      <div class="abstract">
+        Compares temperatures of the given latitude and longitude to Anchorage,
+        AK, USA
+      </div>
+      <ul class="inputparams">
+        <li>
+          <span class="param">:lat</span>Latitude of comparision destination
+        </li>
+        <li>
+          <span class="param">:long</span>Longitude of comparision destination
+        </li>
+      </ul>
       <h4>Returns</h4>
       <blockquote>
         [<br />
