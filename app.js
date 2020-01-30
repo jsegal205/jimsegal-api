@@ -4,6 +4,7 @@ const sslRedirect = require("./modules/ssl-redirect");
 
 const Games = require("./controllers/games");
 const Travel = require("./controllers/travel");
+const Weather = require("./controllers/weather");
 
 const Sentry = require("@sentry/node");
 Sentry.init({
@@ -46,6 +47,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/favicon.ico", (req, res) => res.status(204).send(""));
+
+app.get("/isAnchorageColderThan/:lat/:long", async (req, res) => {
+  const { lat, long } = req.params;
+  const compareAnchorage = await Weather.isAnchorageColderThan(lat, long);
+
+  res.send(compareAnchorage);
+});
 
 app.get("/games", async (req, res) => {
   const games = await Games.getAll();
