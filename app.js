@@ -50,6 +50,13 @@ app.get("/favicon.ico", (req, res) => res.status(204).send(""));
 
 app.get("/isAnchorageColderThan/:lat/:long", async (req, res) => {
   const { lat, long } = req.params;
+  if (!parseFloat(lat) || !parseFloat(long)) {
+    res
+      .status(422)
+      .send("Invalid route parameters sent. Only float type are allowed");
+    return;
+  }
+
   const compareAnchorage = await Weather.isAnchorageColderThan(lat, long);
 
   res.send(compareAnchorage);
