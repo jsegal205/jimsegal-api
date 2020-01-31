@@ -5,9 +5,11 @@ const Location = require("./location");
 const getTemp = async (lat, long) => {
   const API_URL =
     "https://api.openweathermap.org/data/2.5/weather?appid=9bf0ee26559265f94c44015dbce8177d&units=imperial";
-  const temperatureResponse = await axios.get(
-    `${API_URL}&lat=${lat}&lon=${long}`
-  );
+  const temperatureResponse = await axios
+    .get(`${API_URL}&lat=${lat}&lon=${long}`)
+    .catch(error => {
+      throw new Error(error);
+    });
 
   const { city, state } = await Location.getBy(lat, long);
 

@@ -2,9 +2,13 @@ const axios = require("axios");
 
 const getAll = async () => {
   try {
-    const res = await axios.get(
-      "https://data.heroku.com/dataclips/zufupjioefakciimcrrnbzhbcwau.json"
-    );
+    const res = await axios
+      .get(
+        "https://data.heroku.com/dataclips/zufupjioefakciimcrrnbzhbcwau.json"
+      )
+      .catch(error => {
+        throw new Error(error);
+      });
 
     return res.data.values.map(travel => {
       return {
