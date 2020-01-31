@@ -93,14 +93,21 @@
       </ul>
       <h4>Returns</h4>
       <blockquote>
-        [<br />
-        &nbsp;&nbsp;{<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"title": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"link": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"image": {String}<br />
+        {<br />
+        &nbsp;&nbsp;"isAnchorageColder": {Boolean},<br />
+        &nbsp;&nbsp;"anchorageDetails": {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"lat": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"long": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"temperature": {Float},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"units": {String},<br />
         &nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;...<br />
-        ]
+        &nbsp;&nbsp;"compareDetails": {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"lat": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"long": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"temperature": {Float},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;"units": {String},<br />
+        &nbsp;&nbsp;}<br />
+        }
       </blockquote>
       <h3>
         <span class="httpverb">[GET]</span>
