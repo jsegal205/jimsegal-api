@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const sslRedirect = require("./modules/ssl-redirect");
+const morgan = require("morgan");
 
 const Docs = require("./controllers/docs");
 const Games = require("./controllers/games");
@@ -40,7 +41,8 @@ app.use([
       return callback(null, true);
     }
   }),
-  sslRedirect()
+  sslRedirect(),
+  morgan("combined")
 ]);
 
 app.get("/", Docs.getAll);
