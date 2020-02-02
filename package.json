@@ -1,13 +1,13 @@
 {
   "name": "jimsegal-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "API endpoints for various things on jimsegal.com",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Jim Segal",
   "license": "ISC",
   "dependencies": {
     "@sentry/node": "^5.11.2",
@@ -15,5 +15,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.9.1"
+  },
+  "engines": {
+    "node": "12.12.0"
   }
 }
