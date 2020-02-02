@@ -1,7 +1,5 @@
 const express = require("express");
-const cors = require("cors");
-const sslRedirect = require("./modules/ssl-redirect");
-const morgan = require("morgan");
+const middlewares = require("./middlewares");
 
 const Docs = require("./controllers/docs");
 const Games = require("./controllers/games");
@@ -16,36 +14,7 @@ Sentry.init({
 const port = process.env.PORT || 8001;
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:8000",
-  "https://jimsegal.com",
-  "https://www.jimsegal.com"
-];
-app.use([
-  cors({
-    origin: (origin, callback) => {
-      // allow requests with no origin,
-      // ie going directly to api.jimsegal.com or using curl
-      if (!origin) {
-        return callback(null, true);
-      }
-
-      if (!allowedOrigins.includes(origin)) {
-        return callback(
-          new Error(
-            "The CORS policy for this site does not allow access from the specified Origin."
-          ),
-          false
-        );
-      }
-      return callback(null, true);
-    }
-  }),
-  sslRedirect(),
-  morgan(
-    `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
-  )
-]);
+app.use(middlewares);
 
 app.get("/", Docs.getAll);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
