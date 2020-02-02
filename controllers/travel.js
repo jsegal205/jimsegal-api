@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const getAll = async () => {
+const _getAll = async () => {
   try {
     const res = await axios
       .get(
@@ -26,39 +26,45 @@ const getAll = async () => {
   }
 };
 
-const frequented = async () => {
-  const destinations = await getAll();
-
-  return destinations
-    .filter(d => d.visits.length > 1)
-    .sort((curr, next) => {
-      if (
-        curr.visits.length < next.visits.length ||
-        (curr.visits.length == next.visits.length && curr.city > next.city)
-      ) {
-        return 1;
-      }
-      if (
-        curr.visits.length > next.visits.length ||
-        (curr.visits.length == next.visits.length && curr.city < next.city)
-      ) {
-        return -1;
-      }
-
-      return 0;
-    })
-    .map(dest => {
-      return {
-        city: dest.city,
-        state: dest.state,
-        country: dest.country,
-        visitCount: dest.visits.length
-      };
-    });
+const getAll = async (req, res) => {
+  res.send(await _getAll());
 };
 
-const furthest = async () => {
-  const destinations = await getAll();
+const frequented = async (req, res) => {
+  const destinations = await _getAll();
+
+  res.send(
+    destinations
+      .filter(d => d.visits.length > 1)
+      .sort((curr, next) => {
+        if (
+          curr.visits.length < next.visits.length ||
+          (curr.visits.length == next.visits.length && curr.city > next.city)
+        ) {
+          return 1;
+        }
+        if (
+          curr.visits.length > next.visits.length ||
+          (curr.visits.length == next.visits.length && curr.city < next.city)
+        ) {
+          return -1;
+        }
+
+        return 0;
+      })
+      .map(dest => {
+        return {
+          city: dest.city,
+          state: dest.state,
+          country: dest.country,
+          visitCount: dest.visits.length
+        };
+      })
+  );
+};
+
+const furthest = async (req, res) => {
+  const destinations = await _getAll();
 
   // algorithm taken from https://stackoverflow.com/a/27943/282110
   const deg2rad = deg => deg * (Math.PI / 180);
@@ -81,14 +87,16 @@ const furthest = async () => {
     return 3961 * angleRadians; // 3961 is the radius of the earth in miles
   };
 
-  return destinations
-    .map(dest => {
-      return {
-        ...dest,
-        distance: getDistance(dest)
-      };
-    })
-    .reduce((curr, next) => (curr.distance > next.distance ? curr : next));
+  res.send(
+    destinations
+      .map(dest => {
+        return {
+          ...dest,
+          distance: getDistance(dest)
+        };
+      })
+      .reduce((curr, next) => (curr.distance > next.distance ? curr : next))
+  );
 };
 
 module.exports = {

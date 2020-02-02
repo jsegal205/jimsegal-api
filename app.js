@@ -48,43 +48,11 @@ app.get("/", (req, res) => {
 
 app.get("/favicon.ico", (req, res) => res.status(204).send(""));
 
-app.get("/isAnchorageColderThan/:lat/:long", async (req, res) => {
-  const { lat, long } = req.params;
-  if (!parseFloat(lat) || !parseFloat(long)) {
-    res
-      .status(422)
-      .send("Invalid route parameters sent. Only float type are allowed");
-    return;
-  }
-
-  const compareAnchorage = await Weather.isAnchorageColderThan(lat, long);
-
-  res.send(compareAnchorage);
-});
-
-app.get("/games", async (req, res) => {
-  const games = await Games.getAll();
-
-  res.send(games);
-});
-
-app.get("/travel", async (req, res) => {
-  const travel = await Travel.getAll();
-
-  res.send(travel);
-});
-
-app.get("/travel/frequented", async (req, res) => {
-  const travel = await Travel.frequented();
-
-  res.send(travel);
-});
-
-app.get("/travel/furthest", async (req, res) => {
-  const travel = await Travel.furthest();
-
-  res.send(travel);
-});
+app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
+app.get("/games", Games.getAll);
+app.get("/travel", Travel.getAll);
+app.get("/travel/frequented", Travel.frequented);
+app.get("/travel/furthest", Travel.furthest);
 
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 

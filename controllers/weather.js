@@ -27,17 +27,25 @@ const getAnchorageTemp = async () => {
   return await getTemp("61.2175", "-149.8584");
 };
 
-const isAnchorageColderThan = async (lat, long) => {
+const isAnchorageColderThan = async (req, res) => {
+  const { lat, long } = req.params;
+  if (!parseFloat(lat) || !parseFloat(long)) {
+    res
+      .status(422)
+      .send("Invalid route parameters sent. Only float type are allowed");
+    return;
+  }
+
   try {
     const anchorageDetails = await getAnchorageTemp();
     const compareDetails = await getTemp(lat, long);
 
-    return {
+    res.send({
       isAnchorageColder:
         anchorageDetails.temperature < compareDetails.temperature,
       anchorageDetails,
       compareDetails
-    };
+    });
   } catch (err) {
     console.error(err);
     throw new Error(err);
