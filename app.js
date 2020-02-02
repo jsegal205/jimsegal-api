@@ -28,8 +28,7 @@ app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
 
 const errorFunc = () => {
-  console.log(`process.env.HOST -- ${process.env.HOST}`);
-  throw new Error("error me some errors");
+  new Error("error me some errors");
 };
 app.get("/should-error", errorFunc);
 
