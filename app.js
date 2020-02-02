@@ -28,7 +28,7 @@ app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
 
 const errorFunc = () => {
-  new Error("error me some errors");
+  throw new Error("error me some errors");
 };
 app.get("/should-error", errorFunc);
 
