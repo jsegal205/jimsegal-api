@@ -8,12 +8,12 @@ const Games = require("./controllers/games");
 const Travel = require("./controllers/travel");
 const Weather = require("./controllers/weather");
 
-if (process.env.HOST !== "development") {
-  const Sentry = require("@sentry/node");
-  Sentry.init({
-    dsn: "https://3725a1a037c348d59e960d3bcaa493d3@sentry.io/2104007"
-  });
-}
+// if (process.env.HOST !== "development") {
+const Sentry = require("@sentry/node");
+Sentry.init({
+  dsn: "https://3725a1a037c348d59e960d3bcaa493d3@sentry.io/2104007"
+});
+// }
 
 const port = process.env.PORT || 8001;
 const app = express();
