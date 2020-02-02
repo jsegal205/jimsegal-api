@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const sslRedirect = require("./modules/ssl-redirect");
 
+const Docs = require("./controllers/docs");
 const Games = require("./controllers/games");
 const Travel = require("./controllers/travel");
 const Weather = require("./controllers/weather");
@@ -42,18 +43,14 @@ app.use([
   sslRedirect()
 ]);
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/docs/index.html");
-});
-
-app.get("/favicon.ico", (req, res) => res.status(204).send(""));
-
+app.get("/", Docs.getAll);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
 app.get("/travel", Travel.getAll);
 app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
 
+app.get("/favicon.ico", (req, res) => res.status(204).send(""));
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
 app.listen(port, () => {
