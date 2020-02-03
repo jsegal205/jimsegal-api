@@ -7,7 +7,7 @@ const getAll = async (req, res) => {
         "https://data.heroku.com/dataclips/donygkplrgieljfwbfisudzjmirb.json"
       )
       .catch(error => {
-        throw new Error(error);
+        throw error;
       });
 
     res.send(
@@ -17,7 +17,7 @@ const getAll = async (req, res) => {
     );
   } catch (err) {
     console.error(err);
-    throw new Error(err);
+    throw err;
   }
 };
 

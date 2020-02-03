@@ -7,7 +7,7 @@ const _getAll = async () => {
         "https://data.heroku.com/dataclips/zufupjioefakciimcrrnbzhbcwau.json"
       )
       .catch(error => {
-        throw new Error(error);
+        throw error;
       });
 
     return res.data.values.map(travel => {
@@ -22,7 +22,7 @@ const _getAll = async () => {
     });
   } catch (err) {
     console.error(err);
-    throw new Error(err);
+    throw err;
   }
 };
 

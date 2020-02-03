@@ -8,7 +8,7 @@ const getTemp = async (lat, long) => {
   const temperatureResponse = await axios
     .get(`${API_URL}&lat=${lat}&lon=${long}`)
     .catch(error => {
-      throw new Error(error);
+      throw error;
     });
 
   const { city, state } = await Location.getBy(lat, long);
@@ -48,7 +48,7 @@ const isAnchorageColderThan = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    throw new Error(err);
+    throw err;
   }
 };
 
