@@ -29,17 +29,6 @@ app.get("/games", Games.getAll);
 app.get("/travel", Travel.getAll);
 app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
-
-const errorFunc = () => {
-  try {
-    const obj = { a: "bc" };
-    console.log(obj.def.g);
-  } catch (error) {
-    throw error;
-  }
-};
-app.get("/should-error", errorFunc);
-
 app.get("/favicon.ico", (req, res) => res.status(204).send(""));
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
