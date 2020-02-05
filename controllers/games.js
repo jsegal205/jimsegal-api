@@ -10,7 +10,7 @@ const getAll = async (req, res) => {
         throw error;
       });
 
-    res.send(
+    res.json(
       apiResponse.data.values.map(game => {
         return { title: game[0], link: game[1], image: game[2] };
       })

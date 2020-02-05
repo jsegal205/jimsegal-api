@@ -40,7 +40,7 @@ const isAnchorageColderThan = async (req, res) => {
     const anchorageDetails = await getAnchorageTemp();
     const compareDetails = await getTemp(lat, long);
 
-    res.send({
+    res.json({
       isAnchorageColder:
         anchorageDetails.temperature < compareDetails.temperature,
       anchorageDetails,

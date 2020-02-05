@@ -27,13 +27,13 @@ const _getAll = async () => {
 };
 
 const getAll = async (req, res) => {
-  res.send(await _getAll());
+  res.json(await _getAll());
 };
 
 const frequented = async (req, res) => {
   const destinations = await _getAll();
 
-  res.send(
+  res.json(
     destinations
       .filter(d => d.visits.length > 1)
       .sort((curr, next) => {
@@ -87,7 +87,7 @@ const furthest = async (req, res) => {
     return 3961 * angleRadians; // 3961 is the radius of the earth in miles
   };
 
-  res.send(
+  res.json(
     destinations
       .map(dest => {
         return {
