@@ -11,7 +11,7 @@ const config = {
   port: params.port,
   database: params.pathname.split("/")[1],
   ssl: {
-    rejectUnauthorized: process.env.HOST === "production"
+    rejectUnauthorized: false
   }
 };
 
