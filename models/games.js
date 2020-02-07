@@ -10,11 +10,11 @@ class Game {
   isValid = () => [this.title, this.link, this.image].every(param => !!param);
 }
 
-const getAllGames = async () => {
+const getAll = async () => {
   const results = await db.query("SELECT * FROM games ORDER BY name ASC");
   return results.map(result => {
     return new Game(result.name, result.url, result.image_url);
   });
 };
 
-module.exports = { getAllGames };
+module.exports = { getAll };
