@@ -26,4 +26,21 @@ const pool = new Pool(config);
 //   port: 5432
 // });
 
-module.exports = { pool };
+const query = async query => {
+  if (!query) {
+    throw "no query provided";
+  }
+
+  const client = await pool.connect();
+  try {
+    const result = await client.query(query);
+
+    return result.rows;
+  } catch (error) {
+    throw error;
+  } finally {
+    client.release();
+  }
+};
+
+module.exports = { query };
