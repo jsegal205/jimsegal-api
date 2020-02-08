@@ -2,15 +2,6 @@
 -- Games seed file
 --
 
--- create `games` table if it does not exist
-CREATE TABLE IF NOT EXISTS games
-(
-  id         serial PRIMARY KEY,
-  name       text NOT NULL,
-  url        text NOT NULL,
-  image_url  text NOT NULL
-);
-
 -- seed `games` table if not already populated
 DO $$
 DECLARE

@@ -2,24 +2,6 @@
 -- Destinations seed file
 --
 
--- create destinations table
-CREATE TABLE IF NOT EXISTS destinations (
-    id serial PRIMARY KEY,
-    city text NOT NULL,
-    state text NOT NULL,
-    country text NOT NULL,
-    lat float NOT NULL,
-    long float NOT NULL
-);
-
--- create destination_visits table
-CREATE TABLE IF NOT EXISTS destination_visits (
-    id serial PRIMARY KEY,
-    destination_id integer REFERENCES destinations (id),
-    month integer NOT NULL,
-    year integer NOT NULL
-);
-
 -- create function for converting integers to months
 drop function if exists to_month(integer);
 create function to_month(integer) returns varchar as
