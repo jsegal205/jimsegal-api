@@ -1,31 +1,37 @@
 # Jim Segal API
 
-An API express server served up on heroku.
+An [ExpressJS](https://expressjs.com/) web server built on [NodeJS](https://nodejs.org/en/).
 
-## Pushing changes
+## Local development
 
-### Log in via CLI
+### Run the server
 
-```shell
-  heroku login
-```
-
-### Push changes to heroku
+To start a local server, run the following command:
 
 ```bash
-  heroku push heroku master
+  npm run dev
 ```
 
-## Debugging
+### Run the server with breakpoints
 
-Check if the server is running:
+To stop processing in the server at any point, add a `debugger` to the code and start the server with the following command:
 
 ```bash
-  heroku ps
+  npm run debug
 ```
 
-Look at the logs:
+#### Repl
+
+Even when running in debug mode, to access any runtime variables you will need to do so by entering the repl with the following command:
 
 ```bash
-  heroku logs
+  repl
 ```
+
+### Viewing API
+
+Open a web browser to the following address:
+
+`http://localhost:8001`
+
+This is the default port, and could be altered if defined in `process.env.PORT` via the [dotenv file](https://www.npmjs.com/package/dotenv).
