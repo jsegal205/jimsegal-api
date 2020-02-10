@@ -52,12 +52,12 @@ const getbgg = async () => {
       const bggId = item._attributes.id;
       const bggType = item._attributes.type;
       const link = `${BASE_URL}/${bggType}/${bggId}`;
-      return { bggId, bggType, name, thumbnail, link };
+      return new Game(name, link, thumbnail, bggId);
     });
 
     return items.sort((current, next) => {
-      if (current.name == next.name) return 0;
-      return current.name < next.name ? 1 : -1;
+      if (current.title == next.title) return 0;
+      return current.title > next.title ? 1 : -1;
     });
   } catch (err) {
     console.error(err);
