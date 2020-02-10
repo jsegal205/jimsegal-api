@@ -8,15 +8,6 @@ const getAll = async (req, res) => {
   }
 };
 
-const getbgg = async (req, res) => {
-  try {
-    res.json(await Games.getbgg());
-  } catch (error) {
-    throw error;
-  }
-};
-
 module.exports = {
-  getAll,
-  getbgg
+  getAll
 };

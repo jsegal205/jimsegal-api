@@ -15,13 +15,6 @@ class Game {
 }
 
 const getAll = async () => {
-  const results = await db.query("SELECT * FROM games ORDER BY name ASC");
-  return results.map(result => {
-    return new Game(result.name, result.url, result.image_url, result.bgg_id);
-  });
-};
-
-const getbgg = async () => {
   try {
     const lookupIds = await db.query("SELECT bgg_id from games");
     const BASE_URL = "https://boardgamegeek.com";
@@ -65,4 +58,4 @@ const getbgg = async () => {
   }
 };
 
-module.exports = { getAll, getbgg };
+module.exports = { getAll };
