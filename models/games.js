@@ -3,19 +3,21 @@ const xmlConverter = require("xml-js");
 const db = require("../db/pg");
 
 class Game {
-  constructor(title, link, image) {
+  constructor(title, link, image, bggId) {
     this.title = title || "";
     this.link = link || "";
     this.image = image || "";
+    this.bggId = bggId || "";
   }
 
-  isValid = () => [this.title, this.link, this.image].every(param => !!param);
+  isValid = () =>
+    [this.title, this.link, this.image, this.bggId].every(param => !!param);
 }
 
 const getAll = async () => {
   const results = await db.query("SELECT * FROM games ORDER BY name ASC");
   return results.map(result => {
-    return new Game(result.name, result.url, result.image_url);
+    return new Game(result.name, result.url, result.image_url, result.bgg_id);
   });
 };
 
