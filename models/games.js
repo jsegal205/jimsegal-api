@@ -24,7 +24,7 @@ const getAll = async () => {
 const getbgg = async () => {
   try {
     const lookupIds = await db.query("SELECT bgg_id from games");
-    const BASE_URL = "https://www.boardgamegeek.com";
+    const BASE_URL = "https://boardgamegeek.com";
     const API_URL = `${BASE_URL}/xmlapi2/thing?id=${lookupIds
       .map(id => id["bgg_id"])
       .join()}`;
