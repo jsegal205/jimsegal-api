@@ -53,7 +53,6 @@ const getAll = async () => {
       return current.title > next.title ? 1 : -1;
     });
   } catch (err) {
-    console.error(err);
     throw err;
   }
 };
