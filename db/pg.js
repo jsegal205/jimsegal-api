@@ -1,34 +1,44 @@
 const Pool = require("pg-pool");
-const url = require("url");
 
-const params = url.parse(process.env.PG_DATABASE_URL);
-const auth = params.auth.split(":");
+let pool;
 
-const config = {
-  user: auth[0],
-  password: auth[1],
-  host: params.hostname,
-  port: params.port,
-  database: params.pathname.split("/")[1],
-  ssl: {
-    rejectUnauthorized: false
-  }
-};
+if (process.env.HOST === "production") {
+  const url = require("url");
 
-const pool = new Pool(config);
+  const params = url.parse(process.env.PG_DATABASE_URL);
+  const auth = params.auth.split(":");
 
-// for local development, comment out above, uncomment below
-// const pool = new Pool({
-//   user: process.env.PG_USER,
-//   host: process.env.PG_HOST,
-//   database: process.env.PG_DATABASE,
-//   password: process.env.PG_PASSWORD,
-//   port: 5432
-// });
+  const config = {
+    user: auth[0],
+    password: auth[1],
+    host: params.hostname,
+    port: params.port,
+    database: params.pathname.split("/")[1],
+    ssl: {
+      rejectUnauthorized: false
+    }
+  };
+
+  pool = new Pool(config);
+}
+
+if (process.env.HOST === "development") {
+  pool = new Pool({
+    user: process.env.PG_USER,
+    host: process.env.PG_HOST,
+    database: process.env.PG_DATABASE,
+    password: process.env.PG_PASSWORD,
+    port: 5432
+  });
+}
 
 const query = async query => {
   if (!query) {
     throw "no query provided";
+  }
+
+  if (!pool) {
+    throw "pool connection not set up";
   }
 
   const client = await pool.connect();
