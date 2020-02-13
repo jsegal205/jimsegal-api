@@ -32,7 +32,7 @@ describe("database", () => {
       });
     });
 
-    describe("HAPPY PATH", () => {
+    xdescribe("HAPPY PATH", () => {
       before(() => {
         process.env.HOST = "development";
       });
