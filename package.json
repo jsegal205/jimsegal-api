@@ -4,7 +4,7 @@
   "description": "API endpoints for various things on jimsegal.com",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/**/*.js",
     "dev": "nodemon app.js",
     "debug": "nodemon inspect app.js"
   },
@@ -25,6 +25,7 @@
     "node": "12.12.0"
   },
   "devDependencies": {
+    "mocha": "^7.0.1",
     "nodemon": "^2.0.2"
   }
 }
