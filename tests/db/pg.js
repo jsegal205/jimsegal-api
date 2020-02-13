@@ -22,7 +22,7 @@ describe("database", () => {
       it("throws error", async () => {
         await assert.rejects(
           async () => {
-            await db.query("select * from games");
+            await db.query(`SELECT * FROM "games"`);
           },
           {
             name: "ReferenceError",
@@ -38,7 +38,7 @@ describe("database", () => {
       });
       it("does not error", async () => {
         await assert.doesNotReject(async () => {
-          await db.query("select * from games");
+          await db.query(`SELECT * FROM "games"`);
         });
       });
     });
