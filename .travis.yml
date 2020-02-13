@@ -9,6 +9,7 @@ before_install:
   - sudo apt-get install -y postgresql-12 postgresql-client-12
   - sudo cp /etc/postgresql/{9.6,12}/main/pg_hba.conf
   - sudo service postgresql restart 12
+  - sudo psql -c 'CREATE ROLE travis SUPERUSER LOGIN CREATEDB;' -U postgres
 before_script:
   - bash scripts/db_setup.sh
 addons:
