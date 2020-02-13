@@ -1,22 +1,3 @@
 language: node_js
 node_js:
   - 12.12.0
-services:
-  - postgresql
-addons:
-  postgresql: "12"
-  apt:
-    packages:
-      - postgresql-12
-      - postgresql-client-12
-# before_install:
-  # - sudo apt-get update
-  # - sudo apt-get --yes remove postgresql\*
-  # - sudo apt-get install -y postgresql-12 postgresql-client-12
-  # - sudo cp /etc/postgresql/{9.6,12}/main/pg_hba.conf
-  # - sudo service postgresql restart 12
-  # - sudo psql -c 'CREATE ROLE travis SUPERUSER LOGIN CREATEDB;' -U postgres
-before_script:
-  - bash scripts/db_setup.sh
-addons:
-  postgresql: "12"
