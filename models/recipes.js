@@ -1,8 +1,7 @@
 const db = require("../db/pg");
 
 class Recipe {
-  constructor(id, title, slug, referenceLink, ingredients, directions) {
-    this.id = id || "";
+  constructor(title, slug, referenceLink, ingredients, directions) {
     this.title = title || "";
     this.slug = slug || "";
     this.referenceLink = referenceLink || "";
@@ -22,12 +21,11 @@ class Recipe {
 
 const getAll = async () => {
   const recipes = await db.query(
-    "SELECT id, title, slug, reference_link, ingredients, directions from recipes"
+    "SELECT title, slug, reference_link, ingredients, directions from recipes"
   );
 
   return recipes.map(recipe => {
     return new Recipe(
-      recipe.id,
       recipe.title,
       recipe.slug,
       recipe.reference_link,
