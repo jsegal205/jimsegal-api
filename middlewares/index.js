@@ -4,9 +4,10 @@ const morgan = require("morgan");
 
 const allowedOrigins = [
   "http://localhost:8000", // web
-  "http://localhost:8100", // projects
   "https://jimsegal.com",
-  "https://www.jimsegal.com"
+  "https://www.jimsegal.com",
+  "http://localhost:8100", // projects
+  "https://projects.jimsegal.com"
 ];
 
 const middlewares = [
