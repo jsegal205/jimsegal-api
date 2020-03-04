@@ -3,7 +3,8 @@ const sslRedirect = require("./ssl-redirect");
 const morgan = require("morgan");
 
 const allowedOrigins = [
-  "http://localhost:8000",
+  "http://localhost:8000", // web
+  "http://localhost:8100", // projects
   "https://jimsegal.com",
   "https://www.jimsegal.com"
 ];
