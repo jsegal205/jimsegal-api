@@ -21,7 +21,7 @@ class Recipe {
 
 const getAll = async () => {
   const recipes = await db.query(
-    "SELECT title, slug, reference_link, ingredients, directions from recipes"
+    "SELECT title, slug, reference_link, ingredients, directions from recipes order by title"
   );
 
   return recipes.map(recipe => {
