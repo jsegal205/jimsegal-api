@@ -11,7 +11,8 @@ describe("Recipes Model", () => {
           "slug",
           "link",
           "ingredients",
-          "directions"
+          "directions",
+          "notes"
         );
         assert.equal(recipe.isValid(), true);
       });
@@ -79,6 +80,20 @@ describe("Recipes Model", () => {
           ""
         );
         assert.equal(recipe.isValid(), false);
+      });
+    });
+
+    describe("when notes parameter not passed", () => {
+      it("returns true", () => {
+        const recipe = new model.Recipe(
+          "title",
+          "slug",
+          "link",
+          "ingredients",
+          "directions",
+          "notes"
+        );
+        assert.equal(recipe.isValid(), true);
       });
     });
   });
