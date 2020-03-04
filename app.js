@@ -28,6 +28,7 @@ app.get("/", Docs.getAll);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
 app.get("/recipes", Recipes.getAll);
+app.get("/recipe/:slug", Recipes.getBySlug);
 app.get("/travel", Travel.getAll);
 app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);

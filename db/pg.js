@@ -34,7 +34,7 @@ const configurePool = async () => {
   throw ReferenceError("Pool connection not set up");
 };
 
-const query = async query => {
+const query = async (query, params) => {
   if (!query) {
     throw ReferenceError("No query provided");
   }
@@ -43,7 +43,7 @@ const query = async query => {
   const client = await pool.connect();
 
   try {
-    const result = await client.query(query);
+    const result = await client.query(query, params);
 
     return result.rows;
   } catch (error) {
