@@ -138,6 +138,32 @@
       </blockquote>
       <h3>
         <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/recipe/oatmeal-chocolate-chip-cookies"
+          >/recipe/:slug</a
+        >
+      </h3>
+      <div class="abstract">
+        A single recipe
+      </div>
+      <ul class="inputparams">
+        <li>
+          <span class="param">:slug - {String}</span>Unique identifier for
+          recipe
+        </li>
+      </ul>
+      <h4>Returns</h4>
+      <blockquote>
+        { <br />
+        &nbsp;&nbsp;"title": {String},<br />
+        &nbsp;&nbsp;"slug": {String},<br />
+        &nbsp;&nbsp;"referenceLink": {String},<br />
+        &nbsp;&nbsp;"ingredients": {String},<br />
+        &nbsp;&nbsp;"directions": {String},<br />
+        &nbsp;&nbsp;"notes": {String}<br />
+        }
+      </blockquote>
+      <h3>
+        <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/travel">/travel</a>
       </h3>
       <div class="abstract">
