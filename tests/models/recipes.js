@@ -1,12 +1,12 @@
 const assert = require("assert");
 
-const model = require("../../models/recipes");
+const Recipe = require("../../models/recipes");
 
 describe("Recipes Model", () => {
   describe("isValid()", () => {
     describe("when all parameters passed", () => {
       it("returns true", () => {
-        const recipe = new model.Recipe(
+        const recipe = new Recipe(
           "title",
           "slug",
           "link",
@@ -20,7 +20,7 @@ describe("Recipes Model", () => {
 
     describe("when title parameter not passed", () => {
       it("returns false", () => {
-        const recipe = new model.Recipe(
+        const recipe = new Recipe(
           "",
           "slug",
           "link",
@@ -33,7 +33,7 @@ describe("Recipes Model", () => {
 
     describe("when slug parameter not passed", () => {
       it("returns false", () => {
-        const recipe = new model.Recipe(
+        const recipe = new Recipe(
           "title",
           "",
           "link",
@@ -46,7 +46,7 @@ describe("Recipes Model", () => {
 
     describe("when link parameter not passed", () => {
       it("returns false", () => {
-        const recipe = new model.Recipe(
+        const recipe = new Recipe(
           "title",
           "slug",
           "",
@@ -59,33 +59,21 @@ describe("Recipes Model", () => {
 
     describe("when ingredients parameter not passed", () => {
       it("returns false", () => {
-        const recipe = new model.Recipe(
-          "title",
-          "slug",
-          "link",
-          "",
-          "directions"
-        );
+        const recipe = new Recipe("title", "slug", "link", "", "directions");
         assert.equal(recipe.isValid(), false);
       });
     });
 
     describe("when directions parameter not passed", () => {
       it("returns false", () => {
-        const recipe = new model.Recipe(
-          "title",
-          "slug",
-          "link",
-          "ingredients",
-          ""
-        );
+        const recipe = new Recipe("title", "slug", "link", "ingredients", "");
         assert.equal(recipe.isValid(), false);
       });
     });
 
     describe("when notes parameter not passed", () => {
       it("returns true", () => {
-        const recipe = new model.Recipe(
+        const recipe = new Recipe(
           "title",
           "slug",
           "link",

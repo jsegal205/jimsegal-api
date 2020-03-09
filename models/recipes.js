@@ -1,5 +1,3 @@
-const db = require("../db/pg");
-
 class Recipe {
   constructor(title, slug, referenceLink, ingredients, directions, notes) {
     this.title = title || "";
@@ -20,21 +18,4 @@ class Recipe {
     ].every(param => !!param);
 }
 
-const getAll = async () => {
-  const recipes = await db.query(
-    "SELECT title, slug, reference_link, ingredients, directions, notes from recipes order by title"
-  );
-
-  return recipes.map(recipe => {
-    return new Recipe(
-      recipe.title,
-      recipe.slug,
-      recipe.reference_link,
-      recipe.ingredients,
-      recipe.directions,
-      recipe.notes
-    );
-  });
-};
-
-module.exports = { getAll, Recipe };
+module.exports = Recipe;
