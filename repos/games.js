@@ -11,7 +11,7 @@ const getAll = async () => {
     const API_URL = `${BASE_URL}/xmlapi2/thing?id=${lookupIds
       .map(id => id["bgg_id"])
       .join()}`;
-    const apiResponse = await axios(API_URL).catch(error => {
+    const apiResponse = await axios.get(API_URL).catch(error => {
       throw error;
     });
 
