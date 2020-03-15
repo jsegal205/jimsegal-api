@@ -1,8 +1,8 @@
 const sinon = require("sinon");
 
-const mockRequest = sessionData => {
+const mockRequest = slug => {
   return {
-    session: { data: sessionData }
+    params: { slug }
   };
 };
 
@@ -11,6 +11,7 @@ const mockResponse = () => {
   res.status = sinon.stub().returns(res);
   res.json = sinon.stub().returns(res);
   res.sendFile = sinon.stub().returns(res);
+  res.send = sinon.stub().returns(res);
   return res;
 };
 
