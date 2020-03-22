@@ -1,9 +1,9 @@
 class Game {
   constructor(title, link, image, bggId) {
-    this.title = title || "";
-    this.link = link || "";
-    this.image = image || "";
-    this.bggId = bggId || "";
+    this.title = title.trim() || "";
+    this.link = link.trim() || "";
+    this.image = image.trim() || "";
+    this.bggId = bggId || 0;
   }
 
   isValid = () =>
