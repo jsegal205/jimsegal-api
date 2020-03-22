@@ -1,3 +1,5 @@
+const { isValid: utilsIsValid } = require("../utils/validation");
+
 class Recipe {
   REQUIRED_FIELDS = ["title", "slug", "ingredients", "directions"];
 
@@ -10,25 +12,7 @@ class Recipe {
     this.notes = notes.trim() || "";
   }
 
-  isValid = () => {
-    const invalidFields = this.REQUIRED_FIELDS.reduce(
-      (acc, currReqFieldName) => {
-        if (!!this[currReqFieldName] === false) {
-          acc.push(currReqFieldName);
-        }
-        return acc;
-      },
-      []
-    );
-
-    return {
-      valid: invalidFields.length === 0,
-      message:
-        invalidFields.length === 0
-          ? ""
-          : `${invalidFields.join(", ")} - fields are required`
-    };
-  };
+  isValid = () => utilsIsValid(this);
 }
 
 module.exports = Recipe;
