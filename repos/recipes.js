@@ -23,4 +23,6 @@ const getBySlug = async (slug) => {
   return new Recipe(recipe);
 };
 
-module.exports = { getAll, getBySlug };
+const create = params => {};
+
+module.exports = { create, getAll, getBySlug };
