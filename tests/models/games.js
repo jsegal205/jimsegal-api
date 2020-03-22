@@ -7,7 +7,20 @@ describe("Games Model", () => {
     describe("when all parameters passed", () => {
       it("returns true", () => {
         const game = new Game("title", "link", "image", 1);
-        assert.equal(game.isValid(), true);
+        assert.equal(game.isValid().valid, true);
+      });
+    });
+
+    describe("when no parameters are passed", () => {
+      it("returns false", () => {
+        const game = new Game("", "", "", "");
+        const { valid, message } = game.isValid();
+
+        assert.equal(valid, false);
+        assert.equal(
+          message,
+          "title, link, image, bggId - fields are required"
+        );
       });
     });
 
@@ -15,13 +28,19 @@ describe("Games Model", () => {
       describe("when not passed", () => {
         it("returns false", () => {
           const game = new Game("", "link", "image", 1);
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "title - fields are required");
         });
       });
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
           const game = new Game("   ", "link", "image", 1);
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "title - fields are required");
         });
       });
     });
@@ -30,14 +49,20 @@ describe("Games Model", () => {
       describe("when not passed", () => {
         it("returns false", () => {
           const game = new Game("title", "", "image", 1);
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "link - fields are required");
         });
       });
 
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
           const game = new Game("title", "   ", "image", 1);
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "link - fields are required");
         });
       });
     });
@@ -46,14 +71,20 @@ describe("Games Model", () => {
       describe("when not passed", () => {
         it("returns false", () => {
           const game = new Game("title", "link", "", 1);
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "image - fields are required");
         });
       });
 
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
           const game = new Game("title", "link", "   ", 1);
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "image - fields are required");
         });
       });
     });
@@ -62,7 +93,10 @@ describe("Games Model", () => {
       describe("when not passed", () => {
         it("returns false", () => {
           const game = new Game("title", "link", "image");
-          assert.equal(game.isValid(), false);
+          const { valid, message } = game.isValid();
+
+          assert.equal(valid, false);
+          assert.equal(message, "bggId - fields are required");
         });
       });
     });

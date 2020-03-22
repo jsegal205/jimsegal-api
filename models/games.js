@@ -1,4 +1,8 @@
+const { isValid: utilsIsValid } = require("../utils/validation");
+
 class Game {
+  REQUIRED_FIELDS = ["title", "link", "image", "bggId"];
+
   constructor(title, link, image, bggId) {
     this.title = title.trim() || "";
     this.link = link.trim() || "";
@@ -6,8 +10,7 @@ class Game {
     this.bggId = bggId || 0;
   }
 
-  isValid = () =>
-    [this.title, this.link, this.image, this.bggId].every(param => !!param);
+  isValid = () => utilsIsValid(this);
 }
 
 module.exports = Game;
