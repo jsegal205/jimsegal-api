@@ -22,7 +22,27 @@ const getBySlug = async (req, res) => {
   }
 };
 
+const create = async (req, res) => {
+  try {
+    const { api_token } = req.headers;
+
+    if (!api_token || api_token !== process.env.AUTH_TOKEN) {
+      return res.status(403).json({
+        status: 403,
+        message: "FORBIDDEN"
+      });
+    } else {
+      const data = req.body;
+      console.log(data);
+      res.json({ status: 201, message: "did it" });
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
+  create,
   getAll,
   getBySlug,
 };
