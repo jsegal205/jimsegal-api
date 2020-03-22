@@ -1,4 +1,8 @@
-const isValid = obj => {
+const isValid = (obj = {}) => {
+  if (!obj.REQUIRED_FIELDS) {
+    return { valid: true, message: "" };
+  }
+
   const invalidFields = obj.REQUIRED_FIELDS.reduce((acc, currReqFieldName) => {
     if (!!obj[currReqFieldName] === false) {
       acc.push(currReqFieldName);
