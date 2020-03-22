@@ -45,7 +45,7 @@ describe("Recipes Model", () => {
     });
 
     describe("when link parameter not passed", () => {
-      it("returns false", () => {
+      it("returns true", () => {
         const recipe = new Recipe(
           "title",
           "slug",
@@ -53,7 +53,7 @@ describe("Recipes Model", () => {
           "ingredients",
           "directions"
         );
-        assert.equal(recipe.isValid(), false);
+        assert.equal(recipe.isValid(), true);
       });
     });
 

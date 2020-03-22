@@ -9,13 +9,9 @@ class Recipe {
   }
 
   isValid = () =>
-    [
-      this.title,
-      this.slug,
-      this.referenceLink,
-      this.ingredients,
-      this.directions
-    ].every(param => !!param);
+    [this.title, this.slug, this.ingredients, this.directions].every(
+      param => !!param
+    );
 }
 
 module.exports = Recipe;
