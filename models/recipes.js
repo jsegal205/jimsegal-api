@@ -1,17 +1,34 @@
 class Recipe {
+  REQUIRED_FIELDS = ["title", "slug", "ingredients", "directions"];
+
   constructor(title, slug, referenceLink, ingredients, directions, notes) {
-    this.title = title || "";
-    this.slug = slug || "";
-    this.referenceLink = referenceLink || "";
-    this.ingredients = ingredients || "";
-    this.directions = directions || "";
-    this.notes = notes || "";
+    this.title = title.trim() || "";
+    this.slug = slug.trim() || "";
+    this.referenceLink = referenceLink.trim() || "";
+    this.ingredients = ingredients.trim() || "";
+    this.directions = directions.trim() || "";
+    this.notes = notes.trim() || "";
   }
 
-  isValid = () =>
-    [this.title, this.slug, this.ingredients, this.directions].every(
-      param => !!param
+  isValid = () => {
+    const invalidFields = this.REQUIRED_FIELDS.reduce(
+      (acc, currReqFieldName) => {
+        if (!!this[currReqFieldName] === false) {
+          acc.push(currReqFieldName);
+        }
+        return acc;
+      },
+      []
     );
+
+    return {
+      valid: invalidFields.length === 0,
+      message:
+        invalidFields.length === 0
+          ? ""
+          : `${invalidFields.join(", ")} - fields are required`
+    };
+  };
 }
 
 module.exports = Recipe;
