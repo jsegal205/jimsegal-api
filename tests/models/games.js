@@ -3,6 +3,16 @@ const assert = require("assert");
 const Game = require("../../models/games");
 
 describe("Games Model", () => {
+  describe("when params passed with preceding and trailing spaces", () => {
+    it("whitespace is trimmed", () => {
+      const game = new Game("   title   ", "   link   ", "   image   ", 1);
+
+      assert.equal(game.title, "title");
+      assert.equal(game.link, "link");
+      assert.equal(game.image, "image");
+    });
+  });
+
   describe("isValid()", () => {
     describe("when all parameters passed", () => {
       it("returns true", () => {
