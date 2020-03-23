@@ -1,4 +1,4 @@
-const { isValid: utilsIsValid } = require("../utils/validation");
+const { validateRequiredFields } = require("../utils/validation");
 
 class Game {
   REQUIRED_FIELDS = ["title", "link", "image", "bggId"];
@@ -10,7 +10,7 @@ class Game {
     this.bggId = bggId || 0;
   }
 
-  isValid = () => utilsIsValid(this);
+  isValid = () => validateRequiredFields(this);
 }
 
 module.exports = Game;

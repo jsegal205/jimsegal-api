@@ -1,4 +1,4 @@
-const { isValid: utilsIsValid } = require("../utils/validation");
+const { validateRequiredFields } = require("../utils/validation");
 
 class Recipe {
   REQUIRED_FIELDS = ["title", "slug", "ingredients", "directions"];
@@ -12,7 +12,7 @@ class Recipe {
     this.notes = notes.trim() || "";
   }
 
-  isValid = () => utilsIsValid(this);
+  isValid = () => validateRequiredFields(this);
 }
 
 module.exports = Recipe;

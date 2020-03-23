@@ -1,4 +1,4 @@
-const isValid = (obj = {}) => {
+const validateRequiredFields = (obj = {}) => {
   if (!obj.REQUIRED_FIELDS) {
     return { valid: true, message: "" };
   }
@@ -20,5 +20,5 @@ const isValid = (obj = {}) => {
 };
 
 module.exports = {
-  isValid
+  validateRequiredFields
 };
