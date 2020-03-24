@@ -138,6 +138,21 @@ describe("Recipes Model", () => {
           assert.equal(recipe.isValid().valid, true);
         });
       });
+
+      describe("when passed as null", () => {
+        it("returns true", () => {
+          const recipe = new Recipe(
+            "title",
+            "slug",
+            null,
+            "ingredients",
+            "directions",
+            "notes"
+          );
+
+          assert.equal(recipe.isValid().valid, true);
+        });
+      });
     });
 
     describe("ingredients parameter", () => {
@@ -221,7 +236,21 @@ describe("Recipes Model", () => {
             "link",
             "ingredients",
             "directions",
-            "notes"
+            ""
+          );
+          assert.equal(recipe.isValid().valid, true);
+        });
+      });
+
+      describe("when passed as null", () => {
+        it("returns true", () => {
+          const recipe = new Recipe(
+            "title",
+            "slug",
+            "link",
+            "ingredients",
+            "directions",
+            null
           );
           assert.equal(recipe.isValid().valid, true);
         });

@@ -6,10 +6,10 @@ class Recipe {
   constructor(title, slug, referenceLink, ingredients, directions, notes) {
     this.title = title.trim() || "";
     this.slug = slug.trim() || "";
-    this.referenceLink = referenceLink.trim() || "";
+    this.referenceLink = referenceLink ? referenceLink.trim() : "";
     this.ingredients = ingredients.trim() || "";
     this.directions = directions.trim() || "";
-    this.notes = notes.trim() || "";
+    this.notes = notes ? notes.trim() : "";
   }
 
   isValid = () => validateRequiredFields(this);
