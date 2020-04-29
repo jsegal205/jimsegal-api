@@ -8,14 +8,7 @@ const getAll = async () => {
   const recipes = await db.query(`${selectAll} order by title`);
 
   return recipes.map((recipe) => {
-    return new Recipe(
-      recipe.title,
-      recipe.slug,
-      recipe.reference_link,
-      recipe.ingredients,
-      recipe.directions,
-      recipe.notes
-    );
+    return new Recipe(recipe);
   });
 };
 
@@ -27,14 +20,7 @@ const getBySlug = async (slug) => {
   }
 
   const recipe = results[0];
-  return new Recipe(
-    recipe.title,
-    recipe.slug,
-    recipe.reference_link,
-    recipe.ingredients,
-    recipe.directions,
-    recipe.notes
-  );
+  return new Recipe(recipe);
 };
 
 module.exports = { getAll, getBySlug };

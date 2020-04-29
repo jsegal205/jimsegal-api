@@ -34,14 +34,14 @@ describe("RecipeController", () => {
   describe("getBySlug", () => {
     it("should call to repo", async () => {
       const slug = "test-slug";
-      const repoReturn = new Recipe(
-        "title",
+      const repoReturn = new Recipe({
+        title: "title",
         slug,
-        "link",
-        "ingredients",
-        "directions",
-        "notes"
-      );
+        reference_link: "link",
+        ingredients: "ingredients",
+        directions: "directions",
+        notes: "notes",
+      });
       const repoStub = sandbox
         .stub(repo, "getBySlug")
         .withArgs(slug)

@@ -30,12 +30,12 @@ const getAll = async () => {
         bggPrimaryName = item.name;
       }
 
-      const name = bggPrimaryName._attributes.value;
-      const thumbnail = item.thumbnail._text;
+      const title = bggPrimaryName._attributes.value;
+      const image = item.thumbnail._text;
       const bggId = item._attributes.id;
       const bggType = item._attributes.type;
       const link = `${BASE_URL}/${bggType}/${bggId}`;
-      return new Game(name, link, thumbnail, bggId);
+      return new Game({ title, link, image, bggId });
     });
 
     return items.sort((current, next) => {
