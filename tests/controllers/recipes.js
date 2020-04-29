@@ -40,7 +40,7 @@ describe("RecipeController", () => {
         reference_link: "link",
         ingredients: "ingredients",
         directions: "directions",
-        notes: "notes"
+        notes: "notes",
       });
       const repoStub = sandbox
         .stub(repo, "getBySlug")

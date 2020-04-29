@@ -10,7 +10,7 @@ describe("Games Model", () => {
       const testParams = {
         title: "   title   ",
         link: "   link   ",
-        image: "   image   "
+        image: "   image   ",
       };
       const game = new Game(testParams);
 
@@ -34,7 +34,7 @@ describe("Games Model", () => {
           title: "",
           link: "",
           image: "",
-          bggId: ""
+          bggId: "",
         };
         const game = new Game(testParams);
         const { valid, message } = game.isValid();

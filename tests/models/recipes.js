@@ -9,7 +9,7 @@ describe("Recipes Model", () => {
     reference_link: "link",
     ingredients: "ingredients",
     directions: "directions",
-    notes: "notes"
+    notes: "notes",
   };
 
   describe("when params passed with preceding and trailing spaces", () => {
@@ -20,7 +20,7 @@ describe("Recipes Model", () => {
         reference_link: "   link   ",
         ingredients: "   ingredients   ",
         directions: "   directions   ",
-        notes: "   notes   "
+        notes: "   notes   ",
       };
       const recipe = new Recipe(testParams);
 
@@ -49,7 +49,7 @@ describe("Recipes Model", () => {
           reference_link: "",
           ingredients: "",
           directions: "",
-          notes: ""
+          notes: "",
         };
         const recipe = new Recipe(testParams);
         const { valid, message } = recipe.isValid();
