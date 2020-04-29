@@ -9,7 +9,7 @@ describe("database", () => {
       it("throws error", async () => {
         await assert.rejects(db.query, {
           name: "ReferenceError",
-          message: "No query provided"
+          message: "No query provided",
         });
       });
     });
@@ -26,7 +26,7 @@ describe("database", () => {
           },
           {
             name: "ReferenceError",
-            message: "Pool connection not set up"
+            message: "Pool connection not set up",
           }
         );
       });

@@ -7,7 +7,7 @@ const selectAll =
 const getAll = async () => {
   const recipes = await db.query(`${selectAll} order by title`);
 
-  return recipes.map(recipe => {
+  return recipes.map((recipe) => {
     return new Recipe(
       recipe.title,
       recipe.slug,
@@ -19,7 +19,7 @@ const getAll = async () => {
   });
 };
 
-const getBySlug = async slug => {
+const getBySlug = async (slug) => {
   const results = await db.query(`${selectAll} where slug = $1`, [slug]);
 
   if (results.length === 0) {

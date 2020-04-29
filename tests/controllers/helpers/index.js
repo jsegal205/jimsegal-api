@@ -1,8 +1,8 @@
 const sinon = require("sinon");
 
-const mockRequest = slug => {
+const mockRequest = (slug) => {
   return {
-    params: { slug }
+    params: { slug },
   };
 };
 

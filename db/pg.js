@@ -14,8 +14,8 @@ const configurePool = async () => {
       port: params.port,
       database: params.pathname.split("/")[1],
       ssl: {
-        rejectUnauthorized: false
-      }
+        rejectUnauthorized: false,
+      },
     };
 
     return new Pool(config);
@@ -27,7 +27,7 @@ const configurePool = async () => {
       host: process.env.PG_HOST,
       database: process.env.PG_DATABASE,
       password: process.env.PG_PASSWORD,
-      port: 5432
+      port: 5432,
     });
   }
 

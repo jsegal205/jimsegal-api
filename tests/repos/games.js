@@ -27,23 +27,23 @@ describe("GamesRepository", () => {
           {
             _attributes: { id: 1, type: "boardgame" },
             name: { _attributes: { value: "one" } },
-            thumbnail: { _text: faker.internet.url() }
+            thumbnail: { _text: faker.internet.url() },
           },
           {
             _attributes: { id: 2, type: "boardgame" },
             name: { _attributes: { value: "a" } },
-            thumbnail: { _text: faker.internet.url() }
+            thumbnail: { _text: faker.internet.url() },
           },
           {
             _attributes: { id: 2, type: "boardgame" },
             name: [
               { _attributes: { value: "z", type: "primary" } },
-              { _attributes: { value: "b", type: "secondary" } }
+              { _attributes: { value: "b", type: "secondary" } },
             ],
-            thumbnail: { _text: faker.internet.url() }
-          }
-        ]
-      }
+            thumbnail: { _text: faker.internet.url() },
+          },
+        ],
+      },
     };
 
     let dbStub;
@@ -83,9 +83,9 @@ describe("GamesRepository", () => {
 
       expect(actual.length).to.eq(apiReturn.items.item.length);
 
-      const firstActual = actual.find(game => game.title === "one");
+      const firstActual = actual.find((game) => game.title === "one");
       const firstExpected = apiReturn.items.item.find(
-        game => game.name._attributes.value === "one"
+        (game) => game.name._attributes.value === "one"
       );
       expect(firstActual.title).to.eq(firstExpected.name._attributes.value);
 

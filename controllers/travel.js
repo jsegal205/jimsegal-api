@@ -6,18 +6,18 @@ const _getAll = async () => {
       .get(
         "https://data.heroku.com/dataclips/zufupjioefakciimcrrnbzhbcwau.json"
       )
-      .catch(error => {
+      .catch((error) => {
         throw error;
       });
 
-    return res.data.values.map(travel => {
+    return res.data.values.map((travel) => {
       return {
         city: travel[0],
         state: travel[1],
         country: travel[2],
         lat: travel[3],
         lng: travel[4],
-        visits: travel[5]
+        visits: travel[5],
       };
     });
   } catch (err) {
@@ -35,7 +35,7 @@ const frequented = async (req, res) => {
 
   res.json(
     destinations
-      .filter(d => d.visits.length > 1)
+      .filter((d) => d.visits.length > 1)
       .sort((curr, next) => {
         if (
           curr.visits.length < next.visits.length ||
@@ -52,12 +52,12 @@ const frequented = async (req, res) => {
 
         return 0;
       })
-      .map(dest => {
+      .map((dest) => {
         return {
           city: dest.city,
           state: dest.state,
           country: dest.country,
-          visitCount: dest.visits.length
+          visitCount: dest.visits.length,
         };
       })
   );
@@ -67,12 +67,12 @@ const furthest = async (req, res) => {
   const destinations = await _getAll();
 
   // algorithm taken from https://stackoverflow.com/a/27943/282110
-  const deg2rad = deg => deg * (Math.PI / 180);
+  const deg2rad = (deg) => deg * (Math.PI / 180);
 
   const getDistance = ({ lat, lng }) => {
     const chicago = {
       lat: 41.878114,
-      lng: -87.629798
+      lng: -87.629798,
     };
 
     const dLat = deg2rad(lat - chicago.lat);
@@ -89,10 +89,10 @@ const furthest = async (req, res) => {
 
   res.json(
     destinations
-      .map(dest => {
+      .map((dest) => {
         return {
           ...dest,
-          distance: getDistance(dest)
+          distance: getDistance(dest),
         };
       })
       .reduce((curr, next) => (curr.distance > next.distance ? curr : next))
@@ -102,5 +102,5 @@ const furthest = async (req, res) => {
 module.exports = {
   getAll,
   frequented,
-  furthest
+  furthest,
 };

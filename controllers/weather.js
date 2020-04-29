@@ -7,7 +7,7 @@ const getTemp = async (lat, long) => {
     "https://api.openweathermap.org/data/2.5/weather?appid=9bf0ee26559265f94c44015dbce8177d&units=imperial";
   const temperatureResponse = await axios
     .get(`${API_URL}&lat=${lat}&lon=${long}`)
-    .catch(error => {
+    .catch((error) => {
       throw error;
     });
 
@@ -19,7 +19,7 @@ const getTemp = async (lat, long) => {
     long,
     state,
     temperature: temperatureResponse.data.main.temp,
-    units: "imperial"
+    units: "imperial",
   };
 };
 
@@ -44,7 +44,7 @@ const isAnchorageColderThan = async (req, res) => {
       isAnchorageColder:
         anchorageDetails.temperature < compareDetails.temperature,
       anchorageDetails,
-      compareDetails
+      compareDetails,
     });
   } catch (err) {
     console.error(err);
@@ -53,5 +53,5 @@ const isAnchorageColderThan = async (req, res) => {
 };
 
 module.exports = {
-  isAnchorageColderThan
+  isAnchorageColderThan,
 };
