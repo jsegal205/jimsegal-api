@@ -24,6 +24,34 @@ describe("RecipeRepository", () => {
 
       expect(dbStub.calledOnce).to.be.true;
     });
+
+    describe("when db returns results", () => {
+      it("should return all results", async () => {
+        const dbReturn = [
+          {
+            title: "title",
+            slug: "slug",
+            reference_link: "reference_link",
+            ingredients: "ingredients",
+            directions: "directions",
+            notes: "notes",
+          },
+          {
+            title: "title2",
+            slug: "slug2",
+            reference_link: "reference_link2",
+            ingredients: "ingredients2",
+            directions: "directions2",
+            notes: "notes2",
+          },
+        ];
+        sandbox.stub(db, "query").returns(dbReturn);
+
+        const actual = await repo.getAll();
+
+        expect(actual.length).to.eq(dbReturn.length);
+      });
+    });
   });
 
   describe("getBySlug", () => {
