@@ -7,7 +7,8 @@
     "test": "mocha tests/**/*.js --no-colors",
     "dev": "nodemon app.js",
     "debug": "nodemon inspect app.js",
-    "prettier": "prettier --write '**/*.{js,html}'"
+    "prettier": "prettier --write '**/*.{js,html}'",
+    "check-prettier": "prettier --check '**/*.{js,html}'"
   },
   "keywords": [],
   "author": "Jim Segal",
