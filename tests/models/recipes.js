@@ -3,16 +3,35 @@ const assert = require("assert");
 const Recipe = require("../../models/recipes");
 
 describe("Recipes Model", () => {
+  const allParams = {
+    title: "title",
+    slug: "slug",
+    reference_link: "link",
+    ingredients: "ingredients",
+    directions: "directions",
+    notes: "notes"
+  };
+
   describe("when params passed with preceding and trailing spaces", () => {
     it("whitespace is trimmed", () => {
-      const recipe = new Recipe(
-        "   title   ",
-        "   slug   ",
-        "   link   ",
-        "   ingredients   ",
-        "   directions   ",
-        "   notes   "
-      );
+      // const recipe = new Recipe(
+      //   "   title   ",
+      //   "   slug   ",
+      //   "   link   ",
+      //   "   ingredients   ",
+      //   "   directions   ",
+      //   "   notes   "
+      // );
+
+      const testParams = {
+        title: "   title   ",
+        slug: "   slug   ",
+        reference_link: "   link   ",
+        ingredients: "   ingredients   ",
+        directions: "   directions   ",
+        notes: "   notes   "
+      };
+      const recipe = new Recipe(testParams);
 
       assert.equal(recipe.title, "title");
       assert.equal(recipe.slug, "slug");
@@ -26,21 +45,23 @@ describe("Recipes Model", () => {
   describe("isValid()", () => {
     describe("when all parameters passed", () => {
       it("returns true", () => {
-        const recipe = new Recipe(
-          "title",
-          "slug",
-          "link",
-          "ingredients",
-          "directions",
-          "notes"
-        );
+        const recipe = new Recipe(allParams);
         assert.equal(recipe.isValid().valid, true);
       });
     });
 
     describe("when all parameters NOT passed", () => {
       it("returns false", () => {
-        const recipe = new Recipe("", "", "", "", "", "");
+        // const recipe = new Recipe("", "", "", "", "", "");
+        const testParams = {
+          title: "",
+          slug: "",
+          reference_link: "",
+          ingredients: "",
+          directions: "",
+          notes: ""
+        };
+        const recipe = new Recipe(testParams);
         const { valid, message } = recipe.isValid();
 
         assert.equal(valid, false);
@@ -54,14 +75,16 @@ describe("Recipes Model", () => {
     describe("title parameter", () => {
       describe("when not passed", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "",
-            "slug",
-            "link",
-            "ingredients",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "",
+          //   "slug",
+          //   "link",
+          //   "ingredients",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, title: "" };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -71,14 +94,16 @@ describe("Recipes Model", () => {
 
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "   ",
-            "slug",
-            "link",
-            "ingredients",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "   ",
+          //   "slug",
+          //   "link",
+          //   "ingredients",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, title: "   " };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -90,14 +115,16 @@ describe("Recipes Model", () => {
     describe("slug parameter", () => {
       describe("when not passed", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "title",
-            "",
-            "link",
-            "ingredients",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "",
+          //   "link",
+          //   "ingredients",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, slug: "" };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -107,14 +134,16 @@ describe("Recipes Model", () => {
 
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "title",
-            "   ",
-            "link",
-            "ingredients",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "   ",
+          //   "link",
+          //   "ingredients",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, slug: "   " };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -123,17 +152,19 @@ describe("Recipes Model", () => {
       });
     });
 
-    describe("referenceLink parameter", () => {
+    describe("reference_link parameter", () => {
       describe("when not passed", () => {
         it("returns true", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "",
-            "ingredients",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   "",
+          //   "ingredients",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, reference_link: "" };
+          const recipe = new Recipe(testParams);
 
           assert.equal(recipe.isValid().valid, true);
         });
@@ -141,14 +172,16 @@ describe("Recipes Model", () => {
 
       describe("when passed as null", () => {
         it("returns true", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            null,
-            "ingredients",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   null,
+          //   "ingredients",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, reference_link: null };
+          const recipe = new Recipe(testParams);
 
           assert.equal(recipe.isValid().valid, true);
         });
@@ -158,14 +191,16 @@ describe("Recipes Model", () => {
     describe("ingredients parameter", () => {
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "link",
-            "   ",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   "link",
+          //   "   ",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, ingredients: "   " };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -175,14 +210,16 @@ describe("Recipes Model", () => {
 
       describe("when not passed", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "link",
-            "",
-            "directions",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   "link",
+          //   "",
+          //   "directions",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, ingredients: "" };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -194,14 +231,16 @@ describe("Recipes Model", () => {
     describe("directions parameter", () => {
       describe("when passed as all whitespace", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "link",
-            "ingredients",
-            "   ",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   "link",
+          //   "ingredients",
+          //   "   ",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, directions: "   " };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -211,14 +250,16 @@ describe("Recipes Model", () => {
 
       describe("when not passed", () => {
         it("returns false", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "link",
-            "ingredients",
-            "",
-            "notes"
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   "link",
+          //   "ingredients",
+          //   "",
+          //   "notes"
+          // );
+          const testParams = { ...allParams, directions: "" };
+          const recipe = new Recipe(testParams);
           const { valid, message } = recipe.isValid();
 
           assert.equal(valid, false);
@@ -230,28 +271,24 @@ describe("Recipes Model", () => {
     describe("notes parameter", () => {
       describe("when not passed", () => {
         it("returns true", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "link",
-            "ingredients",
-            "directions",
-            ""
-          );
+          // const recipe = new Recipe(
+          //   "title",
+          //   "slug",
+          //   "link",
+          //   "ingredients",
+          //   "directions",
+          //   ""
+          // );
+          const testParams = { ...allParams, notes: "" };
+          const recipe = new Recipe(testParams);
           assert.equal(recipe.isValid().valid, true);
         });
       });
 
       describe("when passed as null", () => {
         it("returns true", () => {
-          const recipe = new Recipe(
-            "title",
-            "slug",
-            "link",
-            "ingredients",
-            "directions",
-            null
-          );
+          const testParams = { ...allParams, notes: null };
+          const recipe = new Recipe(testParams);
           assert.equal(recipe.isValid().valid, true);
         });
       });
