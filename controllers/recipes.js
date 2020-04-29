@@ -24,5 +24,5 @@ const getBySlug = async (req, res) => {
 
 module.exports = {
   getAll,
-  getBySlug
+  getBySlug,
 };

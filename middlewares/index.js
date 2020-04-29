@@ -7,7 +7,7 @@ const allowedOrigins = [
   "https://jimsegal.com",
   "https://www.jimsegal.com",
   "http://localhost:8100", // projects
-  "https://projects.jimsegal.com"
+  "https://projects.jimsegal.com",
 ];
 
 const middlewares = [
@@ -28,12 +28,12 @@ const middlewares = [
         );
       }
       return callback(null, true);
-    }
+    },
   }),
   sslRedirect(),
   morgan(
     `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
-  )
+  ),
 ];
 
 module.exports = middlewares;

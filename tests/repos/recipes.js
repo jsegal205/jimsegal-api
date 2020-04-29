@@ -54,7 +54,7 @@ describe("RecipeRepository", () => {
             reference_link: "reference_link",
             ingredients: "ingredients",
             directions: "directions",
-            notes: "notes"
+            notes: "notes",
           },
           {
             title: "title2",
@@ -62,8 +62,8 @@ describe("RecipeRepository", () => {
             reference_link: "reference_link2",
             ingredients: "ingredients2",
             directions: "directions2",
-            notes: "notes2"
-          }
+            notes: "notes2",
+          },
         ];
         sandbox.stub(db, "query").returns(dbReturn);
 

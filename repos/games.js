@@ -9,9 +9,9 @@ const getAll = async () => {
     const lookupIds = await db.query("SELECT bgg_id from games");
     const BASE_URL = "https://boardgamegeek.com";
     const API_URL = `${BASE_URL}/xmlapi2/thing?id=${lookupIds
-      .map(id => id["bgg_id"])
+      .map((id) => id["bgg_id"])
       .join()}`;
-    const apiResponse = await axios.get(API_URL).catch(error => {
+    const apiResponse = await axios.get(API_URL).catch((error) => {
       throw error;
     });
 
@@ -20,11 +20,11 @@ const getAll = async () => {
     );
     const { item } = resJson.items;
 
-    const items = item.map(item => {
+    const items = item.map((item) => {
       let bggPrimaryName = "";
       if (Array.isArray(item.name)) {
         bggPrimaryName = item.name.find(
-          item_name => item_name._attributes.type === "primary"
+          (item_name) => item_name._attributes.type === "primary"
         );
       } else {
         bggPrimaryName = item.name;

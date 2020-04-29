@@ -15,10 +15,10 @@ const validateRequiredFields = (obj = {}) => {
     message:
       invalidFields.length === 0
         ? ""
-        : `${invalidFields.join(", ")} - fields are required`
+        : `${invalidFields.join(", ")} - fields are required`,
   };
 };
 
 module.exports = {
-  validateRequiredFields
+  validateRequiredFields,
 };

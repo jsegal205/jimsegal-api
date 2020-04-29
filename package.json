@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha tests/**/*.js --no-colors",
     "dev": "nodemon app.js",
-    "debug": "nodemon inspect app.js"
+    "debug": "nodemon inspect app.js",
+    "prettier": "prettier --write '**/*.{js,html}'"
   },
   "keywords": [],
   "author": "Jim Segal",
@@ -29,6 +30,7 @@
     "faker": "^4.1.0",
     "mocha": "^7.1.2",
     "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
     "sinon": "^9.0.2"
   }
 }
