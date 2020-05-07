@@ -41,7 +41,7 @@ describe("Recipes Model", () => {
       });
     });
 
-    describe("when all parameters NOT passed", () => {
+    describe("when all parameters are passed as blank strings", () => {
       it("returns false", () => {
         const testParams = {
           title: "",
@@ -52,6 +52,19 @@ describe("Recipes Model", () => {
           notes: "",
         };
         const recipe = new Recipe(testParams);
+        const { valid, message } = recipe.isValid();
+
+        assert.equal(valid, false);
+        assert.equal(
+          message,
+          "title, slug, ingredients, directions - fields are required"
+        );
+      });
+    });
+
+    describe("when empty object passed", () => {
+      it("returns false", () => {
+        const recipe = new Recipe({});
         const { valid, message } = recipe.isValid();
 
         assert.equal(valid, false);
