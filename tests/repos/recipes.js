@@ -107,4 +107,63 @@ describe("RecipeRepository", () => {
       });
     });
   });
+
+  describe("create", () => {
+    const validParams = {
+      title: "title",
+      slug: "slug",
+      reference_link: "reference_link",
+      ingredients: "ingredients",
+      directions: "directions",
+      notes: "notes",
+    };
+    describe("when params create invalid recipe object", () => {
+      it("should not call to database", async () => {
+        const dbStub = sandbox.stub(db, "query").returns([]);
+
+        await repo.create({});
+
+        expect(dbStub.calledOnce).to.be.false;
+      });
+
+      it("should return a correctly shaped object", async () => {
+        const actual = await repo.create({});
+        expect(Object.keys(actual)).to.deep.eq(["persisted", "message"]);
+        expect(actual.persisted).to.eq(false);
+      });
+    });
+
+    describe("when params create valid recipe object", () => {
+      it("should call to database", async () => {
+        const dbStub = sandbox.stub(db, "query").returns({
+          title: "title",
+          slug: "slug",
+          reference_link: "reference_link",
+          ingredients: "ingredients",
+          directions: "directions",
+          notes: "notes",
+        });
+
+        await repo.create(validParams);
+
+        expect(dbStub.calledOnce).to.be.true;
+      });
+
+      it("should return a correctly shaped object", async () => {
+        sandbox.stub(db, "query").returns({
+          title: "title",
+          slug: "slug",
+          reference_link: "reference_link",
+          ingredients: "ingredients",
+          directions: "directions",
+          notes: "notes",
+        });
+
+        const actual = await repo.create(validParams);
+
+        expect(Object.keys(actual)).to.deep.eq(["persisted", "recipe"]);
+        expect(actual.persisted).to.eq(true);
+      });
+    });
+  });
 });
