@@ -27,14 +27,12 @@ const create = async (req, res) => {
     const { api_token } = req.headers;
 
     if (!api_token || api_token !== process.env.AUTH_TOKEN) {
-      return res.status(403).json({
-        status: 403,
-        message: "FORBIDDEN"
-      });
+      return res.status(403).send("Forbidden");
     } else {
-      const data = req.body;
-      console.log(data);
-      res.json({ status: 201, message: "did it" });
+      const results = await repo.create(req.body);
+      const { persisted, ...retVal } = results;
+
+      res.status(persisted ? 201 : 400).json(retVal);
     }
   } catch (error) {
     throw error;

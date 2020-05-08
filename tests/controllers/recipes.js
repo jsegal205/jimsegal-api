@@ -47,7 +47,7 @@ describe("RecipeController", () => {
         .withArgs(slug)
         .returns(repoReturn);
 
-      const req = mockRequest(slug);
+      const req = mockRequest({ slug });
       const res = mockResponse();
       await controller.getBySlug(req, res);
 
@@ -63,7 +63,7 @@ describe("RecipeController", () => {
         .withArgs(slug)
         .returns(null);
 
-      const req = mockRequest(slug);
+      const req = mockRequest({ slug });
       const res = mockResponse();
 
       await controller.getBySlug(req, res);
@@ -71,6 +71,71 @@ describe("RecipeController", () => {
       expect(repoStub.calledOnce).to.be.true;
       expect(res.status.calledOnceWithExactly(404)).to.be.true;
       expect(res.send.calledOnceWithExactly("Does not exist")).to.be.true;
+    });
+  });
+
+  describe("create", () => {
+    const validParams = {
+      title: "title",
+      slug: "test-slug",
+      reference_link: "link",
+      ingredients: "ingredients",
+      directions: "directions",
+      notes: "notes",
+    };
+    before(() => {
+      process.env.AUTH_TOKEN = "valid";
+    });
+
+    describe("when auth token is invalid", () => {
+      it("should not call to repo", async () => {
+        const repoStub = sandbox.stub(repo, "create").withArgs(validParams);
+        const req = mockRequest(validParams, { api_token: "invalid" });
+        const res = mockResponse();
+
+        await controller.create(req, res);
+
+        expect(repoStub.calledOnce).to.be.false;
+        expect(res.status.calledOnceWithExactly(403)).to.be.true;
+        expect(res.send.calledOnceWithExactly("Forbidden")).to.be.true;
+      });
+    });
+
+    describe("when auth token is valid", () => {
+      describe("when data is persisted", () => {
+        it("should call to repo", async () => {
+          const recipe = new Recipe(validParams);
+          const expected = { recipe };
+          const repoStub = sandbox
+            .stub(repo, "create")
+            .returns({ persisted: true, ...expected });
+
+          const req = mockRequest(validParams, { api_token: "valid" });
+          const res = mockResponse();
+          await controller.create(req, res);
+
+          expect(repoStub.calledOnce).to.be.true;
+          expect(res.status.calledOnceWithExactly(201)).to.be.true;
+          expect(res.json.calledOnceWithExactly(expected)).to.be.true;
+        });
+      });
+
+      describe("when data is not persisted", () => {
+        it("should call to repo", async () => {
+          const expected = { message: "data not persisted" };
+          const repoStub = sandbox
+            .stub(repo, "create")
+            .returns({ persisted: false, ...expected });
+
+          const req = mockRequest(validParams, { api_token: "valid" });
+          const res = mockResponse();
+          await controller.create(req, res);
+
+          expect(repoStub.calledOnce).to.be.true;
+          expect(res.status.calledOnceWithExactly(400)).to.be.true;
+          expect(res.json.calledOnceWithExactly(expected)).to.be.true;
+        });
+      });
     });
   });
 });
