@@ -117,6 +117,7 @@ describe("RecipeRepository", () => {
       directions: "directions",
       notes: "notes",
     };
+
     describe("when params create invalid recipe object", () => {
       it("should not call to database", async () => {
         const dbStub = sandbox.stub(db, "query").returns([]);
@@ -163,6 +164,18 @@ describe("RecipeRepository", () => {
 
         expect(Object.keys(actual)).to.deep.eq(["persisted", "recipe"]);
         expect(actual.persisted).to.eq(true);
+      });
+
+      describe("when db returns error", () => {
+        it("should provide user context why it failed", async () => {
+          sandbox.stub(db, "query").throws({ detail: "Something happened" });
+
+          const actual = await repo.create(validParams);
+
+          expect(Object.keys(actual)).to.deep.eq(["persisted", "message"]);
+          expect(actual.persisted).to.eq(false);
+          expect(actual.message).to.eq("Something happened");
+        });
       });
     });
   });
