@@ -36,13 +36,20 @@ const create = async (params) => {
       notes,
     } = recipe;
 
-    await db.query(
-      `
-      INSERT INTO recipes(title, slug, reference_link, ingredients, directions, notes)
-      VALUES ($1, $2, $3, $4, $5, $6);
-    `,
-      [title, slug, referenceLink, ingredients, directions, notes]
-    );
+    try {
+      await db.query(
+        `
+        INSERT INTO recipes(title, slug, reference_link, ingredients, directions, notes)
+        VALUES ($1, $2, $3, $4, $5, $6);
+        `,
+        [title, slug, referenceLink, ingredients, directions, notes]
+      );
+    } catch (error) {
+      return {
+        persisted: false,
+        message: error.detail.replace(/[()]/g, ""),
+      };
+    }
 
     return {
       persisted: true,
