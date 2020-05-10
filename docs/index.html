@@ -49,6 +49,12 @@
         padding-left: 1em;
         content: "→";
       }
+      .authenticated svg {
+        color: #dd5555;
+        height: 1em;
+        vertical-align: middle;
+        width: 1em;
+      }
     </style>
   </head>
   <body>
@@ -135,6 +141,67 @@
         &nbsp;&nbsp;},<br />
         &nbsp;&nbsp;...<br />
         ]
+      </blockquote>
+      <h3>
+        <span class="httpverb"
+          >[POST]
+          <span class="authenticated" title="authentication required">
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="lock"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              class="svg-inline--fa fa-lock fa-w-14"
+            >
+              <path
+                fill="currentColor"
+                d="M400 224h-24v-72C376 68.2 307.8 0 224 0S72 68.2 72 152v72H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zm-104 0H152v-72c0-39.7 32.3-72 72-72s72 32.3 72 72v72z"
+                class=""
+              ></path>
+            </svg>
+          </span>
+        </span>
+        <a class="endpoint" href="#">/recipes</a>
+      </h3>
+      <div class="abstract">
+        Endpoint to add more recipies
+      </div>
+      <h4>Required Params</h4>
+      <ul class="inputparams">
+        <li><span class="param">:title - {String}</span>title for recipe</li>
+        <li>
+          <span class="param">:ingredients - {String}</span>ingredients for
+          recipe. Markdown preferred.
+        </li>
+        <li>
+          <span class="param">:directions - {String}</span>directions for
+          recipe. Markdown preferred.
+        </li>
+      </ul>
+      <h4>Optional Params</h4>
+      <ul class="inputparams">
+        <li>
+          <span class="param">:reference_link - {String}</span>link of reference
+          for recipe to another site. Url preferred.
+        </li>
+        <li>
+          <span class="param">:notes - {String}</span>extra notes pertaining to
+          the recipe.
+        </li>
+      </ul>
+      <h4>Returns</h4>
+      <blockquote>
+        { <br />
+        &nbsp;&nbsp;"title": {String},<br />
+        &nbsp;&nbsp;"slug": {String},<br />
+        &nbsp;&nbsp;"referenceLink": {String},<br />
+        &nbsp;&nbsp;"ingredients": {String},<br />
+        &nbsp;&nbsp;"directions": {String},<br />
+        &nbsp;&nbsp;"notes": {String}<br />
+        }
       </blockquote>
       <h3>
         <span class="httpverb">[GET]</span>
