@@ -4,11 +4,16 @@ const db = require("../db/pg");
 const selectAll =
   "SELECT title, slug, reference_link, ingredients, directions, notes from recipes";
 
+const removeExtraProps = (hydradedRecipe) => {
+  const { REQUIRED_FIELDS, ...relevant } = hydradedRecipe;
+  return relevant;
+};
+
 const getAll = async () => {
   const recipes = await db.query(`${selectAll} order by title`);
 
   return recipes.map((recipe) => {
-    return new Recipe(recipe);
+    return removeExtraProps(new Recipe(recipe));
   });
 };
 
@@ -20,7 +25,7 @@ const getBySlug = async (slug) => {
   }
 
   const recipe = results[0];
-  return new Recipe(recipe);
+  return removeExtraProps(new Recipe(recipe));
 };
 
 const create = async (params) => {
@@ -34,7 +39,7 @@ const create = async (params) => {
       ingredients,
       directions,
       notes,
-    } = recipe;
+    } = removeExtraProps(recipe);
 
     try {
       await db.query(
