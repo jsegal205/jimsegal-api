@@ -27,5 +27,28 @@ describe("Validation.validateRequiredFields", () => {
       const actual = validateRequiredFields(new HasRequired());
       assert.deepEqual(Object.keys(actual), ["valid", "message"]);
     });
+
+    describe("when object prop does not have required prop", () => {
+      it("returns invalid and message", () => {
+        const hasRequired = new HasRequired();
+        hasRequired["notRequired"] = "value";
+
+        const actual = validateRequiredFields(hasRequired);
+        assert.deepEqual(actual, {
+          valid: false,
+          message: `${hasRequired.REQUIRED_FIELDS[0]} - fields are required`,
+        });
+      });
+    });
+
+    describe("when object prop has required prop", () => {
+      it("returns valid and no message", () => {
+        const hasRequired = new HasRequired();
+        hasRequired[hasRequired.REQUIRED_FIELDS[0]] = "value";
+
+        const actual = validateRequiredFields(hasRequired);
+        assert.deepEqual(actual, { valid: true, message: "" });
+      });
+    });
   });
 });
