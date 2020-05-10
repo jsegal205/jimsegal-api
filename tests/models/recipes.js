@@ -2,10 +2,11 @@ const assert = require("assert");
 
 const Recipe = require("../../models/recipes");
 
+const { slugify } = require("../../utils/url");
+
 describe("Recipes Model", () => {
   const allParams = {
     title: "title",
-    slug: "slug",
     reference_link: "link",
     ingredients: "ingredients",
     directions: "directions",
@@ -16,7 +17,6 @@ describe("Recipes Model", () => {
     it("whitespace is trimmed", () => {
       const testParams = {
         title: "   title   ",
-        slug: "   slug   ",
         reference_link: "   link   ",
         ingredients: "   ingredients   ",
         directions: "   directions   ",
@@ -25,11 +25,22 @@ describe("Recipes Model", () => {
       const recipe = new Recipe(testParams);
 
       assert.equal(recipe.title, "title");
-      assert.equal(recipe.slug, "slug");
+      assert.equal(recipe.slug, "title");
       assert.equal(recipe.referenceLink, "link");
       assert.equal(recipe.ingredients, "ingredients");
       assert.equal(recipe.directions, "directions");
       assert.equal(recipe.notes, "notes");
+    });
+  });
+
+  describe("generated properties", () => {
+    describe("slug", () => {
+      it("should return slugified title", () => {
+        const testParams = { title: "one two 1234567890" };
+        const recipe = new Recipe(testParams);
+
+        assert.equal(recipe.slug, slugify(testParams.title));
+      });
     });
   });
 
@@ -41,11 +52,10 @@ describe("Recipes Model", () => {
       });
     });
 
-    describe("when all parameters NOT passed", () => {
+    describe("when all parameters are passed as blank strings", () => {
       it("returns false", () => {
         const testParams = {
           title: "",
-          slug: "",
           reference_link: "",
           ingredients: "",
           directions: "",
@@ -57,7 +67,20 @@ describe("Recipes Model", () => {
         assert.equal(valid, false);
         assert.equal(
           message,
-          "title, slug, ingredients, directions - fields are required"
+          "title, ingredients, directions - fields are required"
+        );
+      });
+    });
+
+    describe("when empty object passed", () => {
+      it("returns false", () => {
+        const recipe = new Recipe({});
+        const { valid, message } = recipe.isValid();
+
+        assert.equal(valid, false);
+        assert.equal(
+          message,
+          "title, ingredients, directions - fields are required"
         );
       });
     });
@@ -82,30 +105,6 @@ describe("Recipes Model", () => {
 
           assert.equal(valid, false);
           assert.equal(message, "title - fields are required");
-        });
-      });
-    });
-
-    describe("slug parameter", () => {
-      describe("when not passed", () => {
-        it("returns false", () => {
-          const testParams = { ...allParams, slug: "" };
-          const recipe = new Recipe(testParams);
-          const { valid, message } = recipe.isValid();
-
-          assert.equal(valid, false);
-          assert.equal(message, "slug - fields are required");
-        });
-      });
-
-      describe("when passed as all whitespace", () => {
-        it("returns false", () => {
-          const testParams = { ...allParams, slug: "   " };
-          const recipe = new Recipe(testParams);
-          const { valid, message } = recipe.isValid();
-
-          assert.equal(valid, false);
-          assert.equal(message, "slug - fields are required");
         });
       });
     });

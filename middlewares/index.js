@@ -1,6 +1,7 @@
 const cors = require("cors");
 const sslRedirect = require("./ssl-redirect");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 
 const allowedOrigins = [
   "http://localhost:8000", // web
@@ -34,6 +35,7 @@ const middlewares = [
   morgan(
     `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
   ),
+  bodyParser.json(),
 ];
 
 module.exports = middlewares;

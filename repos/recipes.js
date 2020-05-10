@@ -4,11 +4,16 @@ const db = require("../db/pg");
 const selectAll =
   "SELECT title, slug, reference_link, ingredients, directions, notes from recipes";
 
+const removeExtraProps = (hydradedRecipe) => {
+  const { REQUIRED_FIELDS, ...relevant } = hydradedRecipe;
+  return relevant;
+};
+
 const getAll = async () => {
   const recipes = await db.query(`${selectAll} order by title`);
 
   return recipes.map((recipe) => {
-    return new Recipe(recipe);
+    return removeExtraProps(new Recipe(recipe));
   });
 };
 
@@ -20,7 +25,55 @@ const getBySlug = async (slug) => {
   }
 
   const recipe = results[0];
-  return new Recipe(recipe);
+  return removeExtraProps(new Recipe(recipe));
 };
 
-module.exports = { getAll, getBySlug };
+const create = async (params) => {
+  const recipe = new Recipe(params);
+  const { valid, message } = recipe.isValid();
+  if (valid) {
+    const {
+      title,
+      slug,
+      referenceLink,
+      ingredients,
+      directions,
+      notes,
+    } = removeExtraProps(recipe);
+
+    try {
+      await db.query(
+        `
+        INSERT INTO recipes(title, slug, reference_link, ingredients, directions, notes)
+        VALUES ($1, $2, $3, $4, $5, $6);
+        `,
+        [title, slug, referenceLink, ingredients, directions, notes]
+      );
+    } catch (error) {
+      if (error.detail) {
+        return {
+          persisted: false,
+          message: error.detail.replace(/[()]/g, ""),
+        };
+      }
+
+      throw error;
+    }
+
+    return {
+      persisted: true,
+      recipe: {
+        title,
+        slug,
+        referenceLink,
+        ingredients,
+        directions,
+        notes,
+      },
+    };
+  }
+
+  return { persisted: false, message };
+};
+
+module.exports = { create, getAll, getBySlug };

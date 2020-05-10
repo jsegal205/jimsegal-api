@@ -30,7 +30,7 @@ describe("RecipeRepository", () => {
         const dbReturn = [
           {
             title: "title",
-            slug: "slug",
+            slug: "title",
             reference_link: "reference_link",
             ingredients: "ingredients",
             directions: "directions",
@@ -38,7 +38,7 @@ describe("RecipeRepository", () => {
           },
           {
             title: "title2",
-            slug: "slug2",
+            slug: "title2",
             reference_link: "reference_link2",
             ingredients: "ingredients2",
             directions: "directions2",
@@ -78,7 +78,7 @@ describe("RecipeRepository", () => {
         const dbReturn = [
           {
             title: "title",
-            slug: "slug",
+            slug: "title",
             reference_link: "reference_link",
             ingredients: "ingredients",
             directions: "directions",
@@ -86,7 +86,7 @@ describe("RecipeRepository", () => {
           },
           {
             title: "title2",
-            slug: "slug2",
+            slug: "title2",
             reference_link: "reference_link2",
             ingredients: "ingredients2",
             directions: "directions2",
@@ -104,6 +104,77 @@ describe("RecipeRepository", () => {
         expect(actual.ingredients).to.eq(expected.ingredients);
         expect(actual.directions).to.eq(expected.directions);
         expect(actual.notes).to.eq(expected.notes);
+      });
+    });
+  });
+
+  describe("create", () => {
+    const validParams = {
+      title: "title",
+      reference_link: "reference_link",
+      ingredients: "ingredients",
+      directions: "directions",
+      notes: "notes",
+    };
+
+    describe("when params create invalid recipe object", () => {
+      it("should not call to database", async () => {
+        const dbStub = sandbox.stub(db, "query").returns([]);
+
+        await repo.create({});
+
+        expect(dbStub.calledOnce).to.be.false;
+      });
+
+      it("should return a correctly shaped object", async () => {
+        const actual = await repo.create({});
+        expect(Object.keys(actual)).to.deep.eq(["persisted", "message"]);
+        expect(actual.persisted).to.eq(false);
+      });
+    });
+
+    describe("when params create valid recipe object", () => {
+      it("should call to database", async () => {
+        const dbStub = sandbox.stub(db, "query").returns({
+          title: "title",
+          slug: "title",
+          reference_link: "reference_link",
+          ingredients: "ingredients",
+          directions: "directions",
+          notes: "notes",
+        });
+
+        await repo.create(validParams);
+
+        expect(dbStub.calledOnce).to.be.true;
+      });
+
+      it("should return a correctly shaped object", async () => {
+        sandbox.stub(db, "query").returns({
+          title: "title",
+          slug: "title",
+          reference_link: "reference_link",
+          ingredients: "ingredients",
+          directions: "directions",
+          notes: "notes",
+        });
+
+        const actual = await repo.create(validParams);
+
+        expect(Object.keys(actual)).to.deep.eq(["persisted", "recipe"]);
+        expect(actual.persisted).to.eq(true);
+      });
+
+      describe("when db returns error", () => {
+        it("should provide user context why it failed", async () => {
+          sandbox.stub(db, "query").throws({ detail: "Something happened" });
+
+          const actual = await repo.create(validParams);
+
+          expect(Object.keys(actual)).to.deep.eq(["persisted", "message"]);
+          expect(actual.persisted).to.eq(false);
+          expect(actual.message).to.eq("Something happened");
+        });
       });
     });
   });

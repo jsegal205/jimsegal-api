@@ -22,7 +22,25 @@ const getBySlug = async (req, res) => {
   }
 };
 
+const create = async (req, res) => {
+  try {
+    const { api_token } = req.headers;
+
+    if (!api_token || api_token !== process.env.AUTH_TOKEN) {
+      return res.status(403).send("Forbidden");
+    } else {
+      const results = await repo.create(req.body);
+      const { persisted, ...retVal } = results;
+
+      res.status(persisted ? 201 : 400).json(retVal);
+    }
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
+  create,
   getAll,
   getBySlug,
 };
