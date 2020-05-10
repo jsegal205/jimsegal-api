@@ -111,7 +111,6 @@ describe("RecipeRepository", () => {
   describe("create", () => {
     const validParams = {
       title: "title",
-      slug: "title",
       reference_link: "reference_link",
       ingredients: "ingredients",
       directions: "directions",
