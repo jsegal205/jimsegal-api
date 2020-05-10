@@ -30,7 +30,7 @@ describe("RecipeRepository", () => {
         const dbReturn = [
           {
             title: "title",
-            slug: "slug",
+            slug: "title",
             reference_link: "reference_link",
             ingredients: "ingredients",
             directions: "directions",
@@ -38,7 +38,7 @@ describe("RecipeRepository", () => {
           },
           {
             title: "title2",
-            slug: "slug2",
+            slug: "title2",
             reference_link: "reference_link2",
             ingredients: "ingredients2",
             directions: "directions2",
@@ -78,7 +78,7 @@ describe("RecipeRepository", () => {
         const dbReturn = [
           {
             title: "title",
-            slug: "slug",
+            slug: "title",
             reference_link: "reference_link",
             ingredients: "ingredients",
             directions: "directions",
@@ -86,7 +86,7 @@ describe("RecipeRepository", () => {
           },
           {
             title: "title2",
-            slug: "slug2",
+            slug: "title2",
             reference_link: "reference_link2",
             ingredients: "ingredients2",
             directions: "directions2",
@@ -111,7 +111,7 @@ describe("RecipeRepository", () => {
   describe("create", () => {
     const validParams = {
       title: "title",
-      slug: "slug",
+      slug: "title",
       reference_link: "reference_link",
       ingredients: "ingredients",
       directions: "directions",
@@ -138,7 +138,7 @@ describe("RecipeRepository", () => {
       it("should call to database", async () => {
         const dbStub = sandbox.stub(db, "query").returns({
           title: "title",
-          slug: "slug",
+          slug: "title",
           reference_link: "reference_link",
           ingredients: "ingredients",
           directions: "directions",
@@ -153,7 +153,7 @@ describe("RecipeRepository", () => {
       it("should return a correctly shaped object", async () => {
         sandbox.stub(db, "query").returns({
           title: "title",
-          slug: "slug",
+          slug: "title",
           reference_link: "reference_link",
           ingredients: "ingredients",
           directions: "directions",
