@@ -45,10 +45,14 @@ const create = async (params) => {
         [title, slug, referenceLink, ingredients, directions, notes]
       );
     } catch (error) {
-      return {
-        persisted: false,
-        message: error.detail.replace(/[()]/g, ""),
-      };
+      if (error.detail) {
+        return {
+          persisted: false,
+          message: error.detail.replace(/[()]/g, ""),
+        };
+      }
+
+      throw error;
     }
 
     return {
