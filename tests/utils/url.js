@@ -29,4 +29,9 @@ describe("Url.slugify", () => {
     );
     assert.equal(actual, "abcdefghijklmnopqrstuvwxyz-1234567890");
   });
+
+  it("should handle empty inputs", () => {
+    const actual = slugify("");
+    assert.equal(actual, "");
+  });
 });
