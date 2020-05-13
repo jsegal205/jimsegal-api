@@ -1,8 +1,8 @@
 const sinon = require("sinon");
 
-const mockRequest = (params) => {
+const mockRequest = (requestOptions) => {
   return {
-    ...params,
+    ...requestOptions,
   };
 };
 
