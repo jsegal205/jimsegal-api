@@ -47,7 +47,7 @@ describe("RecipeController", () => {
         .withArgs(slug)
         .returns(repoReturn);
 
-      const req = mockRequest({ slug });
+      const req = mockRequest({ params: { slug } });
       const res = mockResponse();
       await controller.getBySlug(req, res);
 
@@ -63,7 +63,7 @@ describe("RecipeController", () => {
         .withArgs(slug)
         .returns(null);
 
-      const req = mockRequest({ slug });
+      const req = mockRequest({ params: { slug } });
       const res = mockResponse();
 
       await controller.getBySlug(req, res);
@@ -77,7 +77,6 @@ describe("RecipeController", () => {
   describe("create", () => {
     const validParams = {
       title: "title",
-      slug: "test-slug",
       reference_link: "link",
       ingredients: "ingredients",
       directions: "directions",
@@ -90,7 +89,10 @@ describe("RecipeController", () => {
     describe("when auth token is invalid", () => {
       it("should not call to repo", async () => {
         const repoStub = sandbox.stub(repo, "create").withArgs(validParams);
-        const req = mockRequest(validParams, { api_token: "invalid" });
+        const req = mockRequest({
+          body: validParams,
+          headers: { api_token: "invalid" },
+        });
         const res = mockResponse();
 
         await controller.create(req, res);
@@ -110,7 +112,10 @@ describe("RecipeController", () => {
             .stub(repo, "create")
             .returns({ persisted: true, ...expected });
 
-          const req = mockRequest(validParams, { api_token: "valid" });
+          const req = mockRequest({
+            body: validParams,
+            headers: { api_token: "valid" },
+          });
           const res = mockResponse();
           await controller.create(req, res);
 
@@ -127,7 +132,10 @@ describe("RecipeController", () => {
             .stub(repo, "create")
             .returns({ persisted: false, ...expected });
 
-          const req = mockRequest(validParams, { api_token: "valid" });
+          const req = mockRequest({
+            body: validParams,
+            headers: { api_token: "valid" },
+          });
           const res = mockResponse();
           await controller.create(req, res);
 
