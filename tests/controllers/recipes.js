@@ -104,6 +104,27 @@ describe("RecipeController", () => {
     });
 
     describe("when auth token is valid", () => {
+      it("does not send `slug` prop to repo", async () => {
+        const testParams = {
+          title: "title",
+          slug: "slug",
+        };
+        const repoStub = sandbox
+          .stub(repo, "create")
+          .returns({ persisted: true, matters: "not" });
+
+        const req = mockRequest({
+          body: testParams,
+          headers: { api_token: "valid" },
+        });
+        const res = mockResponse();
+
+        await controller.create(req, res);
+
+        const passedArg = repoStub.getCall(0).args[0];
+        expect(passedArg).to.deep.eq({ title: "title" });
+      });
+
       describe("when data is persisted", () => {
         it("should call to repo", async () => {
           const recipe = new Recipe(validParams);
