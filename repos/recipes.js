@@ -1,19 +1,15 @@
 const Recipe = require("../models/recipes");
 const db = require("../db/pg");
+const { removeInternalProps } = require("../utils/repo-helper");
 
 const selectAll =
   "SELECT title, slug, reference_link, ingredients, directions, notes from recipes";
-
-const removeExtraProps = (hydradedRecipe) => {
-  const { REQUIRED_FIELDS, ...relevant } = hydradedRecipe;
-  return relevant;
-};
 
 const getAll = async () => {
   const recipes = await db.query(`${selectAll} order by title`);
 
   return recipes.map((recipe) => {
-    return removeExtraProps(new Recipe(recipe));
+    return removeInternalProps(new Recipe(recipe));
   });
 };
 
@@ -25,7 +21,7 @@ const getBySlug = async (slug) => {
   }
 
   const recipe = results[0];
-  return removeExtraProps(new Recipe(recipe));
+  return removeInternalProps(new Recipe(recipe));
 };
 
 const create = async (params) => {
@@ -39,7 +35,7 @@ const create = async (params) => {
       ingredients,
       directions,
       notes,
-    } = removeExtraProps(recipe);
+    } = removeInternalProps(recipe);
 
     try {
       await db.query(
