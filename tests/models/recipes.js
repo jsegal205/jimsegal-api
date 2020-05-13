@@ -35,11 +35,25 @@ describe("Recipes Model", () => {
 
   describe("generated properties", () => {
     describe("slug", () => {
-      it("should return slugified title", () => {
-        const testParams = { title: "one two 1234567890" };
-        const recipe = new Recipe(testParams);
+      describe("when not passed", () => {
+        it("should return slugified title", () => {
+          const testParams = { title: "one two 1234567890" };
+          const recipe = new Recipe(testParams);
 
-        assert.equal(recipe.slug, slugify(testParams.title));
+          assert.equal(recipe.slug, slugify(testParams.title));
+        });
+      });
+
+      describe("when passed", () => {
+        it("should return passed prop", () => {
+          const testParams = {
+            title: "title",
+            slug: "slug-sluggerooo",
+          };
+          const recipe = new Recipe(testParams);
+
+          assert.equal(recipe.slug, "slug-sluggerooo");
+        });
       });
     });
   });

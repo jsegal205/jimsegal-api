@@ -4,6 +4,8 @@ const xmlConverter = require("xml-js");
 const Game = require("../models/games");
 const db = require("../db/pg");
 
+const { removeInternalProps } = require("../utils/repo-helper");
+
 const getAll = async () => {
   try {
     const lookupIds = await db.query("SELECT bgg_id from games");
@@ -35,7 +37,7 @@ const getAll = async () => {
       const bggId = item._attributes.id;
       const bggType = item._attributes.type;
       const link = `${BASE_URL}/${bggType}/${bggId}`;
-      return new Game({ title, link, image, bggId });
+      return removeInternalProps(new Game({ title, link, image, bggId }));
     });
 
     return items.sort((current, next) => {
