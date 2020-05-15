@@ -10,6 +10,7 @@ const Docs = require("./controllers/docs");
 const Games = require("./controllers/games");
 const Recipes = require("./controllers/recipes");
 const Travel = require("./controllers/travel");
+const User = require("./controllers/users");
 const Weather = require("./controllers/weather");
 
 const port = process.env.PORT || 8001;
@@ -33,6 +34,7 @@ app.post("/recipes", Recipes.create);
 app.get("/travel", Travel.getAll);
 app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
+app.post("/login", User.login);
 app.get("/favicon.ico", (req, res) => res.status(204).send(""));
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
