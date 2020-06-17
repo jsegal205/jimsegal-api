@@ -9,6 +9,8 @@ const allowedOrigins = [
   "https://www.jimsegal.com",
   "http://localhost:8100", // projects
   "https://projects.jimsegal.com",
+  "https://jimsegal.dev",
+  "https://www.jimsegal.dev",
 ];
 
 const middlewares = [
