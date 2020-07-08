@@ -81,6 +81,34 @@
       </blockquote>
       <h3>
         <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/info">/info</a>
+      </h3>
+      <div class="abstract">
+        My recent Github activity
+      </div>
+      <h4>Returns</h4>
+      <blockquote>
+        {<br />
+        &nbsp;&nbsp;github: [<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"repoName": {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"commits": [<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"sha":
+        {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"message":
+        {String},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;],<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"createdAt": {String}<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;},<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;...<br />
+        &nbsp;&nbsp;]<br />
+        }
+      </blockquote>
+      <h3>
+        <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/isAnchorageColderThan/41.8369/-87.6847"
           >/isAnchorageColderThan/:lat/:long</a
         >
