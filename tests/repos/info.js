@@ -1,7 +1,6 @@
 const chai = require("chai");
 const sinon = require("sinon");
 const expect = chai.expect;
-const faker = require("faker");
 
 const axios = require("axios");
 const repo = require("../../repos/info");
