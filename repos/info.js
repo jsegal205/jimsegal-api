@@ -2,13 +2,13 @@ const axios = require("axios");
 
 const getGithub = async () => {
   try {
-    const api_res = await axios(
-      "https://api.github.com/users/jsegal205/events/public"
-    ).catch((error) => {
-      throw error;
-    });
+    const apiRes = await axios
+      .get("https://api.github.com/users/jsegal205/events/public")
+      .catch((error) => {
+        throw error;
+      });
 
-    const lastPushes = api_res.data
+    const lastPushes = apiRes.data
       .filter((event) => event.type === "PushEvent")
       .filter((push) => push.payload.ref !== "refs/heads/gh-pages");
 
