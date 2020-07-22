@@ -8,6 +8,7 @@ const middlewares = require("./middlewares");
 // controllers
 const Docs = require("./controllers/docs");
 const Games = require("./controllers/games");
+const Info = require("./controllers/info");
 const Recipes = require("./controllers/recipes");
 const Travel = require("./controllers/travel");
 const Weather = require("./controllers/weather");
@@ -27,6 +28,7 @@ app.use(middlewares);
 app.get("/", Docs.getAll);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
+app.get("/info", Info.getAll);
 app.get("/recipes", Recipes.getAll);
 app.get("/recipe/:slug", Recipes.getBySlug);
 app.post("/recipes", Recipes.create);
