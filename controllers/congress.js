@@ -92,17 +92,18 @@ const averageAge = (arr) => {
 
 const youngestAge = (arr) => {
   const age = Math.min(...arr.map((member) => member.age));
-  return arr.filter((member) => member.age === age);
+  return arr.filter((member) => member.age === age)[0];
 };
 
 const oldestAge = (arr) => {
   const age = Math.max(...arr.map((member) => member.age));
-  return arr.filter((member) => member.age === age);
+  return arr.filter((member) => member.age === age)[0];
 };
 
 const genderStats = (gender) => {
   const total = gender.M.length + gender.F.length;
   return {
+    total,
     men: gender.M.length,
     percentMen: round((gender.M.length / total) * 100),
     percentWomen: round((gender.F.length / total) * 100),
@@ -164,6 +165,7 @@ const _getMember = () => {
 const getStats = async (req, res) => {
   try {
     res.json({
+      session: 116,
       ...(await computeStats("house")),
       ...(await computeStats("senate")),
     });
