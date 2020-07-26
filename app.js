@@ -6,6 +6,7 @@ const Sentry = require("@sentry/node");
 const middlewares = require("./middlewares");
 
 // controllers
+const Congress = require("./controllers/congress");
 const Docs = require("./controllers/docs");
 const Games = require("./controllers/games");
 const Recipes = require("./controllers/recipes");
@@ -25,6 +26,7 @@ if (!!process.env.SENTRY_DSN) {
 app.use(middlewares);
 
 app.get("/", Docs.getAll);
+app.get("/congress/stats", Congress.getStats);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
 app.get("/recipes", Recipes.getAll);
