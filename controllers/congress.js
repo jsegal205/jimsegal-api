@@ -2,18 +2,43 @@ const axios = require("axios");
 
 const round = (val) => +val.toFixed(2);
 
-const getResults = async (congress) => {
+// const getCongressSessionNumber = () => {
+//   const sessionMap = {
+//     [new Date(2023, 1, 3)]: 117,
+//     [new Date(2021, 1, 3)]: 116,
+//     [new Date(2019, 1, 3)]: 115,
+//   };
+
+//   const today = new Date();
+//   const closest = Object.keys(sessionMap).reduce((a, b) => {
+//     const adiff = a - today;
+//     return adiff > 0 && adiff < b - today ? a : b;
+//   });
+//   // debugger;
+//   return obj[closest];
+// };
+
+const makeApiReq = async (url) => {
   const api_res = await axios({
-    url: `https://api.propublica.org/congress/v1/116/${congress}/members.json`,
+    url,
     headers: { "x-api-key": process.env.PROPUBLICA_API_TOKEN },
   });
-  const { members } = api_res.data.results[0];
+
+  return api_res.data.results[0];
+};
+
+const computeStats = async (chamber) => {
+  // const sessionNum = getCongressSessionNumber();
+
+  const { members } = await makeApiReq(
+    `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
+  );
   const slimMembers = slimmedResults(members);
   const genderSplit = groupBy(slimMembers, "gender");
   const partySplit = groupBy(slimMembers, "party");
 
   return {
-    [congress]: {
+    [chamber]: {
       age: {
         average: {
           all: averageAge(slimMembers),
@@ -115,11 +140,44 @@ const partyStats = (party) => {
   };
 };
 
+const _getMembers = async (chamber) => {
+  const { members } = await makeApiReq(
+    `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
+  );
+
+  return {
+    [chamber]: members,
+  };
+};
+
+const _getMember = () => {
+  // get member by id:
+
+  // join in misconduct based on govtrack_id
+  // https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv
+
+  // join in voting record by propublica_id
+  // https://api.propublica.org/congress/v1/members/${pp_id}/votes.json
+  return "todo";
+};
+
 const getStats = async (req, res) => {
   try {
     res.json({
-      ...(await getResults("house")),
-      ...(await getResults("senate")),
+      ...(await computeStats("house")),
+      ...(await computeStats("senate")),
+    });
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+const getMembers = async (req, res) => {
+  try {
+    res.json({
+      ...(await _getMembers("house")),
+      ...(await _getMembers("senate")),
     });
   } catch (err) {
     console.error(err);
@@ -128,5 +186,6 @@ const getStats = async (req, res) => {
 };
 
 module.exports = {
+  getMembers,
   getStats,
 };
