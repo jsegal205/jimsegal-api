@@ -26,29 +26,37 @@
       .endpoints {
         margin-left: 2em;
       }
+
       .abstract {
         margin: 2em 1em;
       }
-      blockquote {
+
+      pre {
         border: 5px solid #444444;
+        font-family: inherit;
         margin: 2em 1em;
         padding: 2em;
       }
+
       .httpverb {
         color: #5555ff;
         margin-right: 1em;
       }
+
       .inputparams {
         list-style-type: none;
       }
+
       .inputparams .param {
         font-style: italic;
         margin-right: 1em;
       }
+
       .inputparams .param::after {
         padding-left: 1em;
         content: "→";
       }
+
       .authenticated svg {
         color: #dd5555;
         height: 1em;
@@ -57,6 +65,7 @@
       }
     </style>
   </head>
+
   <body>
     <h1>Api.JimSegal.com</h1>
     <h2>Available Endpoints</h2>
@@ -69,183 +78,111 @@
         Information about the current congressional session.
       </div>
       <h4>Returns</h4>
-      <blockquote>
-        &nbsp;&nbsp;{<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;{<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"session": {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"house": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"average":
-        {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"all":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"democrat":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"female":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"male":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"republican":
-        {Decimal}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"oldest":
-        {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"date_of_birth":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"full_name":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"gender":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"party":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"state":
-        {String}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"youngest":
-        {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"date_of_birth":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"full_name":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"gender":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"party":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"state":
-        {String}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"gender": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"total":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"men":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentMen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentWomen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"women":
-        {Integer}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"party": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"D": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"total":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"men":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentMen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentWomen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"women":
-        {Integer}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"R": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"total":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"men":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentMen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentWomen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"women":
-        {Integer}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"senate": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"average":
-        {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"all":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"democrat":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"female":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"male":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"republican":
-        {Decimal}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"oldest":
-        {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"date_of_birth":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"full_name":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"gender":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"party":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"state":
-        {String}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"youngest":
-        {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"age":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"date_of_birth":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"full_name":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"gender":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"party":
-        {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"state":
-        {String}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"gender": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"total":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"men":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentMen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentWomen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"women":
-        {Integer}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"party": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"D": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"total":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"men":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentMen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentWomen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"women":
-        {Integer}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"R": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"total":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"men":
-        {Integer},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentMen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"percentWomen":
-        {Decimal},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"women":
-        {Integer}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
-        &nbsp;&nbsp;}
-      </blockquote>
+      <pre>
+{
+    "session": {Integer},
+    "house": {
+        "age": {
+            "average": {
+                "all": {Decimal},
+                "democrat": {Decimal},
+                "female": {Decimal},
+                "male": {Decimal},
+                "republican": {Decimal}
+            },
+            "oldest": {
+                "age": {Integer},
+                "date_of_birth": {String},
+                "full_name": {String},
+                "gender": {String},
+                "party": {String},
+                "state": {String}
+            },
+            "youngest": {
+                "age": {Integer},
+                "date_of_birth": {String},
+                "full_name": {String},
+                "gender": {String},
+                "party": {String},
+                "state": {String}
+            }
+        },
+        "gender": {
+            "total": {Integer},
+            "men": {Integer},
+            "percentMen": {Decimal},
+            "percentWomen": {Decimal},
+            "women": {Integer}
+        },
+        "party": {
+            "D": {
+                "total": {Integer},
+                "men": {Integer},
+                "percentMen": {Decimal},
+                "percentWomen": {Decimal},
+                "women": {Integer}
+            },
+            "R": {
+                "total": {Integer},
+                "men": {Integer},
+                "percentMen": {Decimal},
+                "percentWomen": {Decimal},
+                "women": {Integer}
+            }
+        }
+    },
+    "senate": {
+        "age": {
+            "average": {
+                "all": {Decimal},
+                "democrat": {Decimal},
+                "female": {Decimal},
+                "male": {Decimal},
+                "republican": {Decimal}
+            },
+            "oldest": {
+                "age": {Integer},
+                "date_of_birth": {String},
+                "full_name": {String},
+                "gender": {String},
+                "party": {String},
+                "state": {String}
+            },
+            "youngest": {
+                "age": {Integer},
+                "date_of_birth": {String},
+                "full_name": {String},
+                "gender": {String},
+                "party": {String},
+                "state": {String}
+            }
+        },
+        "gender": {
+            "total": {Integer},
+            "men": {Integer},
+            "percentMen": {Decimal},
+            "percentWomen": {Decimal},
+            "women": {Integer}
+        },
+        "party": {
+            "D": {
+                "total": {Integer},
+                "men": {Integer},
+                "percentMen": {Decimal},
+                "percentWomen": {Decimal},
+                "women": {Integer}
+            },
+            "R": {
+                "total": {Integer},
+                "men": {Integer},
+                "percentMen": {Decimal},
+                "percentWomen": {Decimal},
+                "women": {Integer}
+            }
+        }
+    }
+}</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/games">/games</a>
@@ -254,16 +191,16 @@
         A list of the tabletop games (board games and card games) I own.
       </div>
       <h4>Returns</h4>
-      <blockquote>
-        [<br />
-        &nbsp;&nbsp;{<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"title": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"link": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"image": {String}<br />
-        &nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;...<br />
-        ]
-      </blockquote>
+      <pre>
+[
+    {
+        "title": {String},
+        "link": {String},
+        "image": {String}
+    },
+    ...
+]</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/isAnchorageColderThan/41.8369/-87.6847"
@@ -285,27 +222,27 @@
         </li>
       </ul>
       <h4>Returns</h4>
-      <blockquote>
-        {<br />
-        &nbsp;&nbsp;"isAnchorageColder": {Boolean},<br />
-        &nbsp;&nbsp;"anchorageDetails": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"city": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"lat": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"long": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"state": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"temperature": {Float},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"units": {String}<br />
-        &nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;"compareDetails": {<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"city": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"lat": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"long": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"state": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"temperature": {Float},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"units": {String}<br />
-        &nbsp;&nbsp;}<br />
-        }
-      </blockquote>
+      <pre>
+{
+    "isAnchorageColder": {Boolean},
+    "anchorageDetails": {
+        "city": {String},
+        "lat": {String},
+        "long": {String},
+        "state": {String},
+        "temperature": {Float},
+        "units": {String}
+    },
+    "compareDetails": {
+        "city": {String},
+        "lat": {String},
+        "long": {String},
+        "state": {String},
+        "temperature": {Float},
+        "units": {String}
+    }
+}</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/recipes">/recipes</a>
@@ -314,19 +251,19 @@
         A list of all the recipes I like to make.
       </div>
       <h4>Returns</h4>
-      <blockquote>
-        [<br />
-        &nbsp;&nbsp;{ <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"title": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"slug": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"referenceLink": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"ingredients": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"directions": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"notes": {String}<br />
-        &nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;...<br />
-        ]
-      </blockquote>
+      <pre>
+[
+    {
+        "title": {String},
+        "slug": {String},
+        "referenceLink": {String},
+        "ingredients": {String},
+        "directions": {String},
+        "notes": {String}
+    },
+    ...
+]</pre
+      >
       <h3>
         <span class="httpverb"
           >[POST]
@@ -378,16 +315,16 @@
         </li>
       </ul>
       <h4>Returns</h4>
-      <blockquote>
-        { <br />
-        &nbsp;&nbsp;"title": {String},<br />
-        &nbsp;&nbsp;"slug": {String},<br />
-        &nbsp;&nbsp;"referenceLink": {String},<br />
-        &nbsp;&nbsp;"ingredients": {String},<br />
-        &nbsp;&nbsp;"directions": {String},<br />
-        &nbsp;&nbsp;"notes": {String}<br />
-        }
-      </blockquote>
+      <pre>
+{
+    "title": {String},
+    "slug": {String},
+    "referenceLink": {String},
+    "ingredients": {String},
+    "directions": {String},
+    "notes": {String}
+}</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/recipe/oatmeal-chocolate-chip-cookies"
@@ -404,16 +341,16 @@
         </li>
       </ul>
       <h4>Returns</h4>
-      <blockquote>
-        { <br />
-        &nbsp;&nbsp;"title": {String},<br />
-        &nbsp;&nbsp;"slug": {String},<br />
-        &nbsp;&nbsp;"referenceLink": {String},<br />
-        &nbsp;&nbsp;"ingredients": {String},<br />
-        &nbsp;&nbsp;"directions": {String},<br />
-        &nbsp;&nbsp;"notes": {String}<br />
-        }
-      </blockquote>
+      <pre>
+{
+    "title": {String},
+    "slug": {String},
+    "referenceLink": {String},
+    "ingredients": {String},
+    "directions": {String},
+    "notes": {String}
+}</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/travel">/travel</a>
@@ -422,22 +359,22 @@
         A list of all the places I have traveled to since 2008.
       </div>
       <h4>Returns</h4>
-      <blockquote>
-        [<br />
-        &nbsp;&nbsp;{ <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"city": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"state": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"country": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"lat": {Float},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"lng": {Float},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"visits": [<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;]<br />
-        &nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;...<br />
+      <pre>
+[
+    {
+        "city": {String},
+        "state": {String},
+        "country": {String},
+        "lat": {Float},
+        "lng": {Float},
+        "visits": [
+            {String},
+            ...
         ]
-      </blockquote>
+    },
+    ...
+]</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/travel/frequented">/travel/frequented</a>
@@ -446,17 +383,17 @@
         A list of the places I have travelled to more than once.
       </div>
       <h4>Returns</h4>
-      <blockquote>
-        [<br />
-        &nbsp;&nbsp;{ <br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"city": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"state": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"country": {String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;"visitCount": {Integer}<br />
-        &nbsp;&nbsp;},<br />
-        &nbsp;&nbsp;...<br />
-        ]
-      </blockquote>
+      <pre>
+[
+    {
+        "city": {String},
+        "state": {String},
+        "country": {String},
+        "visitCount": {Integer}
+    },
+    ...
+]</pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/travel/furthest">/travel/furthest</a>
@@ -471,20 +408,20 @@
         >) from Chicago, IL, USA I have travelled to.
       </div>
       <h4>Returns</h4>
-      <blockquote>
-        {<br />
-        &nbsp;&nbsp;"city": {String},<br />
-        &nbsp;&nbsp;"state": {String},<br />
-        &nbsp;&nbsp;"country": {String},<br />
-        &nbsp;&nbsp;"lat": {Float},<br />
-        &nbsp;&nbsp;"lng": {Float},<br />
-        &nbsp;&nbsp;"visits": [<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;{String},<br />
-        &nbsp;&nbsp;&nbsp;&nbsp;...<br />
-        &nbsp;&nbsp;],<br />
-        &nbsp;&nbsp;"distance": {Float}<br />
-        }
-      </blockquote>
+      <pre>
+{
+    "city": {String},
+    "state": {String},
+    "country": {String},
+    "lat": {Float},
+    "lng": {Float},
+    "visits": [
+        {String},
+        ...
+    ],
+    "distance": {Float}
+}</pre
+      >
     </div>
     <script type="text/javascript">
       function updateNames() {
