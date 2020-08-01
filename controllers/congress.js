@@ -47,7 +47,7 @@ const computeStats = async (chamber) => {
           male: averageAge(genderSplit.M),
           republican: averageAge(partySplit.R),
         },
-        distrobution: ageDistrobution(slimMembers),
+        distribution: ageDistribution(slimMembers),
         oldest: oldestAge(slimMembers),
         youngest: youngestAge(slimMembers),
       },
@@ -101,7 +101,7 @@ const oldestAge = (arr) => {
   return arr.filter((member) => member.age === age)[0];
 };
 
-const ageDistrobution = (arr) => {
+const ageDistribution = (arr) => {
   return arr.reduce((acc, current) => {
     if (!acc[current.age]) {
       acc[current.age] = {
