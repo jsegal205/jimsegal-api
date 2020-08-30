@@ -60,6 +60,7 @@ const computeStats = async (chamber) => {
 const slimmedResults = (arr) =>
   arr.map((member) => {
     return {
+      id: member.id,
       age: getAge(member.date_of_birth),
       date_of_birth: member.date_of_birth,
       full_name: `${member.first_name} ${member.last_name}`,
