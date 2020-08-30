@@ -175,7 +175,13 @@ const _getMembers = async (chamber) => {
   };
 };
 
-const _getMember = () => {
+const _getMember = async (id) => {
+  const memberInfo = await makeApiReq(
+    `https://api.propublica.org/congress/v1/members/${id}.json`
+  );
+
+  return memberInfo;
+
   // get member by id:
 
   // join in misconduct based on govtrack_id
@@ -201,10 +207,30 @@ const getStats = async (req, res) => {
 
 const getMembers = async (req, res) => {
   try {
-    res.json({
-      ...(await _getMembers("house")),
-      ...(await _getMembers("senate")),
-    });
+    const { chamber } = req.params;
+    if (chamber && chamber.match(/^(house|senate)$/)) {
+      res.json({
+        ...(await _getMembers(chamber)),
+      });
+    } else {
+      res.status(404).send("Does not exist");
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+const getMember = async (req, res) => {
+  try {
+    const { chamber, id } = req.params;
+    if (chamber && chamber.match(/^(house|senate)$/) && id) {
+      res.json({
+        ...(await _getMember(id)),
+      });
+    } else {
+      res.status(404).send("Does not exist");
+    }
   } catch (err) {
     console.error(err);
     throw err;
@@ -212,6 +238,7 @@ const getMembers = async (req, res) => {
 };
 
 module.exports = {
+  getMember,
   getMembers,
   getStats,
 };
