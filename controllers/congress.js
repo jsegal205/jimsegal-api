@@ -181,16 +181,54 @@ const _getMember = async (id) => {
     `https://api.propublica.org/congress/v1/members/${id}.json`
   );
 
-  return memberInfo;
+  const {
+    current_party,
+    date_of_birth,
+    first_name,
+    gender,
+    last_name,
+    most_recent_vote,
+    roles,
+    twitter_account,
+    url,
+  } = memberInfo;
 
-  // get member by id:
+  const today = new Date();
+  const birthDate = new Date(date_of_birth);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  const next_election = roles.reduce(
+    (curr, next) => (curr.next_election > next.next_election ? curr : next),
+    ""
+  ).next_election;
+
+  return {
+    age,
+    current_party,
+    date_of_birth,
+    first_name,
+    gender,
+    initial_elected_in: roles[roles.length - 1].start_date,
+    last_name,
+    most_recent_vote,
+    next_election,
+    state: roles[0].state,
+    terms: roles.length,
+    twitter_account,
+    url,
+  };
+
+  // aggregate missed votes, total votes, voting percentage
 
   // join in misconduct based on govtrack_id
   // https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv
 
   // join in voting record by propublica_id
   // https://api.propublica.org/congress/v1/members/${pp_id}/votes.json
-  return "todo";
 };
 
 const getStats = async (req, res) => {
