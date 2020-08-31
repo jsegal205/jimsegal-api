@@ -27,6 +27,8 @@ app.use(middlewares);
 
 app.get("/", Docs.getAll);
 app.get("/congress/stats", Congress.getStats);
+app.get("/congress/:chamber/members", Congress.getMembers);
+app.get("/congress/:chamber/member/:id", Congress.getMember);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
 app.get("/recipes", Recipes.getAll);

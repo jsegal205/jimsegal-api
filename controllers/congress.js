@@ -60,6 +60,7 @@ const computeStats = async (chamber) => {
 const slimmedResults = (arr) =>
   arr.map((member) => {
     return {
+      id: member.id,
       age: getAge(member.date_of_birth),
       date_of_birth: member.date_of_birth,
       full_name: `${member.first_name} ${member.last_name}`,
@@ -171,19 +172,71 @@ const _getMembers = async (chamber) => {
   );
 
   return {
-    [chamber]: members,
+    [chamber]: members.map((member) => {
+      return {
+        id: member.id,
+        first_name: member.first_name,
+        last_name: member.last_name,
+        party: member.party,
+        state: member.state,
+      };
+    }),
   };
 };
 
-const _getMember = () => {
-  // get member by id:
+const _getMember = async (id) => {
+  const memberInfo = await makeApiReq(
+    `https://api.propublica.org/congress/v1/members/${id}.json`
+  );
+
+  const {
+    current_party,
+    date_of_birth,
+    first_name,
+    gender,
+    last_name,
+    most_recent_vote,
+    roles,
+    twitter_account,
+    url,
+  } = memberInfo;
+
+  const today = new Date();
+  const birthDate = new Date(date_of_birth);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  const next_election = roles.reduce(
+    (curr, next) => (curr.next_election > next.next_election ? curr : next),
+    ""
+  ).next_election;
+
+  return {
+    age,
+    current_party,
+    date_of_birth,
+    first_name,
+    gender,
+    initial_elected_in: roles[roles.length - 1].start_date,
+    last_name,
+    most_recent_vote,
+    next_election,
+    state: roles[0].state,
+    terms: roles.length,
+    twitter_account,
+    url,
+  };
+
+  // aggregate missed votes, total votes, voting percentage
 
   // join in misconduct based on govtrack_id
   // https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv
 
   // join in voting record by propublica_id
   // https://api.propublica.org/congress/v1/members/${pp_id}/votes.json
-  return "todo";
 };
 
 const getStats = async (req, res) => {
@@ -201,10 +254,30 @@ const getStats = async (req, res) => {
 
 const getMembers = async (req, res) => {
   try {
-    res.json({
-      ...(await _getMembers("house")),
-      ...(await _getMembers("senate")),
-    });
+    const { chamber } = req.params;
+    if (chamber && chamber.match(/^(house|senate)$/)) {
+      res.json({
+        ...(await _getMembers(chamber)),
+      });
+    } else {
+      res.status(404).send("Does not exist");
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+const getMember = async (req, res) => {
+  try {
+    const { chamber, id } = req.params;
+    if (chamber && chamber.match(/^(house|senate)$/) && id) {
+      res.json({
+        ...(await _getMember(id)),
+      });
+    } else {
+      res.status(404).send("Does not exist");
+    }
   } catch (err) {
     console.error(err);
     throw err;
@@ -212,6 +285,7 @@ const getMembers = async (req, res) => {
 };
 
 module.exports = {
+  getMember,
   getMembers,
   getStats,
 };
