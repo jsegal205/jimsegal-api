@@ -172,7 +172,15 @@ const _getMembers = async (chamber) => {
   );
 
   return {
-    [chamber]: members,
+    [chamber]: members.map((member) => {
+      return {
+        id: member.id,
+        first_name: member.first_name,
+        last_name: member.last_name,
+        party: member.party,
+        state: member.state,
+      };
+    }),
   };
 };
 
