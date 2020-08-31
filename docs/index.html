@@ -216,6 +216,77 @@
     }
 }</pre
       >
+
+      <h3>
+        <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/congress/house/members"
+          >/congress/:chamber/members</a
+        >
+      </h3>
+      <div class="abstract">
+        List of all members for specified chamber of congress
+      </div>
+      <ul class="inputparams">
+        <li>
+          <span class="param">:chamber - {String}</span>Chamber of Congress.
+          Either `house` or `senate`
+        </li>
+      </ul>
+      <h4>Returns</h4>
+      <pre>
+{
+    [:chamber]: [
+        {
+            "id": {String},
+            "first_name": {String},
+            "last_name": {String},
+            "party": {String},
+            "state": {String}
+        },
+        ...
+    ]
+}
+        </pre
+      >
+
+      <h3>
+        <span class="httpverb">[GET]</span>
+        <a class="endpoint" href="/congress/house/member/O000172"
+          >/congress/:chamber/member/:id</a
+        >
+      </h3>
+      <div class="abstract">
+        Individual information relating to specific congressmember.
+      </div>
+      <ul class="inputparams">
+        <li>
+          <span class="param">:chamber - {String}</span>Chamber of Congress.
+          Either `house` or `senate`
+        </li>
+        <li>
+          <span class="param">:id - {String}</span>ProPublica congressional
+          member id.
+        </li>
+      </ul>
+      <h4>Returns</h4>
+      <pre>
+{
+    "age": {Integer},
+    "first_name": {String},
+    "last_name": {String},
+    "date_of_birth": {String},
+    "gender": {String},
+    "current_party": {String},
+    "url": {String},
+    "twitter_account": {String},
+    "state": {String},
+    "next_election": {String},
+    "terms": {Integer},
+    "initial_elected_in": {String},
+    "most_recent_vote": {String}
+}
+        </pre
+      >
       <h3>
         <span class="httpverb">[GET]</span>
         <a class="endpoint" href="/games">/games</a>
