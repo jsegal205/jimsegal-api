@@ -272,6 +272,14 @@
       <pre>
 {
     "age": {Integer},
+    "careerVoting": {
+        "careerVotesEligible": {Integer},
+        "careerVotesCast": {Integer},
+        "careerMissedVotes": {Integer},
+        "careerPresentVotes": {Integer},
+        "careerVotesWithParty": {Integer},
+        "careerVotesAgainstParty": {Integer}
+    },
     "first_name": {String},
     "last_name": {String},
     "date_of_birth": {String},
@@ -282,6 +290,19 @@
     "state": {String},
     "next_election": {String},
     "terms": {Integer},
+    "termInfo": [
+        {
+            "congress": {String},
+            "start_date": {String},
+            "end_date": {String},
+            "total_votes": {Integer},
+            "missed_votes": {Integer},
+            "total_present": {Integer},
+            "votesWithParty": {Integer},
+            "votesAgainstParty": {Integer}
+        },
+        ...
+    ],
     "initial_elected_in": {String},
     "most_recent_vote": {String}
 }
