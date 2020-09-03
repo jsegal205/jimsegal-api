@@ -214,8 +214,63 @@ const _getMember = async (id) => {
     ""
   ).next_election;
 
+  const careerVoting = roles.reduce(
+    (obj, term) => {
+      const totalCast =
+        term.total_votes - term.missed_votes - term.total_present;
+      obj.careerVotesEligible += term.total_votes;
+      obj.careerVotesCast += totalCast;
+      obj.careerMissedVotes += term.missed_votes;
+      obj.careerPresentVotes += term.total_present;
+      obj.careerVotesWithParty += Math.round(
+        totalCast * (term.votes_with_party_pct / 100)
+      );
+      obj.careerVotesAgainstParty += Math.round(
+        totalCast * (term.votes_against_party_pct / 100)
+      );
+
+      return obj;
+    },
+    {
+      careerVotesEligible: 0,
+      careerVotesCast: 0,
+      careerMissedVotes: 0,
+      careerPresentVotes: 0,
+      careerVotesWithParty: 0,
+      careerVotesAgainstParty: 0,
+    }
+  );
+
+  const termInfo = roles.map((term) => {
+    const {
+      congress,
+      start_date,
+      end_date,
+      total_votes,
+      missed_votes,
+      total_present,
+      votes_with_party_pct,
+      votes_against_party_pct,
+    } = term;
+
+    const totalCast = total_votes - missed_votes - total_present;
+    return {
+      congress,
+      start_date,
+      end_date,
+      total_votes,
+      missed_votes,
+      total_present,
+      votesWithParty: Math.round(totalCast * (votes_with_party_pct / 100)),
+      votesAgainstParty: Math.round(
+        totalCast * (votes_against_party_pct / 100)
+      ),
+    };
+  });
+
   return {
     age,
+    careerVoting,
     current_party,
     date_of_birth,
     first_name,
@@ -226,11 +281,10 @@ const _getMember = async (id) => {
     next_election,
     state: roles[0].state,
     terms: roles.length,
+    termInfo,
     twitter_account,
     url,
   };
-
-  // aggregate missed votes, total votes, voting percentage
 
   // join in misconduct based on govtrack_id
   // https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv
