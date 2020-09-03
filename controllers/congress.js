@@ -222,12 +222,12 @@ const _getMember = async (id) => {
       obj.careerVotesCast += totalCast;
       obj.careerMissedVotes += term.missed_votes;
       obj.careerPresentVotes += term.total_present;
-      obj.careerVotesWithParty += Math.round(
-        totalCast * (term.votes_with_party_pct / 100)
-      );
-      obj.careerVotesAgainstParty += Math.round(
-        totalCast * (term.votes_against_party_pct / 100)
-      );
+      obj.careerVotesWithParty += !!term.votes_with_party_pct
+        ? Math.round(totalCast * (term.votes_with_party_pct / 100))
+        : 0;
+      obj.careerVotesAgainstParty += !!term.votes_against_party_pct
+        ? Math.round(totalCast * (term.votes_against_party_pct / 100))
+        : 0;
 
       return obj;
     },
@@ -261,10 +261,12 @@ const _getMember = async (id) => {
       total_votes,
       missed_votes,
       total_present,
-      votesWithParty: Math.round(totalCast * (votes_with_party_pct / 100)),
-      votesAgainstParty: Math.round(
-        totalCast * (votes_against_party_pct / 100)
-      ),
+      votesWithParty: !!votes_with_party_pct
+        ? Math.round(totalCast * (votes_with_party_pct / 100))
+        : 0,
+      votesAgainstParty: !!votes_against_party_pct
+        ? Math.round(totalCast * (votes_against_party_pct / 100))
+        : 0,
     };
   });
 
