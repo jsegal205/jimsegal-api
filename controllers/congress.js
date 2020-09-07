@@ -261,6 +261,7 @@ const _getMember = async (id) => {
       end_date,
       total_votes,
       missed_votes,
+      party,
       total_present,
       votes_with_party_pct,
       votes_against_party_pct,
@@ -273,6 +274,7 @@ const _getMember = async (id) => {
       end_date,
       total_votes,
       missed_votes,
+      party,
       total_present,
       votesWithParty: !!votes_with_party_pct
         ? Math.round(totalCast * (votes_with_party_pct / 100))
