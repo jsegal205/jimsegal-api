@@ -166,6 +166,31 @@ const partyStats = (party) => {
   };
 };
 
+const getMisconduct = async (govtrack_id) => {
+  const results = await axios({
+    url:
+      "https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv",
+  });
+  if (results.data.length) {
+    const rows = results.data.split("\r\n");
+    debugger;
+    const headerRow = rows.shift().split(",");
+    const misconductObjects = rows.reduce((arrMisconduct, currentRow) => {
+      const split = currentRow.split(",");
+      const workingObj = {};
+      headerRow.forEach((value, index) => {
+        workingObj[value] = split[index];
+      });
+      console.log(JSON.stringify(workingObj));
+      arrMisconduct.push(workingObj);
+    }, []);
+
+    return misconductObjects;
+  }
+
+  return [];
+};
+
 const _getMembers = async (chamber) => {
   const { members } = await makeApiReq(
     `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
@@ -212,6 +237,7 @@ const _getMember = async (id) => {
     roles,
     twitter_account,
     url,
+    govtrack_id,
   } = memberInfo;
 
   const today = new Date();
@@ -285,6 +311,8 @@ const _getMember = async (id) => {
     };
   });
 
+  const misconduct = await getMisconduct(govtrack_id);
+
   return {
     age,
     careerVoting,
@@ -301,6 +329,8 @@ const _getMember = async (id) => {
     termInfo,
     twitter_account,
     url,
+    govtrack_id,
+    misconduct,
   };
 
   // join in misconduct based on govtrack_id
