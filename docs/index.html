@@ -273,38 +273,51 @@
 {
     "age": {Integer},
     "careerVoting": {
-        "careerVotesEligible": {Integer},
-        "careerVotesCast": {Integer},
         "careerMissedVotes": {Integer},
         "careerPresentVotes": {Integer},
-        "careerVotesWithParty": {Integer},
-        "careerVotesAgainstParty": {Integer}
+        "careerVotesAgainstParty": {Integer},
+        "careerVotesCast": {Integer},
+        "careerVotesEligible": {Integer},
+        "careerVotesWithParty": {Integer}
     },
-    "first_name": {String},
-    "last_name": {String},
-    "date_of_birth": {String},
-    "gender": {String},
     "current_party": {String},
-    "url": {String},
-    "twitter_account": {String},
-    "state": {String},
-    "next_election": {String},
-    "terms": {Integer},
-    "termInfo": [
+    "date_of_birth": {String},
+    "first_name": {String},
+    "gender": {String},
+    "initial_elected_in": {String},
+    "last_name": {String},
+    "misconduct": [
         {
-            "congress": {String},
-            "start_date": {String},
-            "end_date": {String},
-            "total_votes": {Integer},
-            "missed_votes": {Integer},
-            "total_present": {Integer},
-            "votesWithParty": {Integer},
-            "votesAgainstParty": {Integer}
+            "allegation": {String},
+            "allegationCategories": [
+                {String},
+                ...
+            ],
+            "currentStatus": {String},
+            "first_date": {String},
+            "text": {String},
         },
         ...
     ],
-    "initial_elected_in": {String},
-    "most_recent_vote": {String}
+    "most_recent_vote": {String},
+    "next_election": {String},
+    "state": {String},
+    "termInfo": [
+        {
+            "congress": {String},
+            "end_date": {String},
+            "missed_votes": {Integer},
+            "start_date": {String},
+            "total_present": {Integer},
+            "total_votes": {Integer},
+            "votesAgainstParty": {Integer},
+            "votesWithParty": {Integer}
+        },
+        ...
+    ],
+    "terms": {Integer},
+    "twitter_account": {String},
+    "url": {String}
 }
         </pre
       >
