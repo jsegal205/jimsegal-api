@@ -166,6 +166,51 @@ const partyStats = (party) => {
   };
 };
 
+const getMisconduct = async (govtrack_id) => {
+  const results = await axios({
+    url:
+      "https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv",
+  });
+  if (results.data.length) {
+    const csv = require("csvtojson");
+    const misconducts = [];
+    await csv({ output: "json" })
+      .fromString(results.data)
+      .subscribe((csvLine) => {
+        misconducts.push(csvLine);
+      })
+      .on("error", (err) => {
+        console.log(err);
+        throw `Error processing misconduct csv: ${err}`;
+      });
+    return misconducts
+      .filter((misconduct) => misconduct.person === govtrack_id)
+      .map((misconduct) => {
+        const { allegation, first_date, text, unresolved } = misconduct;
+        return {
+          allegation,
+          allegationCategories: [
+            "corruption",
+            "crime",
+            "elections",
+            "ethics",
+            "sexual-harassment-abuse",
+          ].reduce((categories, currentKey) => {
+            if (!!misconduct[currentKey]) {
+              categories.push(currentKey);
+            }
+            return categories;
+          }, []),
+          currentStatus: !!unresolved ? "unresolved" : "resolved",
+          first_date,
+          text,
+        };
+      });
+  }
+
+  return [];
+};
+
 const _getMembers = async (chamber) => {
   const { members } = await makeApiReq(
     `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
@@ -212,6 +257,7 @@ const _getMember = async (id) => {
     roles,
     twitter_account,
     url,
+    govtrack_id,
   } = memberInfo;
 
   const today = new Date();
@@ -285,6 +331,8 @@ const _getMember = async (id) => {
     };
   });
 
+  const misconduct = await getMisconduct(govtrack_id);
+
   return {
     age,
     careerVoting,
@@ -294,6 +342,7 @@ const _getMember = async (id) => {
     gender,
     initial_elected_in: roles[roles.length - 1].start_date,
     last_name,
+    misconduct,
     most_recent_vote,
     next_election,
     state: roles[0].state,
@@ -301,10 +350,8 @@ const _getMember = async (id) => {
     termInfo,
     twitter_account,
     url,
+    govtrack_id,
   };
-
-  // join in misconduct based on govtrack_id
-  // https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv
 
   // join in voting record by propublica_id
   // https://api.propublica.org/congress/v1/members/${pp_id}/votes.json
