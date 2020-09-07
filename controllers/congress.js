@@ -171,8 +171,21 @@ const _getMembers = async (chamber) => {
     `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
   );
 
+  // some of the members are duped coming back from the api, and therefore
+  // breaking when going to the react components.
+  const dedupedMembers = members.reduce((acc, current) => {
+    const dupe = acc.find(
+      (item) => item.id === current.id && item.party === current.party
+    );
+    if (!dupe) {
+      return acc.concat([current]);
+    } else {
+      return acc;
+    }
+  }, []);
+
   return {
-    [chamber]: members.map((member) => {
+    [chamber]: dedupedMembers.map((member) => {
       return {
         id: member.id,
         first_name: member.first_name,
@@ -248,6 +261,7 @@ const _getMember = async (id) => {
       end_date,
       total_votes,
       missed_votes,
+      party,
       total_present,
       votes_with_party_pct,
       votes_against_party_pct,
@@ -260,6 +274,7 @@ const _getMember = async (id) => {
       end_date,
       total_votes,
       missed_votes,
+      party,
       total_present,
       votesWithParty: !!votes_with_party_pct
         ? Math.round(totalCast * (votes_with_party_pct / 100))
