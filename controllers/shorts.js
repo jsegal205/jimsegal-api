@@ -1,4 +1,3 @@
-const { date } = require("faker");
 const Weather = require("./weather");
 
 const _monthProbability = (month) => {
