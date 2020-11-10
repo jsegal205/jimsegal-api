@@ -1,28 +1,32 @@
 const Weather = require("./weather");
 
 const _monthProbability = (month) => {
-  if ([1, 2, 11, 12].includes(month)) {
-    return -42;
+  if ([0, 1, 10, 11].includes(month)) {
+    return -62;
   }
-  if ([3, 10].includes(month)) {
-    return 14;
+  if ([2, 9].includes(month)) {
+    return 15;
   }
-  if ([4, 9].includes(month)) {
+  if ([3, 8].includes(month)) {
     return 22;
   }
-  if ([5, 6, 7, 8].includes(month)) {
-    return 43;
+  if ([4, 5, 6, 7].includes(month)) {
+    return 67;
   }
   return 0;
 };
 
 const _weatherProbability = (temperature) => {
   if (temperature < 45) {
-    return -44;
+    return -77;
+  }
+  if (temperature > 80) {
+    return 1000;
   }
   if (temperature > 70) {
-    return 42;
+    return 95;
   }
+
   return 0;
 };
 
@@ -36,6 +40,7 @@ const wearingProbability = async (req, res) => {
       day: "numeric",
     };
     const { temperature } = await Weather.getTemp(41.8369, -87.6847);
+
     base += _monthProbability(d.getMonth()) + _weatherProbability(temperature);
 
     let probability = base;
