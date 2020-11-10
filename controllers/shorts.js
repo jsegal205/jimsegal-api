@@ -47,7 +47,6 @@ const wearingProbability = async (req, res) => {
       probability = 1;
     }
     res.json({
-      date: d.toLocaleDateString("en-US", dateOptions),
       criteria: [
         {
           label: "Today's Date",
@@ -55,8 +54,7 @@ const wearingProbability = async (req, res) => {
         },
         { label: "Current Temperature", value: `${temperature} °F` },
       ],
-      probability: probability,
-      temperature: `${temperature} °F`,
+      probability,
     });
   } catch (error) {
     throw error;
