@@ -20,9 +20,13 @@ const _weatherProbability = (temperature) => {
   if (temperature < 45) {
     return -77;
   }
+  if (temperature > 80) {
+    return 1000;
+  }
   if (temperature > 70) {
     return 95;
   }
+
   return 0;
 };
 
