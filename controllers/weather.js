@@ -53,5 +53,6 @@ const isAnchorageColderThan = async (req, res) => {
 };
 
 module.exports = {
+  getTemp,
   isAnchorageColderThan,
 };
