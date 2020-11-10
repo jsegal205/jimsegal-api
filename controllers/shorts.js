@@ -17,13 +17,13 @@ const _monthProbability = (month) => {
 };
 
 const _weatherProbability = (temperature) => {
-  if (temperature < 45) {
-    return -77;
-  }
   if (temperature > 80) {
     return 1000;
   }
-  if (temperature > 70) {
+  if (temperature < 55) {
+    return -47;
+  }
+  if (temperature > 65) {
     return 95;
   }
 
