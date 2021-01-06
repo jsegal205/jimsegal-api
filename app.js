@@ -13,6 +13,7 @@ const Recipes = require("./controllers/recipes");
 const Travel = require("./controllers/travel");
 const Weather = require("./controllers/weather");
 const Shorts = require("./controllers/shorts");
+const Spacex = require("./controllers/spacex");
 
 const port = process.env.PORT || 8001;
 const app = express();
@@ -36,6 +37,7 @@ app.get("/recipes", Recipes.getAll);
 app.get("/recipe/:slug", Recipes.getBySlug);
 app.post("/recipes", Recipes.create);
 app.get("/shorts", Shorts.wearingProbability);
+app.get("/spacex/next", Spacex.getNextLaunch);
 app.get("/travel", Travel.getAll);
 app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
