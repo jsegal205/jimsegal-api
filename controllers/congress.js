@@ -2,6 +2,8 @@ const axios = require("axios");
 
 const round = (val) => +val.toFixed(2);
 
+const currentSession = 117;
+
 // const getCongressSessionNumber = () => {
 //   const sessionMap = {
 //     [new Date(2023, 1, 3)]: 117,
@@ -31,7 +33,7 @@ const computeStats = async (chamber) => {
   // const sessionNum = getCongressSessionNumber();
 
   const { members } = await makeApiReq(
-    `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
+    `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`
   );
   const slimMembers = slimmedResults(members);
   const genderSplit = groupBy(slimMembers, "gender");
@@ -213,7 +215,7 @@ const getMisconduct = async (govtrack_id) => {
 
 const _getMembers = async (chamber) => {
   const { members } = await makeApiReq(
-    `https://api.propublica.org/congress/v1/116/${chamber}/members.json`
+    `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`
   );
 
   // some of the members are duped coming back from the api, and therefore
@@ -360,7 +362,7 @@ const _getMember = async (id) => {
 const getStats = async (req, res) => {
   try {
     res.json({
-      session: 116,
+      session: currentSession,
       ...(await computeStats("house")),
       ...(await computeStats("senate")),
     });
