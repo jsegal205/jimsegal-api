@@ -2,6 +2,7 @@ const cors = require("cors");
 const sslRedirect = require("./ssl-redirect");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
 const allowedOrigins = [
   "http://localhost:8000", // web
@@ -38,6 +39,16 @@ const middlewares = [
     `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
   ),
   bodyParser.json(),
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        // https://stackoverflow.com/questions/63750968/content-security-policy-preventing-images-from-loading
+        // serving favico avatar
+        "img-src": ["'self'", "avatars1.githubusercontent.com"],
+      },
+    },
+  }),
 ];
 
 module.exports = middlewares;
