@@ -1,7 +1,7 @@
+const express = require("express");
 const cors = require("cors");
 const sslRedirect = require("./ssl-redirect");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
 const helmet = require("helmet");
 
 const allowedOrigins = [
@@ -38,7 +38,10 @@ const middlewares = [
   morgan(
     `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
   ),
-  bodyParser.json(),
+  express.json(),
+  // https://expressjs.com/en/starter/static-files.html
+  // so that I don't have to serve inline js
+  express.static("docs"),
   helmet({
     contentSecurityPolicy: {
       directives: {
