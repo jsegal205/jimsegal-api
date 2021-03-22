@@ -592,16 +592,6 @@
 }</pre
       >
     </div>
-    <script type="text/javascript">
-      function updateNames() {
-        const endpoints = document.getElementsByClassName("endpoint");
-        Array.from(endpoints).map((e) => {
-          const endpointRoute = e.innerText;
-          e.innerHTML = `${location.origin}${endpointRoute}`;
-        });
-      }
-
-      updateNames();
-    </script>
+    <script src="/index.js"></script>
   </body>
 </html>

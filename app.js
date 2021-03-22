@@ -18,6 +18,9 @@ const Spacex = require("./controllers/spacex");
 const port = process.env.PORT || 8001;
 const app = express();
 
+//https://github.com/expressjs/express/pull/2813#issuecomment-159270428
+app.disable("x-powered-by");
+
 if (!!process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
