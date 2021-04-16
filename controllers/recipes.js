@@ -1,8 +1,14 @@
-const repo = require("../repos/recipes");
+const axios = require("axios");
+const { adminUrlBase } = require("../utils/constants");
 
 const getAll = async (req, res) => {
   try {
-    res.json(await repo.getAll());
+    await axios
+      .get(`${adminUrlBase}/recipes`)
+      .then(({ data }) => res.json(data))
+      .catch(({ message, name }) => {
+        res.json({ message, name });
+      });
   } catch (error) {
     throw error;
   }
@@ -11,37 +17,19 @@ const getAll = async (req, res) => {
 const getBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
-    const recipe = await repo.getBySlug(slug);
-    if (recipe) {
-      res.json(recipe);
-    } else {
-      res.status(404).send("Does not exist");
-    }
-  } catch (error) {
-    throw error;
-  }
-};
 
-const create = async (req, res) => {
-  try {
-    const { api_token } = req.headers;
-
-    if (!api_token || api_token !== process.env.AUTH_TOKEN) {
-      return res.status(403).send("Forbidden");
-    } else {
-      const { slug, ...permittedProps } = req.body;
-      const results = await repo.create(permittedProps);
-      const { persisted, ...retVal } = results;
-
-      res.status(persisted ? 201 : 400).json(retVal);
-    }
+    await axios
+      .get(`${adminUrlBase}/recipes/${slug}`)
+      .then(({ data }) => res.json(data))
+      .catch(({ message, name }) => {
+        res.json({ message, name });
+      });
   } catch (error) {
     throw error;
   }
 };
 
 module.exports = {
-  create,
   getAll,
   getBySlug,
 };
