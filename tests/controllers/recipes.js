@@ -1,91 +1,111 @@
 const chai = require("chai");
-const sinon = require("sinon");
 const expect = chai.expect;
 
-// const Recipe = require("../../models/recipes");
-// const repo = require("../../repos/recipes");
+const axios = require("axios");
+const MockAdapter = require("axios-mock-adapter");
+
 const controller = require("../../controllers/recipes");
 
 const { mockRequest, mockResponse } = require("./helpers");
 
 describe("RecipeController", () => {
-  let sandbox;
-
-  before(() => {
-    sandbox = sinon.createSandbox();
-  });
-
-  afterEach(() => {
-    sandbox.restore();
-  });
+  const mock = new MockAdapter(axios);
 
   describe("getAll", () => {
-    it("should call to repo", async () => {
-      const req = mockRequest();
-      const res = mockResponse();
-      // const stub = sandbox.stub(repo, "getAll");
-      const apiReturn = {
-        data: [
-          {
+    const apiUrl = "https://admin.jimsegal.com/recipes";
+
+    describe("when external request is successful", () => {
+      it("should return data", async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+
+        const apiReturn = {
+          data: [
+            {
+              title: "title",
+              slug: "slug",
+              reference_link: "link",
+              ingredients: "ingredients",
+              directions: "directions",
+              notes: "notes",
+            },
+          ],
+        };
+
+        mock.onGet(apiUrl).reply(200, apiReturn);
+
+        await controller.getAll(req, res);
+
+        expect(res.json.calledOnceWithExactly(apiReturn)).to.be.true;
+      });
+    });
+
+    describe("when external request fails", () => {
+      it("returns error json", async () => {
+        const req = mockRequest();
+        const res = mockResponse();
+
+        const apiError = {
+          message: "Request failed with status code 500",
+          name: "Error",
+        };
+
+        mock.onGet(apiUrl).reply(500, apiError);
+
+        await controller.getAll(req, res);
+
+        expect(res.json.calledOnceWithExactly(apiError)).to.be.true;
+      });
+    });
+  });
+
+  describe("getBySlug", () => {
+    describe("when external request is successful", () => {
+      it("should return data", async () => {
+        const slug = "test-slug";
+        const apiReturn = {
+          data: {
             title: "title",
-            slug: "slug",
+            slug,
             reference_link: "link",
             ingredients: "ingredients",
             directions: "directions",
             notes: "notes",
           },
-        ],
-      };
+        };
 
-      await controller.getAll(req, res);
+        mock
+          .onGet(`https://admin.jimsegal.com/recipes/${slug}`)
+          .reply(200, apiReturn);
 
-      // expect(stub.calledOnce).to.be.true;
-      expect(res.json.calledOnceWithExactly(apiReturn)).to.be.true;
-    });
-  });
+        const req = mockRequest({ params: { slug } });
+        const res = mockResponse();
 
-  describe("getBySlug", () => {
-    it("should call to repo", async () => {
-      const slug = "test-slug";
-      const apiReturn = {
-        data: {
-          title: "title",
-          slug,
-          reference_link: "link",
-          ingredients: "ingredients",
-          directions: "directions",
-          notes: "notes",
-        },
-      };
-      // const repoStub = sandbox
-      //   .stub(repo, "getBySlug")
-      //   .withArgs(slug)
-      //   .returns(repoReturn);
+        await controller.getBySlug(req, res);
 
-      const req = mockRequest({ params: { slug } });
-      const res = mockResponse();
-      await controller.getBySlug(req, res);
-
-      // expect(repoStub.calledOnce).to.be.true;
-      expect(res.json.calledOnceWithExactly(apiReturn)).to.be.true;
+        expect(res.json.calledOnceWithExactly(apiReturn)).to.be.true;
+      });
     });
 
-    it("returns 404 status when nothing found", async () => {
-      const slug = "test-slug";
+    describe("when external request fails", () => {
+      it("returns error json", async () => {
+        const slug = "test-slug";
+        const apiError = {
+          message: "Request failed with status code 404",
+          name: "Error",
+        };
 
-      // const repoStub = sandbox
-      //   .stub(repo, "getBySlug")
-      //   .withArgs(slug)
-      //   .returns(null);
+        mock
+          .onGet(`https://admin.jimsegal.com/recipes/${slug}`)
+          .reply(404, apiError);
 
-      const req = mockRequest({ params: { slug } });
-      const res = mockResponse();
+        const req = mockRequest({ params: { slug } });
+        const res = mockResponse();
 
-      await controller.getBySlug(req, res);
+        await controller.getBySlug(req, res);
 
-      // expect(repoStub.calledOnce).to.be.true;
-      expect(res.status.calledOnceWithExactly(404)).to.be.true;
-      expect(res.send.calledOnceWithExactly("Does not exist")).to.be.true;
+        expect(res.json.calledOnceWithExactly(apiError)).to.be.true;
+      });
     });
   });
 });

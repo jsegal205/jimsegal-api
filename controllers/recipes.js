@@ -2,13 +2,12 @@ const axios = require("axios");
 
 const getAll = async (req, res) => {
   try {
-    const apiRes = await axios
+    await axios
       .get("https://admin.jimsegal.com/recipes")
-      .catch((error) => {
-        throw error;
+      .then(({ data }) => res.json(data))
+      .catch(({ message, name }) => {
+        res.json({ message, name });
       });
-
-    res.json(apiRes.data);
   } catch (error) {
     throw error;
   }
@@ -18,13 +17,12 @@ const getBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
 
-    const apiRes = await axios
+    await axios
       .get(`https://admin.jimsegal.com/recipes/${slug}`)
-      .catch(({ name, message }) => {
-        res.json({ name, message });
+      .then(({ data }) => res.json(data))
+      .catch(({ message, name }) => {
+        res.json({ message, name });
       });
-
-    res.json(apiRes.data);
   } catch (error) {
     throw error;
   }
