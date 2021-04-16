@@ -11,21 +11,21 @@ describe("Validation.validateRequiredFields", () => {
   describe("when no class passed", () => {
     it("returns valid and message keys", () => {
       const actual = validateRequiredFields();
-      assert.deepEqual(Object.keys(actual), ["valid", "message"]);
+      assert.deepStrictEqual(Object.keys(actual), ["valid", "message"]);
     });
   });
 
   describe("when class does not have `REQUIRED_FIELDS` defined", () => {
     it("returns valid and message keys", () => {
       const actual = validateRequiredFields(new NormalClass());
-      assert.deepEqual(Object.keys(actual), ["valid", "message"]);
+      assert.deepStrictEqual(Object.keys(actual), ["valid", "message"]);
     });
   });
 
   describe("when class has `REQUIRED_FIELDS` defined", () => {
     it("returns valid and message keys", () => {
       const actual = validateRequiredFields(new HasRequired());
-      assert.deepEqual(Object.keys(actual), ["valid", "message"]);
+      assert.deepStrictEqual(Object.keys(actual), ["valid", "message"]);
     });
 
     describe("when object prop does not have required prop", () => {
@@ -34,7 +34,7 @@ describe("Validation.validateRequiredFields", () => {
         hasRequired["notRequired"] = "value";
 
         const actual = validateRequiredFields(hasRequired);
-        assert.deepEqual(actual, {
+        assert.deepStrictEqual(actual, {
           valid: false,
           message: `${hasRequired.REQUIRED_FIELDS[0]} - fields are required`,
         });
@@ -47,7 +47,7 @@ describe("Validation.validateRequiredFields", () => {
         hasRequired[hasRequired.REQUIRED_FIELDS[0]] = "value";
 
         const actual = validateRequiredFields(hasRequired);
-        assert.deepEqual(actual, { valid: true, message: "" });
+        assert.deepStrictEqual(actual, { valid: true, message: "" });
       });
     });
   });

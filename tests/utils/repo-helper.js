@@ -14,20 +14,20 @@ describe("RepoHelper.removeInternalProps", () => {
   describe("when object is empty", () => {
     it("should return empty object", () => {
       const actual = removeInternalProps({});
-      assert.deepEqual(actual, {});
+      assert.deepStrictEqual(actual, {});
     });
   });
   describe("when object has REQUIRED_FIELDS prop", () => {
     it("should return object without it", () => {
       const actual = removeInternalProps(new HasRequired());
-      assert.deepEqual(actual, { title: "hasRequired" });
+      assert.deepStrictEqual(actual, { title: "hasRequired" });
     });
   });
 
   describe("when object does not have REQUIRED_FIELDS prop", () => {
     it("should return object without it", () => {
       const actual = removeInternalProps(new NormalClass());
-      assert.deepEqual(actual, { title: "normal" });
+      assert.deepStrictEqual(actual, { title: "normal" });
     });
   });
 });
