@@ -9,10 +9,8 @@ const getBy = async (lat, long) => {
       }
     );
 
-    const {
-      adminArea5: city,
-      adminArea3: state,
-    } = res.data.results[0].locations[0];
+    const { adminArea5: city, adminArea3: state } =
+      res.data.results[0].locations[0];
 
     return {
       city,

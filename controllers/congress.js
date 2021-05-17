@@ -145,10 +145,12 @@ const partyStats = (party) => {
   const republicanWomen = party.R.filter(
     (republican) => republican.gender === "F"
   ).length;
-  const democratMen = party.D.filter((democrat) => democrat.gender === "M")
-    .length;
-  const democratWomen = party.D.filter((democrat) => democrat.gender === "F")
-    .length;
+  const democratMen = party.D.filter(
+    (democrat) => democrat.gender === "M"
+  ).length;
+  const democratWomen = party.D.filter(
+    (democrat) => democrat.gender === "F"
+  ).length;
 
   return {
     D: {
@@ -170,8 +172,7 @@ const partyStats = (party) => {
 
 const getMisconduct = async (govtrack_id) => {
   const results = await axios({
-    url:
-      "https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv",
+    url: "https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv",
   });
   if (results.data.length) {
     const csv = require("csvtojson");

@@ -10,14 +10,8 @@ const getNextLaunch = async (req, res) => {
         throw error;
       });
 
-    const {
-      name,
-      date_unix,
-      date_utc,
-      details,
-      rocket,
-      launchpad,
-    } = apiRes.data;
+    const { name, date_unix, date_utc, details, rocket, launchpad } =
+      apiRes.data;
 
     const rocketRes = await axios.get(
       `https://api.spacexdata.com/v4/rockets/${rocket}`
