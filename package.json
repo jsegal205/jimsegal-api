@@ -14,7 +14,7 @@
   "author": "Jim Segal",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^6.3.6",
+    "@sentry/node": "^6.7.0",
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
