@@ -1,16 +1,12 @@
-const chai = require("chai");
-const expect = chai.expect;
+const sinon = require("sinon");
 
-const axios = require("axios");
-const MockAdapter = require("axios-mock-adapter");
+const mock = require("../mocks/mock-instance");
 
 const controller = require("../../controllers/recipes");
 
 const { mockRequest, mockResponse } = require("./helpers");
 
 describe("RecipeController", () => {
-  const mock = new MockAdapter(axios);
-
   describe("getAll", () => {
     const apiUrl = "https://admin.jimsegal.com/recipes";
 
@@ -36,7 +32,7 @@ describe("RecipeController", () => {
 
         await controller.getAll(req, res);
 
-        expect(res.json.calledOnceWithExactly(apiReturn)).to.be.true;
+        sinon.assert.calledOnceWithExactly(res.json, apiReturn);
       });
     });
 
@@ -54,7 +50,7 @@ describe("RecipeController", () => {
 
         await controller.getAll(req, res);
 
-        expect(res.json.calledOnceWithExactly(apiError)).to.be.true;
+        sinon.assert.calledOnceWithExactly(res.json, apiError);
       });
     });
   });
@@ -83,7 +79,7 @@ describe("RecipeController", () => {
 
         await controller.getBySlug(req, res);
 
-        expect(res.json.calledOnceWithExactly(apiReturn)).to.be.true;
+        sinon.assert.calledOnceWithExactly(res.json, apiReturn);
       });
     });
 
@@ -104,7 +100,7 @@ describe("RecipeController", () => {
 
         await controller.getBySlug(req, res);
 
-        expect(res.json.calledOnceWithExactly(apiError)).to.be.true;
+        sinon.assert.calledOnceWithExactly(res.json, apiError);
       });
     });
   });
