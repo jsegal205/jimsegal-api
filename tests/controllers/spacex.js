@@ -7,6 +7,10 @@ const controller = require("../../controllers/spacex");
 const { mockRequest, mockResponse } = require("./helpers");
 
 describe("SpacexController", () => {
+  after(() => {
+    mock.resetHandlers();
+  });
+
   describe("getNextLaunch", () => {
     const apiUrl = "https://api.spacexdata.com/v4/launches/next";
 

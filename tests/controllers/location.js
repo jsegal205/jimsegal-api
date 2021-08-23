@@ -4,6 +4,10 @@ const controller = require("../../controllers/location");
 const { expect } = require("chai");
 
 describe("LocationController", () => {
+  after(() => {
+    mock.resetHandlers();
+  });
+
   describe("getBy", () => {
     const apiUrl = "https://www.mapquestapi.com/geocoding/v1/reverse";
 

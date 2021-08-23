@@ -7,6 +7,10 @@ const controller = require("../../controllers/games");
 const { mockRequest, mockResponse } = require("./helpers");
 
 describe("GamesController", () => {
+  after(() => {
+    mock.resetHandlers();
+  });
+
   describe("getAll", () => {
     const apiUrl = "https://admin.jimsegal.com/games";
 
