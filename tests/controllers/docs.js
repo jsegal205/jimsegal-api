@@ -1,5 +1,4 @@
-const chai = require("chai");
-const expect = chai.expect;
+const sinon = require("sinon");
 const path = require("path");
 
 const controller = require("../../controllers/docs");
@@ -15,7 +14,7 @@ describe("DocsController", () => {
       await controller.getAll(req, res);
 
       const expectPath = path.join(__dirname, "../../docs", "index.html");
-      expect(res.sendFile.calledOnceWithExactly(expectPath)).to.be.true;
+      sinon.assert.calledOnceWithExactly(res.sendFile, expectPath);
     });
   });
 });
