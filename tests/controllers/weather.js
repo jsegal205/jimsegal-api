@@ -94,7 +94,7 @@ describe("WeatherController", () => {
 
         const compareReturn = {
           city: "cityFake",
-          lat: 3,
+          lat: "3",
           long: 4,
           state: "stateFake",
           temperature: 2,
