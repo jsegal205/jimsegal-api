@@ -116,5 +116,50 @@ describe("WeatherController", () => {
         });
       });
     });
+
+    describe("when lat and long parameter are not passed", () => {
+      it("returns 422 error", async () => {
+        const req = mockRequest({ params: {} });
+        const res = mockResponse();
+
+        await controller.isAnchorageColderThan(req, res);
+
+        sinon.assert.calledOnceWithExactly(res.status, 422);
+        sinon.assert.calledOnceWithExactly(
+          res.send,
+          "Invalid route parameters sent. Only float type are allowed"
+        );
+      });
+    });
+
+    describe("when lat parameter is invalid", () => {
+      it("returns 422 error", async () => {
+        const req = mockRequest({ params: { lat: "invalid", long: 4 } });
+        const res = mockResponse();
+
+        await controller.isAnchorageColderThan(req, res);
+
+        sinon.assert.calledOnceWithExactly(res.status, 422);
+        sinon.assert.calledOnceWithExactly(
+          res.send,
+          "Invalid route parameters sent. Only float type are allowed"
+        );
+      });
+    });
+
+    describe("when long parameter is invalid", () => {
+      it("returns 422 error", async () => {
+        const req = mockRequest({ params: { lat: 3, long: "invalid" } });
+        const res = mockResponse();
+
+        await controller.isAnchorageColderThan(req, res);
+
+        sinon.assert.calledOnceWithExactly(res.status, 422);
+        sinon.assert.calledOnceWithExactly(
+          res.send,
+          "Invalid route parameters sent. Only float type are allowed"
+        );
+      });
+    });
   });
 });
