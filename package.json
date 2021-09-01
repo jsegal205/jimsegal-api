@@ -4,7 +4,7 @@
   "description": "API endpoints for various things on jimsegal.com",
   "main": "app.js",
   "scripts": {
-    "test": "mocha tests/**/*.js --no-colors",
+    "test": "mocha tests/**/*.js",
     "dev": "nodemon app.js",
     "debug": "nodemon inspect app.js",
     "prettier": "prettier --write '**/*.{js,html}'",

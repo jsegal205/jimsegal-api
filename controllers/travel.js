@@ -27,7 +27,12 @@ const _getAll = async () => {
 };
 
 const getAll = async (req, res) => {
-  res.json(await _getAll());
+  try {
+    res.json(await _getAll());
+  } catch (err) {
+    const { message, name } = err.response.data;
+    res.json({ message, name });
+  }
 };
 
 const frequented = async (req, res) => {

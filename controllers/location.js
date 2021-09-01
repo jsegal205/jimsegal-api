@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const getBy = async (lat, long) => {
   try {
-    const API_URL = `https://www.mapquestapi.com/geocoding/v1/reverse?key=Y3zmO0lPUXVmIoPrDpMT1H2Nuu18mF5y`;
+    const API_URL = `https://www.mapquestapi.com/geocoding/v1/reverse?key=${process.env.MAPQUEST_API_KEY}`;
     const res = await axios(`${API_URL}&location=${lat},${long}`).catch(
       (error) => {
         throw error;

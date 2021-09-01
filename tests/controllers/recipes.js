@@ -7,6 +7,10 @@ const controller = require("../../controllers/recipes");
 const { mockRequest, mockResponse } = require("./helpers");
 
 describe("RecipeController", () => {
+  after(() => {
+    mock.resetHandlers();
+  });
+
   describe("getAll", () => {
     const apiUrl = "https://admin.jimsegal.com/recipes";
 

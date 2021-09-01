@@ -13,12 +13,16 @@ const getNextLaunch = async (req, res) => {
     const { name, date_unix, date_utc, details, rocket, launchpad } =
       apiRes.data;
 
-    const rocketRes = await axios.get(
-      `https://api.spacexdata.com/v4/rockets/${rocket}`
-    );
-    const launchpadRes = await axios.get(
-      `https://api.spacexdata.com/v4/launchpads/${launchpad}`
-    );
+    const rocketRes = await axios
+      .get(`https://api.spacexdata.com/v4/rockets/${rocket}`)
+      .catch((error) => {
+        throw error;
+      });
+    const launchpadRes = await axios
+      .get(`https://api.spacexdata.com/v4/launchpads/${launchpad}`)
+      .catch((error) => {
+        throw error;
+      });
 
     return res.json({
       mission_name: name,
@@ -30,7 +34,8 @@ const getNextLaunch = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    throw err;
+    const { message, name } = err.response.data;
+    res.json({ message, name });
   }
 };
 
