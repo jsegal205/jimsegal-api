@@ -1,14 +1,9 @@
 const get = async (req, res) => {
   try {
-    const cs = require("child_process");
-    const hash = cs.execSync("git rev-parse HEAD").toString().trim();
-    const ts = cs
-      .execSync('git log -1 --date=format:"%Y/%m/%d %T%z" --format="%ad"')
-      .toString()
-      .replace("\n", "");
     return res.json({
-      commit: hash,
-      updated_at: ts,
+      app_name: process.env.HEROKU_APP_NAME || "<dev>",
+      commit: process.env.HEROKU_SLUG_COMMIT || "<dev>",
+      updated_at: process.env.HEROKU_RELEASE_CREATED_AT || "<dev>",
     });
   } catch (error) {
     throw error;
