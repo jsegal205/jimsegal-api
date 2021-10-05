@@ -23,7 +23,7 @@ describe("HealthController", () => {
     });
 
     describe("when heroku envs are set", () => {
-      it("should return `<dev>` as values", async () => {
+      it("should return envs values", async () => {
         const req = mockRequest();
         const res = mockResponse();
 
