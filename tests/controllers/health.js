@@ -1,5 +1,4 @@
 const controller = require("../../controllers/health");
-// const { expect } = require("chai");
 const sinon = require("sinon");
 
 const { mockRequest, mockResponse } = require("./helpers");
