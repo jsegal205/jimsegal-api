@@ -10,8 +10,7 @@ describe("TravelController", () => {
     mock.resetHandlers();
   });
 
-  const apiUrl =
-    "https://data.heroku.com/dataclips/zufupjioefakciimcrrnbzhbcwau.json";
+  const apiUrl = "https://admin.jimsegal.com/destinations";
 
   describe("getAll", () => {
     describe("when external request is successful", () => {
@@ -19,12 +18,31 @@ describe("TravelController", () => {
         const req = mockRequest();
         const res = mockResponse();
 
-        const apiReturn = {
-          values: [
-            ["City1", "State1", "Country1", 1, 2, ["Date 1", "Date 2"]],
-            ["City2", "State2", "Country2", 3, 4, ["Date 3", "Date 4"]],
-          ],
-        };
+        const apiReturn = [
+          {
+            city: "City1",
+            state: "State1",
+            country: "Country1",
+            latitude: 1,
+            longitude: 2,
+            destination_visits: [
+              { visit_date: "2001-01-01" },
+              { visit_date: "2002-02-02" },
+            ],
+          },
+          {
+            city: "City2",
+            state: "State2",
+            country: "Country2",
+            latitude: 3,
+            longitude: 4,
+            destination_visits: [
+              { visit_date: "2003-03-03" },
+              { visit_date: "2004-04-04" },
+            ],
+          },
+        ];
+
         mock.onGet(apiUrl).reply(200, apiReturn);
 
         const mappedReturn = [
@@ -34,7 +52,7 @@ describe("TravelController", () => {
             country: "Country1",
             lat: 1,
             lng: 2,
-            visits: ["Date 1", "Date 2"],
+            visits: ["February 2002", "January 2001"],
           },
           {
             city: "City2",
@@ -42,7 +60,7 @@ describe("TravelController", () => {
             country: "Country2",
             lat: 3,
             lng: 4,
-            visits: ["Date 3", "Date 4"],
+            visits: ["April 2004", "March 2003"],
           },
         ];
 

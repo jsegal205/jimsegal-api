@@ -1,23 +1,47 @@
 const axios = require("axios");
+const { adminUrlBase } = require("../utils/constants");
 
 const _getAll = async () => {
   try {
     const res = await axios
-      .get(
-        "https://data.heroku.com/dataclips/zufupjioefakciimcrrnbzhbcwau.json"
-      )
+      .get(`${adminUrlBase}/destinations`)
       .catch((error) => {
         throw error;
       });
 
-    return res.data.values.map((travel) => {
+    const formatDestinationVisits = (destination) => {
+      // dates come in like:
+      // destination: {
+      //   destination_visits: [
+      //     { visit_date: "2001-01-01" },
+      //     { visit_date: "2004-04-04" },
+      //     { visit_date: "2002-02-02" },
+      //   ]
+      // }
+
+      // output -> ["April 2004", "February 2002", "January 2001"]
+
+      return destination.destination_visits
+        .map((dv) => dv.visit_date)
+        .sort() // ensure dates are sorted
+        .reverse() // sort by date desc, ie soonest first
+        .map((date) => {
+          return new Date(date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            timeZone: "utc", // important to not have local timezone applied and possibly show wrong date.
+          });
+        });
+    };
+
+    return res.data.map((destination) => {
       return {
-        city: travel[0],
-        state: travel[1],
-        country: travel[2],
-        lat: travel[3],
-        lng: travel[4],
-        visits: travel[5],
+        city: destination.city,
+        state: destination.state,
+        country: destination.country,
+        lat: destination.latitude,
+        lng: destination.longitude,
+        visits: formatDestinationVisits(destination),
       };
     });
   } catch (err) {
