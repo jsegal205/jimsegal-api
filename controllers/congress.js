@@ -26,15 +26,16 @@ const makeApiReq = async (url) => {
     headers: { "x-api-key": process.env.PROPUBLICA_API_TOKEN },
   });
 
-  return api_res.data.results[0];
+  return api_res.data;
 };
 
 const computeStats = async (chamber) => {
   // const sessionNum = getCongressSessionNumber();
 
-  const { members } = await makeApiReq(
+  const data = await makeApiReq(
     `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`
   );
+  const members = data.results[0].members;
   const slimMembers = slimmedResults(members);
   const genderSplit = groupBy(slimMembers, "gender");
   const partySplit = groupBy(slimMembers, "party");
@@ -215,9 +216,11 @@ const getMisconduct = async (govtrack_id) => {
 };
 
 const _getMembers = async (chamber) => {
-  const { members } = await makeApiReq(
+  const data = await makeApiReq(
     `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`
   );
+
+  const members = data.results[0].members;
 
   // some of the members are duped coming back from the api, and therefore
   // breaking when going to the react components.
@@ -246,9 +249,15 @@ const _getMembers = async (chamber) => {
 };
 
 const _getMember = async (id) => {
-  const memberInfo = await makeApiReq(
+  const data = await makeApiReq(
     `https://api.propublica.org/congress/v1/members/${id}.json`
   );
+
+  if (!!data.errors) {
+    return { error: "error" };
+  }
+
+  const memberInfo = data.results[0];
 
   const {
     current_party,
@@ -393,9 +402,14 @@ const getMember = async (req, res) => {
   try {
     const { chamber, id } = req.params;
     if (chamber && chamber.match(/^(house|senate)$/) && id) {
-      res.json({
-        ...(await _getMember(id)),
-      });
+      const member = await _getMember(id);
+      if (member.error) {
+        res.status(404).send("Does not exist");
+      } else {
+        res.json({
+          ...member,
+        });
+      }
     } else {
       res.status(404).send("Does not exist");
     }
