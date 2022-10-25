@@ -22,6 +22,26 @@ const getTemp = async (lat, long) => {
   };
 };
 
+const getDailyMaxTemp = async (lat, long) => {
+  const API_URL = `https://api.openweathermap.org/data/2.5/forecast/daily?appid=${process.env.OPENWEATHERMAP_API_KEY}&units=imperial&cnt=1`;
+  const temperatureResponse = await axios
+    .get(`${API_URL}&lat=${lat}&lon=${long}`)
+    .catch((error) => {
+      throw error;
+    });
+
+  const { city, state } = await Location.getBy(lat, long);
+
+  return {
+    city,
+    lat,
+    long,
+    state,
+    maxTemperature: temperatureResponse.data.list[0].temp.max,
+    units: "imperial",
+  };
+};
+
 const getAnchorageTemp = async () => {
   return await getTemp("61.2175", "-149.8584");
 };
@@ -53,5 +73,6 @@ const isAnchorageColderThan = async (req, res) => {
 
 module.exports = {
   getTemp,
+  getDailyMaxTemp,
   isAnchorageColderThan,
 };

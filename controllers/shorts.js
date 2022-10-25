@@ -40,8 +40,11 @@ const wearingProbability = async (req, res) => {
       day: "numeric",
     };
     const { temperature } = await Weather.getTemp(41.8369, -87.6847);
+    const { maxTemperature } = await Weather.getDailyMaxTemp(41.8369, -87.6847);
 
-    base += _monthProbability(d.getMonth()) + _weatherProbability(temperature);
+    base +=
+      _monthProbability(d.getMonth()) +
+      _weatherProbability(Math.max(temperature, maxTemperature));
 
     let probability = base;
     if (probability >= 99) {
@@ -57,6 +60,10 @@ const wearingProbability = async (req, res) => {
           value: d.toLocaleDateString("en-US", dateOptions),
         },
         { label: "Current Temperature", value: `${temperature} °F` },
+        {
+          label: "Today's Forecasted High Temperature",
+          value: `${maxTemperature} °F`,
+        },
       ],
       probability,
     });
