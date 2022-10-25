@@ -18,6 +18,7 @@ describe("WeatherController", () => {
     mock.resetHandlers();
   });
   const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
+  const dailyApiUrl = "https://api.openweathermap.org/data/2.5/forecast/daily";
 
   describe("getTemp", () => {
     describe("when external request is successful", () => {
@@ -63,6 +64,60 @@ describe("WeatherController", () => {
         mock.onGet(apiUrl).reply(500, apiError);
 
         expect(await controller.getTemp("1", "2")).to.throw;
+      });
+    });
+  });
+
+  describe("getDailyMaxTemp", () => {
+    describe("when external request is successful", () => {
+      it("should return data", async () => {
+        const lat = 1;
+        const long = 2;
+
+        process.env.OPENWEATHERMAP_API_KEY = "fake_key";
+
+        const apiReturn = {
+          list: [
+            {
+              temp: {
+                max: 99,
+              },
+            },
+          ],
+        };
+
+        const mappedReturn = {
+          city: locationReturn.city,
+          lat,
+          long,
+          state: locationReturn.state,
+          maxTemperature: 99,
+          units: "imperial",
+        };
+
+        mock
+          .onGet(
+            `${dailyApiUrl}?appid=fake_key&units=imperial&cnt=1&lat=${lat}&lon=${long}`
+          )
+          .reply(200, apiReturn);
+
+        const actualReturn = await controller.getDailyMaxTemp(lat, long);
+
+        expect(actualReturn).to.deep.equal(mappedReturn);
+      });
+    });
+
+    describe("when following external request fails", () => {
+      it("returns error", async () => {
+        process.env.OPENWEATHERMAP_API_KEY = "fake_key";
+
+        const apiError = {
+          message: "Request failed with status code 500",
+          name: "Error",
+        };
+        mock.onGet(dailyApiUrl).reply(500, apiError);
+
+        expect(await controller.getDailyMaxTemp("1", "2")).to.throw;
       });
     });
   });
