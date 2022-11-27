@@ -19,17 +19,18 @@ const getAll = async (req, res) => {
 const getBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
+    const slugRE = new RegExp(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "i");
+    if (slugRE.test(slug)) {
+      const sanatizedSlug = encodeURIComponent(slug.toLowerCase().trim());
+      const url = `${adminUrlBase}/recipes/${sanatizedSlug}?${adminUrlQueryParams}`;
 
-    await axios
-      .get(
-        `https://railway-admin.jimsegal.com/api/recipes/${encodeURIComponent(
-          slug
-        )}?${adminUrlQueryParams}`
-      )
-      .then(({ data }) => res.json(data.data.attributes))
-      .catch(({ message, name }) => {
-        res.json({ message, name });
-      });
+      await axios
+        .get(url)
+        .then(({ data }) => res.json(data.data.attributes))
+        .catch(({ message, name }) => {
+          res.json({ message, name });
+        });
+    }
   } catch (error) {
     throw error;
   }
