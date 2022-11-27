@@ -22,7 +22,7 @@ const getBySlug = async (req, res) => {
 
     await axios
       .get(
-        `${adminUrlBase}/recipes/${encodeURIComponent(
+        `https://railway-admin.jimsegal.com/api/recipes/${encodeURIComponent(
           slug
         )}?${adminUrlQueryParams}`
       )
