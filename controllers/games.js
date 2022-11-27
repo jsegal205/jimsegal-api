@@ -1,16 +1,16 @@
 const axios = require("axios");
-const { adminUrlBase } = require("../utils/constants");
+const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
 
 const getAll = async (req, res) => {
   try {
     await axios
-      .get(`${adminUrlBase}/games`)
+      .get(`${adminUrlBase}/games?${adminUrlQueryParams}`)
       .then(({ data }) => {
         res.json(
-          data.map((game) => ({
-            title: game.name,
-            link: game.url,
-            image: game.image_url,
+          data.data.map((game) => ({
+            title: game.attributes.name,
+            link: game.attributes.url,
+            image: game.attributes.image_url,
           }))
         );
       })

@@ -5,6 +5,7 @@ const mock = require("../mocks/mock-instance");
 const controller = require("../../controllers/games");
 
 const { mockRequest, mockResponse } = require("./helpers");
+const { adminUrlBase, adminUrlQueryParams } = require("../../utils/constants");
 
 describe("GamesController", () => {
   after(() => {
@@ -12,26 +13,31 @@ describe("GamesController", () => {
   });
 
   describe("getAll", () => {
-    const apiUrl = "https://admin.jimsegal.com/games";
+    const apiUrl = `${adminUrlBase}/games?${adminUrlQueryParams}`;
 
     describe("when external request is successful", () => {
       it("should return data", async () => {
         const req = mockRequest();
         const res = mockResponse();
 
-        const apiReturn = [
-          {
-            name: "name",
-            url: "url",
-            image_url: "image_url",
-          },
-        ];
+        const apiReturn = {
+          data: [
+            {
+              id: 1,
+              attributes: {
+                name: "name",
+                url: "url",
+                image_url: "image_url",
+              },
+            },
+          ],
+        };
 
         const mappedReturn = [
           {
-            title: apiReturn[0].name,
-            link: apiReturn[0].url,
-            image: apiReturn[0].image_url,
+            title: apiReturn.data[0].attributes.name,
+            link: apiReturn.data[0].attributes.url,
+            image: apiReturn.data[0].attributes.image_url,
           },
         ];
 
