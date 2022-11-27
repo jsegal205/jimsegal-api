@@ -4,13 +4,13 @@ const mock = require("../mocks/mock-instance");
 const controller = require("../../controllers/travel");
 
 const { mockRequest, mockResponse } = require("./helpers");
+const { adminUrlBase, adminUrlQueryParams } = require("../../utils/constants");
 
 describe("TravelController", () => {
   after(() => {
     mock.resetHandlers();
   });
-
-  const apiUrl = "https://admin.jimsegal.com/destinations";
+  const apiUrl = `${adminUrlBase}/destinations?${adminUrlQueryParams}`;
 
   describe("getAll", () => {
     describe("when external request is successful", () => {
@@ -18,30 +18,62 @@ describe("TravelController", () => {
         const req = mockRequest();
         const res = mockResponse();
 
-        const apiReturn = [
-          {
-            city: "City1",
-            state: "State1",
-            country: "Country1",
-            latitude: 1,
-            longitude: 2,
-            destination_visits: [
-              { visit_date: "2001-01-01" },
-              { visit_date: "2002-02-02" },
-            ],
-          },
-          {
-            city: "City2",
-            state: "State2",
-            country: "Country2",
-            latitude: 3,
-            longitude: 4,
-            destination_visits: [
-              { visit_date: "2003-03-03" },
-              { visit_date: "2004-04-04" },
-            ],
-          },
-        ];
+        const apiReturn = {
+          data: [
+            {
+              id: 1,
+              attributes: {
+                city: "City1",
+                state: "State1",
+                country: "Country1",
+                latitude: 1,
+                longitude: 2,
+                destination_visits: {
+                  data: [
+                    {
+                      id: 1,
+                      attributes: {
+                        visit_date: "2001-01-01",
+                      },
+                    },
+                    {
+                      id: 2,
+                      attributes: {
+                        visit_date: "2002-02-02",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              id: 2,
+              attributes: {
+                city: "City2",
+                state: "State2",
+                country: "Country2",
+                latitude: 3,
+                longitude: 4,
+                destination_visits: {
+                  data: [
+                    {
+                      id: 3,
+                      attributes: {
+                        visit_date: "2003-03-03",
+                      },
+                    },
+                    {
+                      id: 4,
+                      attributes: {
+                        visit_date: "2004-04-04",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        };
 
         mock.onGet(apiUrl).reply(200, apiReturn);
 

@@ -1,28 +1,41 @@
 const axios = require("axios");
-const { adminUrlBase } = require("../utils/constants");
+const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
 
 const _getAll = async () => {
   try {
     const res = await axios
-      .get(`${adminUrlBase}/destinations`)
+      .get(`${adminUrlBase}/destinations?${adminUrlQueryParams}`)
       .catch((error) => {
         throw error;
       });
 
-    const formatDestinationVisits = (destination) => {
+    const formatDestinationVisits = (visit) => {
       // dates come in like:
-      // destination: {
-      //   destination_visits: [
-      //     { visit_date: "2001-01-01" },
-      //     { visit_date: "2004-04-04" },
-      //     { visit_date: "2002-02-02" },
-      //   ]
-      // }
+      // {
+      //   "id": 1,
+      //   "attributes": {
+      //     "city": "Madrid",
+      //     "state": "Madrid",
+      //     "country": "Spain",
+      //     "latitude": 40.416775,
+      //     "longitude": -3.70379,
+      //     "destination_visits": {
+      //       "data": [
+      //         {
+      //           "id": 23,
+      //           "attributes": {
+      //             "visit_date": "2009-02-01"
+      //          }
+      //        }
+      //       ]
+      //     }
+      //   }
+      // },
 
       // output -> ["April 2004", "February 2002", "January 2001"]
 
-      return destination.destination_visits
-        .map((dv) => dv.visit_date)
+      return visit.data
+        .map((dv) => dv.attributes.visit_date)
         .sort() // ensure dates are sorted
         .reverse() // sort by date desc, ie soonest first
         .map((date) => {
@@ -34,14 +47,16 @@ const _getAll = async () => {
         });
     };
 
-    return res.data.map((destination) => {
+    return res.data.data.map((destination) => {
+      const { city, state, country, latitude, longitude, destination_visits } =
+        destination.attributes;
       return {
-        city: destination.city,
-        state: destination.state,
-        country: destination.country,
-        lat: destination.latitude,
-        lng: destination.longitude,
-        visits: formatDestinationVisits(destination),
+        city,
+        state,
+        country,
+        lat: latitude,
+        lng: longitude,
+        visits: formatDestinationVisits(destination_visits),
       };
     });
   } catch (err) {
