@@ -1,11 +1,13 @@
 const axios = require("axios");
-const { adminUrlBase } = require("../utils/constants");
+const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
 
 const getAll = async (req, res) => {
   try {
     await axios
-      .get(`${adminUrlBase}/recipes`)
-      .then(({ data }) => res.json(data))
+      .get(`${adminUrlBase}/recipes?${adminUrlQueryParams}`)
+      .then(({ data }) =>
+        res.json(data.data.map((recipe) => recipe.attributes))
+      )
       .catch(({ message, name }) => {
         res.json({ message, name });
       });
@@ -19,8 +21,8 @@ const getBySlug = async (req, res) => {
     const { slug } = req.params;
 
     await axios
-      .get(`${adminUrlBase}/recipes/${slug}`)
-      .then(({ data }) => res.json(data))
+      .get(`${adminUrlBase}/recipes/${slug}?${adminUrlQueryParams}`)
+      .then(({ data }) => res.json(data.data.attributes))
       .catch(({ message, name }) => {
         res.json({ message, name });
       });

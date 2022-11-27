@@ -5,6 +5,7 @@ const mock = require("../mocks/mock-instance");
 const controller = require("../../controllers/recipes");
 
 const { mockRequest, mockResponse } = require("./helpers");
+const { adminUrlBase, adminUrlQueryParams } = require("../../utils/constants");
 
 describe("RecipeController", () => {
   after(() => {
@@ -12,7 +13,7 @@ describe("RecipeController", () => {
   });
 
   describe("getAll", () => {
-    const apiUrl = "https://admin.jimsegal.com/recipes";
+    const apiUrl = `${adminUrlBase}/recipes?${adminUrlQueryParams}`;
 
     describe("when external request is successful", () => {
       it("should return data", async () => {
@@ -22,21 +23,26 @@ describe("RecipeController", () => {
         const apiReturn = {
           data: [
             {
-              title: "title",
-              slug: "slug",
-              reference_link: "link",
-              ingredients: "ingredients",
-              directions: "directions",
-              notes: "notes",
+              id: 1,
+              attributes: {
+                title: "title",
+                slug: "slug",
+                reference_link: "link",
+                ingredients: "ingredients",
+                directions: "directions",
+                notes: "notes",
+              },
             },
           ],
         };
+
+        const mappedReturn = apiReturn.data.map((recipe) => recipe.attributes);
 
         mock.onGet(apiUrl).reply(200, apiReturn);
 
         await controller.getAll(req, res);
 
-        sinon.assert.calledOnceWithExactly(res.json, apiReturn);
+        sinon.assert.calledOnceWithExactly(res.json, mappedReturn);
       });
     });
 
@@ -65,17 +71,20 @@ describe("RecipeController", () => {
         const slug = "test-slug";
         const apiReturn = {
           data: {
-            title: "title",
-            slug,
-            reference_link: "link",
-            ingredients: "ingredients",
-            directions: "directions",
-            notes: "notes",
+            id: 1,
+            attributes: {
+              title: "title",
+              slug,
+              reference_link: "link",
+              ingredients: "ingredients",
+              directions: "directions",
+              notes: "notes",
+            },
           },
         };
 
         mock
-          .onGet(`https://admin.jimsegal.com/recipes/${slug}`)
+          .onGet(`${adminUrlBase}/recipes/${slug}?${adminUrlQueryParams}`)
           .reply(200, apiReturn);
 
         const req = mockRequest({ params: { slug } });
@@ -83,7 +92,7 @@ describe("RecipeController", () => {
 
         await controller.getBySlug(req, res);
 
-        sinon.assert.calledOnceWithExactly(res.json, apiReturn);
+        sinon.assert.calledOnceWithExactly(res.json, apiReturn.data.attributes);
       });
     });
 
@@ -96,7 +105,7 @@ describe("RecipeController", () => {
         };
 
         mock
-          .onGet(`https://admin.jimsegal.com/recipes/${slug}`)
+          .onGet(`${adminUrlBase}/recipes/${slug}?${adminUrlQueryParams}`)
           .reply(404, apiError);
 
         const req = mockRequest({ params: { slug } });

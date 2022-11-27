@@ -14,7 +14,6 @@ describe("GamesController", () => {
 
   describe("getAll", () => {
     const apiUrl = `${adminUrlBase}/games?${adminUrlQueryParams}`;
-    // const apiUrl = "https://railway-admin.jimsegal.com/games";
 
     describe("when external request is successful", () => {
       it("should return data", async () => {
