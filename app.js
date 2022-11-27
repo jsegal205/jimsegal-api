@@ -3,8 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const Sentry = require("@sentry/node");
 
-const { param } = require("express-validator");
-
 const middlewares = require("./middlewares");
 
 // controllers
@@ -41,11 +39,7 @@ app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
 app.get("/health", Health.get);
 app.get("/recipes", Recipes.getAll);
-app.get(
-  "/recipe/:slug",
-  param("slug").isSlug().trim().escape(),
-  Recipes.getBySlug
-);
+app.get("/recipe/:slug", Recipes.getBySlug);
 app.get("/shorts", Shorts.wearingProbability);
 app.get("/spacex/next", Spacex.getNextLaunch);
 app.get("/travel", Travel.getAll);
