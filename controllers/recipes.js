@@ -22,7 +22,9 @@ const getBySlug = async (req, res) => {
 
     await axios
       .get(
-        `${adminUrlBase}/recipes/${slug}?populate=%2A&pagination[pageSize]=100`
+        `${adminUrlBase}/recipes/${encodeURIComponent(
+          slug
+        )}?${adminUrlQueryParams}`
       )
       .then(({ data }) => res.json(data.data.attributes))
       .catch(({ message, name }) => {
