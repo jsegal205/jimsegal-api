@@ -30,6 +30,8 @@ const getBySlug = async (req, res) => {
         .catch(({ message, name }) => {
           res.json({ message, name });
         });
+    } else {
+      res.status(404).end();
     }
   } catch (error) {
     throw error;
