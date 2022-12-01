@@ -4,7 +4,7 @@ const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
 const getAll = async (req, res) => {
   try {
     await axios
-      .get(`${adminUrlBase}/games?${adminUrlQueryParams}`)
+      .get(`${adminUrlBase}/games?${adminUrlQueryParams}&sort=name`)
       .then(({ data }) => {
         res.json(
           data.data.map((game) => ({

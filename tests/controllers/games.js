@@ -13,7 +13,7 @@ describe("GamesController", () => {
   });
 
   describe("getAll", () => {
-    const apiUrl = `${adminUrlBase}/games?${adminUrlQueryParams}`;
+    const apiUrl = `${adminUrlBase}/games?${adminUrlQueryParams}&sort=name`;
 
     describe("when external request is successful", () => {
       it("should return data", async () => {

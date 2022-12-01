@@ -4,7 +4,7 @@ const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
 const getAll = async (req, res) => {
   try {
     await axios
-      .get(`${adminUrlBase}/recipes?${adminUrlQueryParams}`)
+      .get(`${adminUrlBase}/recipes?${adminUrlQueryParams}&sort=title`)
       .then(({ data }) =>
         res.json(data.data.map((recipe) => recipe.attributes))
       )

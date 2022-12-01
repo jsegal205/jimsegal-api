@@ -4,7 +4,9 @@ const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
 const _getAll = async () => {
   try {
     const res = await axios
-      .get(`${adminUrlBase}/destinations?${adminUrlQueryParams}`)
+      .get(
+        `${adminUrlBase}/destinations?${adminUrlQueryParams}&sort[0]=city&sort[1]=state`
+      )
       .catch((error) => {
         throw error;
       });
