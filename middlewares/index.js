@@ -3,6 +3,7 @@ const cors = require("cors");
 const sslRedirect = require("./ssl-redirect");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
 
 const allowedOrigins = [
   "http://localhost:8000", // web
@@ -51,6 +52,12 @@ const middlewares = [
         "img-src": ["'self'", "avatars1.githubusercontent.com"],
       },
     },
+  }),
+  rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
   }),
 ];
 
