@@ -10,7 +10,7 @@ describe("TravelController", () => {
   after(() => {
     mock.resetHandlers();
   });
-  const apiUrl = `${adminUrlBase}/destinations?${adminUrlQueryParams}`;
+  const apiUrl = `${adminUrlBase}/destinations?${adminUrlQueryParams}&sort[0]=city&sort[1]=state`;
 
   describe("getAll", () => {
     describe("when external request is successful", () => {

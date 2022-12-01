@@ -13,7 +13,7 @@ describe("RecipeController", () => {
   });
 
   describe("getAll", () => {
-    const apiUrl = `${adminUrlBase}/recipes?${adminUrlQueryParams}`;
+    const apiUrl = `${adminUrlBase}/recipes?${adminUrlQueryParams}&sort=title`;
 
     describe("when external request is successful", () => {
       it("should return data", async () => {
