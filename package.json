@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "@sentry/node": "^6.19.4",
-    "axios": "^0.26.1",
+    "axios": "^1.2.0",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.0.3",
