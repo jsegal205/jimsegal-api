@@ -1,10 +1,10 @@
-const sinon = require("sinon");
+import sinon from "sinon";
 
-const mock = require("../mocks/mock-instance");
+import mock from "../mocks/mock-instance.js";
 
-const controller = require("../../controllers/spacex");
+import * as controller from "../../controllers/spacex.js";
 
-const { mockRequest, mockResponse } = require("./helpers");
+import { mockRequest, mockResponse } from "./helpers/index.js";
 
 describe("SpacexController", () => {
   after(() => {

@@ -1,6 +1,6 @@
-const assert = require("assert");
+import assert from "assert";
 
-const { validateRequiredFields } = require("../../utils/validation");
+import { validateRequiredFields } from "../../utils/validation.js";
 
 class HasRequired {
   REQUIRED_FIELDS = ["someField"];

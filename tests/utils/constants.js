@@ -1,6 +1,6 @@
-const assert = require("assert");
+import assert from "assert";
 
-const { adminUrlBase } = require("../../utils/constants");
+import { adminUrlBase } from "../../utils/constants.js";
 
 describe("Constants.adminUrlBase", () => {
   it("should return https://railway-admin.jimsegal.com/api", () => {

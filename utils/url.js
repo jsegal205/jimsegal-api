@@ -6,6 +6,4 @@ const slugify = (input) => {
     .replace(/-+/g, "-"); // reduce multiple hyphen to single hyphen
 };
 
-module.exports = {
-  slugify,
-};
+export { slugify };

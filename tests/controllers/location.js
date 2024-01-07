@@ -1,7 +1,7 @@
-const mock = require("../mocks/mock-instance");
+import { expect } from "chai";
 
-const controller = require("../../controllers/location");
-const { expect } = require("chai");
+import * as controller from "../../controllers/location.js";
+import mock from "../mocks/mock-instance.js";
 
 describe("LocationController", () => {
   after(() => {

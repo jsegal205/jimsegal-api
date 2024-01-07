@@ -3,7 +3,4 @@ const adminUrlBase = "https://railway-admin.jimsegal.com/api";
 
 const adminUrlQueryParams = "populate=%2A&pagination[pageSize]=100";
 
-module.exports = {
-  adminUrlBase,
-  adminUrlQueryParams,
-};
+export { adminUrlBase, adminUrlQueryParams };

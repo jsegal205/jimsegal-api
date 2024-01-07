@@ -1,5 +1,5 @@
-const axios = require("axios");
-const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
+import axios from "axios";
+import { adminUrlBase, adminUrlQueryParams } from "../utils/constants.js";
 
 const getAll = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
             title: game.attributes.name,
             link: game.attributes.url,
             image: game.attributes.image_url,
-          }))
+          })),
         );
       })
       .catch(({ message, name }) => {
@@ -22,6 +22,4 @@ const getAll = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAll,
-};
+export { getAll };

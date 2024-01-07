@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 
 const getBy = async (lat, long) => {
   try {
@@ -6,7 +6,7 @@ const getBy = async (lat, long) => {
     const res = await axios(`${API_URL}&location=${lat},${long}`).catch(
       (error) => {
         throw error;
-      }
+      },
     );
 
     const { adminArea5: city, adminArea3: state } =
@@ -22,6 +22,4 @@ const getBy = async (lat, long) => {
   }
 };
 
-module.exports = {
-  getBy,
-};
+export { getBy };

@@ -1,24 +1,27 @@
-const sinon = require("sinon");
-const mock = require("../mocks/mock-instance");
+import sinon from "sinon";
+import { expect } from "chai";
 
-const controller = require("../../controllers/weather");
-const Location = require("../../controllers/location");
-const { expect } = require("chai");
+import mock from "../mocks/mock-instance.js";
 
-const { mockRequest, mockResponse } = require("./helpers");
+import * as controller from "../../controllers/weather.js";
+
+import { mockRequest, mockResponse } from "./helpers/index.js";
 
 describe("WeatherController", () => {
-  let locationReturn;
-  before(() => {
-    locationReturn = { city: "cityFake", state: "stateFake" };
-    sinon.stub(Location, "getBy").callsFake(() => locationReturn);
-  });
-
   after(() => {
     mock.resetHandlers();
   });
   const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
   const dailyApiUrl = "https://api.openweathermap.org/data/2.5/forecast/daily";
+
+  const locationApiUrl = "https://www.mapquestapi.com/geocoding/v1/reverse";
+  const locationReturn = {
+    results: [
+      {
+        locations: [{ adminArea5: "cityFake", adminArea3: "stateFake" }],
+      },
+    ],
+  };
 
   describe("getTemp", () => {
     describe("when external request is successful", () => {
@@ -33,17 +36,21 @@ describe("WeatherController", () => {
         };
 
         const mappedReturn = {
-          city: locationReturn.city,
+          city: "cityFake",
           lat,
           long,
-          state: locationReturn.state,
+          state: "stateFake",
           temperature: 1,
           units: "imperial",
         };
 
         mock
+          .onGet(`${locationApiUrl}?key=fake_key&location=${lat},${long}`)
+          .reply(200, locationReturn);
+
+        mock
           .onGet(
-            `${apiUrl}?appid=fake_key&units=imperial&lat=${lat}&lon=${long}`
+            `${apiUrl}?appid=fake_key&units=imperial&lat=${lat}&lon=${long}`,
           )
           .reply(200, apiReturn);
 
@@ -61,6 +68,11 @@ describe("WeatherController", () => {
           message: "Request failed with status code 500",
           name: "Error",
         };
+
+        mock
+          .onGet(`${locationApiUrl}?key=fake_key&location=1,2`)
+          .reply(200, locationReturn);
+
         mock.onGet(apiUrl).reply(500, apiError);
 
         expect(await controller.getTemp("1", "2")).to.throw;
@@ -87,17 +99,21 @@ describe("WeatherController", () => {
         };
 
         const mappedReturn = {
-          city: locationReturn.city,
+          city: "cityFake",
           lat,
           long,
-          state: locationReturn.state,
+          state: "stateFake",
           maxTemperature: 99,
           units: "imperial",
         };
 
         mock
+          .onGet(`${locationApiUrl}?key=fake_key&location=${lat},${long}`)
+          .reply(200, locationReturn);
+
+        mock
           .onGet(
-            `${dailyApiUrl}?appid=fake_key&units=imperial&cnt=1&lat=${lat}&lon=${long}`
+            `${dailyApiUrl}?appid=fake_key&units=imperial&cnt=1&lat=${lat}&lon=${long}`,
           )
           .reply(200, apiReturn);
 
@@ -115,6 +131,11 @@ describe("WeatherController", () => {
           message: "Request failed with status code 500",
           name: "Error",
         };
+
+        mock
+          .onGet(`${locationApiUrl}?key=fake_key&location=1,2`)
+          .reply(200, locationReturn);
+
         mock.onGet(dailyApiUrl).reply(500, apiError);
 
         expect(await controller.getDailyMaxTemp("1", "2")).to.throw;
@@ -140,8 +161,12 @@ describe("WeatherController", () => {
         };
 
         mock
+          .onGet(`${locationApiUrl}?key=fake_key&location=61.2175,-149.8584`)
+          .reply(200, locationReturn);
+
+        mock
           .onGet(
-            `${apiUrl}?appid=fake_key&units=imperial&lat=61.2175&lon=-149.8584`
+            `${apiUrl}?appid=fake_key&units=imperial&lat=61.2175&lon=-149.8584`,
           )
           .reply(200, {
             main: { temp: 1 },
@@ -155,6 +180,10 @@ describe("WeatherController", () => {
           temperature: 2,
           units: "imperial",
         };
+
+        mock
+          .onGet(`${locationApiUrl}?key=fake_key&location=3,4`)
+          .reply(200, locationReturn);
 
         mock
           .onGet(`${apiUrl}?appid=fake_key&units=imperial&lat=3&lon=4`)
@@ -182,7 +211,7 @@ describe("WeatherController", () => {
         sinon.assert.calledOnceWithExactly(res.status, 422);
         sinon.assert.calledOnceWithExactly(
           res.send,
-          "Invalid route parameters sent. Only float type are allowed"
+          "Invalid route parameters sent. Only float type are allowed",
         );
       });
     });
@@ -197,7 +226,7 @@ describe("WeatherController", () => {
         sinon.assert.calledOnceWithExactly(res.status, 422);
         sinon.assert.calledOnceWithExactly(
           res.send,
-          "Invalid route parameters sent. Only float type are allowed"
+          "Invalid route parameters sent. Only float type are allowed",
         );
       });
     });
@@ -212,7 +241,7 @@ describe("WeatherController", () => {
         sinon.assert.calledOnceWithExactly(res.status, 422);
         sinon.assert.calledOnceWithExactly(
           res.send,
-          "Invalid route parameters sent. Only float type are allowed"
+          "Invalid route parameters sent. Only float type are allowed",
         );
       });
     });

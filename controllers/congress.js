@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+import csv from "csvtojson";
 
 const round = (val) => +val.toFixed(2);
 
@@ -33,7 +34,7 @@ const computeStats = async (chamber) => {
   // const sessionNum = getCongressSessionNumber();
 
   const data = await makeApiReq(
-    `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`
+    `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`,
   );
   const members = data.results[0].members;
   const slimMembers = slimmedResults(members);
@@ -91,7 +92,7 @@ const averageAge = (arr) => {
   return round(
     arr.reduce((totalAge, member) => {
       return member.age + totalAge;
-    }, 0) / arr.length
+    }, 0) / arr.length,
   );
 };
 
@@ -141,16 +142,16 @@ const genderStats = (gender) => {
 
 const partyStats = (party) => {
   const republicanMen = party.R.filter(
-    (republican) => republican.gender === "M"
+    (republican) => republican.gender === "M",
   ).length;
   const republicanWomen = party.R.filter(
-    (republican) => republican.gender === "F"
+    (republican) => republican.gender === "F",
   ).length;
   const democratMen = party.D.filter(
-    (democrat) => democrat.gender === "M"
+    (democrat) => democrat.gender === "M",
   ).length;
   const democratWomen = party.D.filter(
-    (democrat) => democrat.gender === "F"
+    (democrat) => democrat.gender === "F",
   ).length;
 
   return {
@@ -176,7 +177,6 @@ const getMisconduct = async (govtrack_id) => {
     url: "https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv",
   });
   if (results.data.length) {
-    const csv = require("csvtojson");
     const misconducts = [];
     await csv({ output: "json" })
       .fromString(results.data)
@@ -217,7 +217,7 @@ const getMisconduct = async (govtrack_id) => {
 
 const _getMembers = async (chamber) => {
   const data = await makeApiReq(
-    `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`
+    `https://api.propublica.org/congress/v1/${currentSession}/${chamber}/members.json`,
   );
 
   const members = data.results[0].members;
@@ -226,7 +226,7 @@ const _getMembers = async (chamber) => {
   // breaking when going to the react components.
   const dedupedMembers = members.reduce((acc, current) => {
     const dupe = acc.find(
-      (item) => item.id === current.id && item.party === current.party
+      (item) => item.id === current.id && item.party === current.party,
     );
     if (!dupe) {
       return acc.concat([current]);
@@ -250,7 +250,7 @@ const _getMembers = async (chamber) => {
 
 const _getMember = async (id) => {
   const data = await makeApiReq(
-    `https://api.propublica.org/congress/v1/members/${id}.json`
+    `https://api.propublica.org/congress/v1/members/${id}.json`,
   );
 
   if (!!data.errors) {
@@ -282,7 +282,7 @@ const _getMember = async (id) => {
 
   const next_election = roles.reduce(
     (curr, next) => (curr.next_election > next.next_election ? curr : next),
-    ""
+    "",
   ).next_election;
 
   const careerVoting = roles.reduce(
@@ -309,7 +309,7 @@ const _getMember = async (id) => {
       careerPresentVotes: 0,
       careerVotesWithParty: 0,
       careerVotesAgainstParty: 0,
-    }
+    },
   );
 
   const termInfo = roles.map((term) => {
@@ -419,8 +419,4 @@ const getMember = async (req, res) => {
   }
 };
 
-module.exports = {
-  getMember,
-  getMembers,
-  getStats,
-};
+export { getMember, getMembers, getStats };

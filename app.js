@@ -1,20 +1,23 @@
-require("dotenv").config();
+import { config } from "dotenv";
 
-const express = require("express");
-const Sentry = require("@sentry/node");
+config();
 
-const middlewares = require("./middlewares");
+import express from "express";
+
+import Sentry from "@sentry/node";
+
+import middlewares from "./middlewares/index.js";
 
 // controllers
-const Congress = require("./controllers/congress");
-const Docs = require("./controllers/docs");
-const Games = require("./controllers/games");
-const Health = require("./controllers/health");
-const Recipes = require("./controllers/recipes");
-const Travel = require("./controllers/travel");
-const Weather = require("./controllers/weather");
-const Shorts = require("./controllers/shorts");
-const Spacex = require("./controllers/spacex");
+import * as Congress from "./controllers/congress.js";
+import * as Docs from "./controllers/docs.js";
+import * as Games from "./controllers/games.js";
+import * as Health from "./controllers/health.js";
+import * as Recipes from "./controllers/recipes.js";
+import * as Travel from "./controllers/travel.js";
+import * as Weather from "./controllers/weather.js";
+import * as Shorts from "./controllers/shorts.js";
+import * as Spacex from "./controllers/spacex.js";
 
 const port = process.env.PORT || 8001;
 const app = express();

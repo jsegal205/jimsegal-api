@@ -1,6 +1,6 @@
-const axios = require("axios");
+import axios from "axios";
 
-const Location = require("./location");
+import * as Location from "./location.js";
 
 const getTemp = async (lat, long) => {
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${process.env.OPENWEATHERMAP_API_KEY}&units=imperial`;
@@ -71,8 +71,4 @@ const isAnchorageColderThan = async (req, res) => {
   }
 };
 
-module.exports = {
-  getTemp,
-  getDailyMaxTemp,
-  isAnchorageColderThan,
-};
+export { getTemp, getDailyMaxTemp, isAnchorageColderThan };

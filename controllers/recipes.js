@@ -1,12 +1,12 @@
-const axios = require("axios");
-const { adminUrlBase, adminUrlQueryParams } = require("../utils/constants");
+import axios from "axios";
+import { adminUrlBase, adminUrlQueryParams } from "../utils/constants.js";
 
 const getAll = async (req, res) => {
   try {
     await axios
       .get(`${adminUrlBase}/recipes?${adminUrlQueryParams}&sort=title`)
       .then(({ data }) =>
-        res.json(data.data.map((recipe) => recipe.attributes))
+        res.json(data.data.map((recipe) => recipe.attributes)),
       )
       .catch(({ message, name }) => {
         res.json({ message, name });
@@ -38,7 +38,4 @@ const getBySlug = async (req, res) => {
   }
 };
 
-module.exports = {
-  getAll,
-  getBySlug,
-};
+export { getAll, getBySlug };
