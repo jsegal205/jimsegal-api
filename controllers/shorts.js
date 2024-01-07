@@ -1,4 +1,4 @@
-import Weather from "./weather.js";
+import * as Weather from "./weather.js";
 
 const _monthProbability = (month) => {
   if ([0, 1, 10, 11].includes(month)) {

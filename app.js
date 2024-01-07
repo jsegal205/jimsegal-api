@@ -2,22 +2,22 @@ import { config } from "dotenv";
 
 config();
 
-import * as express from "express";
+import express from "express";
 
 import Sentry from "@sentry/node";
 
-import middlewares from "./middlewares";
+import middlewares from "./middlewares/index.js";
 
 // controllers
-import Congress from "./controllers/congress";
-import Docs from "./controllers/docs";
-import Games from "./controllers/games";
-import Health from "./controllers/health";
-import Recipes from "./controllers/recipes";
-import Travel from "./controllers/travel";
-import Weather from "./controllers/weather";
-import Shorts from "./controllers/shorts";
-import Spacex from "./controllers/spacex";
+import * as Congress from "./controllers/congress.js";
+import * as Docs from "./controllers/docs.js";
+import * as Games from "./controllers/games.js";
+import * as Health from "./controllers/health.js";
+import * as Recipes from "./controllers/recipes.js";
+import * as Travel from "./controllers/travel.js";
+import * as Weather from "./controllers/weather.js";
+import * as Shorts from "./controllers/shorts.js";
+import * as Spacex from "./controllers/spacex.js";
 
 const port = process.env.PORT || 8001;
 const app = express();
