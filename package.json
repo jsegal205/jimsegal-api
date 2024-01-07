@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "API endpoints for various things on jimsegal.com",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "mocha tests/**/*.js",
     "dev": "nodemon app.js",
