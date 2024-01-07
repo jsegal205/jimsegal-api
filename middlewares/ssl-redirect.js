@@ -2,7 +2,7 @@
  * Force load with https
  * https://devcenter.heroku.com/articles/http-routing#heroku-headers
  */
-module.exports = () => {
+export const sslRedirect = () => {
   return (req, res, next) => {
     if (req.hostname !== "localhost") {
       if (req.headers["x-forwarded-proto"] !== "https") {

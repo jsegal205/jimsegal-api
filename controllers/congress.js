@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+import csv from "csvtojson"
 
 const round = (val) => +val.toFixed(2);
 
@@ -176,7 +177,6 @@ const getMisconduct = async (govtrack_id) => {
     url: "https://raw.githubusercontent.com/govtrack/misconduct/master/misconduct-instances.csv",
   });
   if (results.data.length) {
-    const csv = require("csvtojson");
     const misconducts = [];
     await csv({ output: "json" })
       .fromString(results.data)

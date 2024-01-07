@@ -1,10 +1,10 @@
-const sinon = require("sinon");
-const mock = require("../mocks/mock-instance");
+import sinon from "sinon";
+import mock from "../mocks/mock-instance.js";
 
-const controller = require("../../controllers/travel");
+import * as controller from "../../controllers/travel.js";
 
-const { mockRequest, mockResponse } = require("./helpers");
-const { adminUrlBase, adminUrlQueryParams } = require("../../utils/constants");
+import { mockRequest, mockResponse } from "./helpers/index.js";
+import { adminUrlBase, adminUrlQueryParams } from "../../utils/constants.js";
 
 describe("TravelController", () => {
   after(() => {

@@ -1,9 +1,10 @@
-const sinon = require("sinon");
-const path = require("path");
+import sinon from "sinon";
+import path from "path";
+import * as url from "url";
 
-const controller = require("../../controllers/docs");
+import * as controller from "../../controllers/docs.js";
 
-const { mockRequest, mockResponse } = require("./helpers");
+import { mockRequest, mockResponse } from "./helpers/index.js";
 
 describe("DocsController", () => {
   describe("getAll", () => {
@@ -12,6 +13,8 @@ describe("DocsController", () => {
       const res = mockResponse();
 
       await controller.getAll(req, res);
+
+      const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
       const expectPath = path.join(__dirname, "../../docs", "index.html");
       sinon.assert.calledOnceWithExactly(res.sendFile, expectPath);

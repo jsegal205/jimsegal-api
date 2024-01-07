@@ -1,7 +1,7 @@
-const controller = require("../../controllers/health");
-const sinon = require("sinon");
+import sinon from "sinon";
 
-const { mockRequest, mockResponse } = require("./helpers");
+import * as controller from "../../controllers/health.js";
+import { mockRequest, mockResponse } from "./helpers/index.js";
 
 describe("HealthController", () => {
   describe("get", () => {

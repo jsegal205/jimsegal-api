@@ -19,6 +19,4 @@ const validateRequiredFields = (obj = {}) => {
   };
 };
 
-module.exports = {
-  validateRequiredFields,
-};
+export { validateRequiredFields };

@@ -1,4 +1,4 @@
-const sinon = require("sinon");
+import Sinon from "sinon";
 
 const mockRequest = (requestOptions) => {
   return {
@@ -8,11 +8,12 @@ const mockRequest = (requestOptions) => {
 
 const mockResponse = () => {
   const res = {};
-  res.status = sinon.stub().returns(res);
-  res.json = sinon.stub().returns(res);
-  res.sendFile = sinon.stub().returns(res);
-  res.send = sinon.stub().returns(res);
+
+  res.status = Sinon.stub().returns(res);
+  res.json = Sinon.stub().returns(res);
+  res.sendFile = Sinon.stub().returns(res);
+  res.send = Sinon.stub().returns(res);
   return res;
 };
 
-module.exports = { mockRequest, mockResponse };
+export { mockRequest, mockResponse };

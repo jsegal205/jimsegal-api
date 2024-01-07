@@ -1,9 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-const sslRedirect = require("./ssl-redirect");
-const morgan = require("morgan");
-const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import { sslRedirect } from "./ssl-redirect.js";
 
 const allowedOrigins = [
   "http://localhost:8000", // web
@@ -27,9 +27,9 @@ const middlewares = [
       if (!allowedOrigins.includes(origin)) {
         return callback(
           new Error(
-            "The CORS policy for this site does not allow access from the specified Origin.",
+            "The CORS policy for this site does not allow access from the specified Origin."
           ),
-          false,
+          false
         );
       }
       return callback(null, true);
@@ -37,7 +37,7 @@ const middlewares = [
   }),
   sslRedirect(),
   morgan(
-    `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`,
+    `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
   ),
   express.json(),
   // https://expressjs.com/en/starter/static-files.html
@@ -61,4 +61,4 @@ const middlewares = [
   }),
 ];
 
-module.exports = middlewares;
+export default middlewares;

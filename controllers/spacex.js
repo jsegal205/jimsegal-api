@@ -1,4 +1,4 @@
-const axios = require("axios");
+import axios from "axios";
 
 // api docs at https://github.com/r-spacex/SpaceX-API
 
@@ -39,6 +39,4 @@ const getNextLaunch = async (req, res) => {
   }
 };
 
-module.exports = {
-  getNextLaunch,
-};
+export { getNextLaunch };
