@@ -27,9 +27,9 @@ const middlewares = [
       if (!allowedOrigins.includes(origin)) {
         return callback(
           new Error(
-            "The CORS policy for this site does not allow access from the specified Origin."
+            "The CORS policy for this site does not allow access from the specified Origin.",
           ),
-          false
+          false,
         );
       }
       return callback(null, true);
@@ -37,7 +37,7 @@ const middlewares = [
   }),
   sslRedirect(),
   morgan(
-    `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`
+    `":remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status - :response-time ms - :res[content-length] ":referrer" ":user-agent"`,
   ),
   express.json(),
   // https://expressjs.com/en/starter/static-files.html

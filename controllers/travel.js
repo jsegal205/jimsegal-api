@@ -5,7 +5,7 @@ const _getAll = async () => {
   try {
     const res = await axios
       .get(
-        `${adminUrlBase}/destinations?${adminUrlQueryParams}&sort[0]=city&sort[1]=state`
+        `${adminUrlBase}/destinations?${adminUrlQueryParams}&sort[0]=city&sort[1]=state`,
       )
       .catch((error) => {
         throw error;
@@ -105,7 +105,7 @@ const frequented = async (req, res) => {
           country: dest.country,
           visitCount: dest.visits.length,
         };
-      })
+      }),
   );
 };
 
@@ -141,7 +141,7 @@ const furthest = async (req, res) => {
           distance: getDistance(dest),
         };
       })
-      .reduce((curr, next) => (curr.distance > next.distance ? curr : next))
+      .reduce((curr, next) => (curr.distance > next.distance ? curr : next)),
   );
 };
 

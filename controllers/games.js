@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
             title: game.attributes.name,
             link: game.attributes.url,
             image: game.attributes.image_url,
-          }))
+          })),
         );
       })
       .catch(({ message, name }) => {

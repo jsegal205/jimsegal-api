@@ -1,23 +1,23 @@
 import { config } from "dotenv";
 
-config()
+config();
 
 import * as express from "express";
 
-import Sentry from "@sentry/node"
+import Sentry from "@sentry/node";
 
 import middlewares from "./middlewares";
 
 // controllers
-import Congress from "./controllers/congress"
-import Docs from "./controllers/docs"
-import Games from "./controllers/games"
-import Health from './controllers/health'
-import Recipes from "./controllers/recipes"
-import Travel from "./controllers/travel"
-import Weather from "./controllers/weather"
-import Shorts from "./controllers/shorts"
-import Spacex from "./controllers/spacex"
+import Congress from "./controllers/congress";
+import Docs from "./controllers/docs";
+import Games from "./controllers/games";
+import Health from "./controllers/health";
+import Recipes from "./controllers/recipes";
+import Travel from "./controllers/travel";
+import Weather from "./controllers/weather";
+import Shorts from "./controllers/shorts";
+import Spacex from "./controllers/spacex";
 
 const port = process.env.PORT || 8001;
 const app = express();

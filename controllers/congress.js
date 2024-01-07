@@ -1,5 +1,5 @@
 import axios from "axios";
-import csv from "csvtojson"
+import csv from "csvtojson";
 
 const round = (val) => +val.toFixed(2);
 
