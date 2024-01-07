@@ -43,7 +43,7 @@ describe("WeatherController", () => {
 
         mock
           .onGet(
-            `${apiUrl}?appid=fake_key&units=imperial&lat=${lat}&lon=${long}`
+            `${apiUrl}?appid=fake_key&units=imperial&lat=${lat}&lon=${long}`,
           )
           .reply(200, apiReturn);
 
@@ -97,7 +97,7 @@ describe("WeatherController", () => {
 
         mock
           .onGet(
-            `${dailyApiUrl}?appid=fake_key&units=imperial&cnt=1&lat=${lat}&lon=${long}`
+            `${dailyApiUrl}?appid=fake_key&units=imperial&cnt=1&lat=${lat}&lon=${long}`,
           )
           .reply(200, apiReturn);
 
@@ -141,7 +141,7 @@ describe("WeatherController", () => {
 
         mock
           .onGet(
-            `${apiUrl}?appid=fake_key&units=imperial&lat=61.2175&lon=-149.8584`
+            `${apiUrl}?appid=fake_key&units=imperial&lat=61.2175&lon=-149.8584`,
           )
           .reply(200, {
             main: { temp: 1 },
@@ -182,7 +182,7 @@ describe("WeatherController", () => {
         sinon.assert.calledOnceWithExactly(res.status, 422);
         sinon.assert.calledOnceWithExactly(
           res.send,
-          "Invalid route parameters sent. Only float type are allowed"
+          "Invalid route parameters sent. Only float type are allowed",
         );
       });
     });
@@ -197,7 +197,7 @@ describe("WeatherController", () => {
         sinon.assert.calledOnceWithExactly(res.status, 422);
         sinon.assert.calledOnceWithExactly(
           res.send,
-          "Invalid route parameters sent. Only float type are allowed"
+          "Invalid route parameters sent. Only float type are allowed",
         );
       });
     });
@@ -212,7 +212,7 @@ describe("WeatherController", () => {
         sinon.assert.calledOnceWithExactly(res.status, 422);
         sinon.assert.calledOnceWithExactly(
           res.send,
-          "Invalid route parameters sent. Only float type are allowed"
+          "Invalid route parameters sent. Only float type are allowed",
         );
       });
     });

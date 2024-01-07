@@ -6,7 +6,7 @@ const getBy = async (lat, long) => {
     const res = await axios(`${API_URL}&location=${lat},${long}`).catch(
       (error) => {
         throw error;
-      }
+      },
     );
 
     const { adminArea5: city, adminArea3: state } =

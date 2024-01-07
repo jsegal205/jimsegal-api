@@ -6,7 +6,7 @@ const getAll = async (req, res) => {
     await axios
       .get(`${adminUrlBase}/recipes?${adminUrlQueryParams}&sort=title`)
       .then(({ data }) =>
-        res.json(data.data.map((recipe) => recipe.attributes))
+        res.json(data.data.map((recipe) => recipe.attributes)),
       )
       .catch(({ message, name }) => {
         res.json({ message, name });

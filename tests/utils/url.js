@@ -25,7 +25,7 @@ describe("Url.slugify", () => {
 
   it("should replace invalid url characters", () => {
     const actual = slugify(
-      "abcdefghijklmnopqrstuvwxyz !@#$%^&*()_-+=<>,./?;:'\"[]{}\\|`~ 1234567890"
+      "abcdefghijklmnopqrstuvwxyz !@#$%^&*()_-+=<>,./?;:'\"[]{}\\|`~ 1234567890",
     );
     assert.strictEqual(actual, "abcdefghijklmnopqrstuvwxyz-1234567890");
   });
