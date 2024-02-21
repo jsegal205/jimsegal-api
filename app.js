@@ -17,7 +17,6 @@ import * as Recipes from "./controllers/recipes.js";
 import * as Travel from "./controllers/travel.js";
 import * as Weather from "./controllers/weather.js";
 import * as Shorts from "./controllers/shorts.js";
-import * as Spacex from "./controllers/spacex.js";
 
 const port = process.env.PORT || 8001;
 const app = express();
@@ -44,7 +43,6 @@ app.get("/health", Health.get);
 app.get("/recipes", Recipes.getAll);
 app.get("/recipe/:slug", Recipes.getBySlug);
 app.get("/shorts", Shorts.wearingProbability);
-app.get("/spacex/next", Spacex.getNextLaunch);
 app.get("/travel", Travel.getAll);
 app.get("/travel/frequented", Travel.frequented);
 app.get("/travel/furthest", Travel.furthest);
