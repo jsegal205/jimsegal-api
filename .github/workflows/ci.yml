@@ -1,12 +1,12 @@
 name: CI
-on: push
+on: [push, workflow_dispatch]
 jobs:
   build:
     name: Build & test
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
@@ -15,6 +15,8 @@ jobs:
         run: npm install -g yarn
       - name: Install deps
         run: yarn install
+      - name: Build
+        run: yarn ci
       - name: Run Prettier
         run: yarn check-prettier
       - name: Run Tests
