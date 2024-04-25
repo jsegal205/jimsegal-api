@@ -9,7 +9,6 @@ import Sentry from "@sentry/node";
 import middlewares from "./middlewares/index.js";
 
 // controllers
-import * as Congress from "./controllers/congress.js";
 import * as Docs from "./controllers/docs.js";
 import * as Games from "./controllers/games.js";
 import * as Health from "./controllers/health.js";
@@ -34,18 +33,12 @@ if (!!process.env.SENTRY_DSN) {
 app.use(middlewares);
 
 app.get("/", Docs.getAll);
-app.get("/congress/stats", Congress.getStats);
-app.get("/congress/:chamber/members", Congress.getMembers);
-app.get("/congress/:chamber/member/:id", Congress.getMember);
 app.get("/isAnchorageColderThan/:lat/:long", Weather.isAnchorageColderThan);
 app.get("/games", Games.getAll);
 app.get("/health", Health.get);
 app.get("/recipes", Recipes.getAll);
 app.get("/recipe/:slug", Recipes.getBySlug);
 app.get("/shorts", Shorts.wearingProbability);
-app.get("/travel", Travel.getAll);
-app.get("/travel/frequented", Travel.frequented);
-app.get("/travel/furthest", Travel.furthest);
 app.get("/favicon.ico", (req, res) => res.status(204).send(""));
 app.get("*", (req, res) => res.status(404).send("Does not exist"));
 
