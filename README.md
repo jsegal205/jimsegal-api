@@ -1,3 +1,7 @@
+Project has been archived in favor of https://github.com/jsegal205/jimsegal-com
+
+---
+
 # Jim Segal API
 
 An [ExpressJS](https://expressjs.com/) web server built on [NodeJS](https://nodejs.org/en/).
